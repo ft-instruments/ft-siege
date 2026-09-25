@@ -148,7 +148,7 @@ Chrome, plays, checks the output level and screenshots the three views.
 
 ## Presets
 
-58, grouped in the menu; ◂ ▸ step through them.
+58, grouped in a searchable browser (click the preset name or press `` ` ``, `Esc` closes); `< >` step through them in browser order.
 
 | category | presets |
 |---|---|
@@ -164,7 +164,9 @@ Chrome, plays, checks the output level and screenshots the three views.
 ## UI
 
 Iron, ember and dried blood on slate; riveted plates; Cinzel and IBM
-Plex Mono. Three views (`1`–`3`): **army** (the eight units — a unit folds
+Plex Mono. The preset browser, knobs and keyboard are shared with Mycelia
+and Vector; the keyboard takes its colours from `--key-*` custom
+properties. Three views (`1`–`3`): **army** (the eight units — a unit folds
 to one line when its level is 0; each shows its body, deforming on hits,
 and the strike or the horn controls depending on what it is), **field**
 (the map: the listener at the bottom, distance rings on a log scale to

@@ -20,7 +20,10 @@
         <div class="presets">
           <span class="prompt">order</span>
           <button id="prev" class="ghost" title="previous preset">&lt;</button>
-          <select id="preset"></select>
+          <button id="browse" title="browse the presets (`)">
+            <span class="tag" id="preset-tag"></span>
+            <span class="nm" id="preset-name"></span>
+          </button>
           <button id="next" class="ghost" title="next preset">&gt;</button>
           <button id="spore" class="ghost" title="nudge the patch and move a unit">muster</button>
           <button id="copy" class="ghost" title="copy patch JSON to clipboard">dispatch</button>
@@ -41,10 +44,21 @@
 
       <footer>
         <div class="hint muted">
-          <kbd>A</kbd>–<kbd>'</kbd> / <kbd>Z</kbd>–<kbd>/</kbd> play · <kbd>←</kbd><kbd>→</kbd> octave (<span id="octave">C4</span>) · <kbd>Shift</kbd> louder · <kbd>Space</kbd> sustain · drag knobs, <kbd>Shift</kbd> fine, double-click reset · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> views · every key goes to every unit whose key range covers it
+          <kbd>A</kbd>–<kbd>'</kbd> / <kbd>Z</kbd>–<kbd>/</kbd> play · <kbd>←</kbd><kbd>→</kbd> octave (<span id="octave">C4</span>) · <kbd>Shift</kbd> louder · <kbd>Space</kbd> sustain · drag knobs, <kbd>Shift</kbd> fine, double-click reset · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> views · <kbd>`</kbd> browse presets · every key goes to every unit whose key range covers it
         </div>
         <canvas id="keyboard"></canvas>
       </footer>
+    </div>
+    <!-- preset browser -->
+    <div id="browser" class="browser" hidden>
+      <div class="sheet">
+        <div class="head">
+          <h2>the orders</h2>
+          <input id="browser-search" type="search" placeholder="search presets…" autocomplete="off" spellcheck="false" />
+          <button id="browser-close" class="ghost" title="close (Esc)">esc</button>
+        </div>
+        <div id="browser-list" class="list"></div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -128,12 +128,10 @@ const LAYOUT: PanelSpec[] = [
   { tab: 'drill', title: 'rolls', sub: 'retrigger the held keys on the clock', cls: 'roll', span: 6, groups: Array.from({ length: UNITS }, (_, i) => ({ title: ROMAN[i], ids: [`${UNIT_PREFIX[i]}Roll`, `${UNIT_PREFIX[i]}Accent`] })) },
 ];
 
-const presetSel = $<HTMLSelectElement>('#preset');
-
 function onParam(id: string, v: number): void {
   values[id] = v;
   synth.setParam(id, v);
-  presetSel.value = '';
+  setCurrent(null);
   if (id.endsWith('Body')) {
     // a melodic body tracks the keys unless told otherwise; a struck one plays its natural pitch
     const track = MELODIC.includes(Math.round(v)) ? 1 : 0;
@@ -199,8 +197,10 @@ for (const t of TABS) {
 }
 window.addEventListener('keydown', (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === 'Escape') { closeBrowser(); return; }
   const t = e.target as HTMLElement | null;
-  if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT')) return;
+  if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA')) return;
+  if (e.key === '`') { e.preventDefault(); openBrowser(); return; }
   const i = ['1', '2', '3'].indexOf(e.key);
   if (i >= 0) showTab(TABS[i].id);
 });
@@ -250,22 +250,24 @@ for (const spec of LAYOUT) {
 const CATEGORY_NAMES: Record<string, string> = {
   drums: 'drums', metal: 'metal', horns: 'horns', instruments: 'instruments', crowds: 'crowds', cannon: 'cannon & siege', field: 'the field', signals: 'signals', init: 'init',
 };
-const groups = new Map<string, HTMLOptGroupElement>();
-for (const p of PRESETS) {
-  let g = groups.get(p.tag);
-  if (!g) {
-    g = document.createElement('optgroup');
-    g.label = CATEGORY_NAMES[p.tag] ?? p.tag;
-    groups.set(p.tag, g);
-    presetSel.append(g);
-  }
-  const o = document.createElement('option');
-  o.value = p.name; o.textContent = p.name;
-  g.append(o);
+const CATEGORY_ORDER = Object.keys(CATEGORY_NAMES);
+const catRank = (tag: string) => { const i = CATEGORY_ORDER.indexOf(tag); return i < 0 ? CATEGORY_ORDER.length : i; };
+const BROWSE_ORDER = [...PRESETS].sort((a, b) => catRank(a.tag) - catRank(b.tag));
+
+const nameEl = $('#preset-name');
+const tagEl = $('#preset-tag');
+let current: string | null = null;
+
+/** Reflect the loaded preset in the header; null means the patch was edited. */
+function setCurrent(name: string | null): void {
+  if (current === name) return;
+  current = name;
+  const p = name ? PRESETS.find((x) => x.name === name) : undefined;
+  nameEl.textContent = p ? p.name : (name ?? 'custom');
+  tagEl.textContent = p ? (CATEGORY_NAMES[p.tag] ?? p.tag) : 'edited';
+  tagEl.dataset.tag = p ? p.tag : 'edited';
+  for (const [n, card] of cards) card.classList.toggle('on', n === name);
 }
-const custom = document.createElement('option');
-custom.value = ''; custom.textContent = '(custom)';
-presetSel.append(custom);
 
 function applyValues(next: ParamValues): void {
   for (const def of PARAMS) {
@@ -282,16 +284,84 @@ function loadPreset(name: string): void {
   const p = PRESETS.find((x) => x.name === name);
   if (!p) return;
   applyValues({ ...defaults(), ...p.values } as ParamValues);
-  presetSel.value = name;
+  setCurrent(name);
   try { localStorage.setItem('siege.preset', name); } catch { /* private mode */ }
 }
-presetSel.addEventListener('change', () => loadPreset(presetSel.value));
 const stepPreset = (d: number) => {
-  const i = PRESETS.findIndex((p) => p.name === presetSel.value);
-  loadPreset(PRESETS[(i + d + PRESETS.length) % PRESETS.length].name);
+  const i = BROWSE_ORDER.findIndex((p) => p.name === current);
+  loadPreset(BROWSE_ORDER[(i + d + BROWSE_ORDER.length) % BROWSE_ORDER.length].name);
 };
 $('#prev').addEventListener('click', () => stepPreset(-1));
 $('#next').addEventListener('click', () => stepPreset(1));
+
+// ---- the browser -----------------------------------------------------------
+
+const browserEl = $('#browser');
+const listEl = $('#browser-list');
+const searchEl = $<HTMLInputElement>('#browser-search');
+const cards = new Map<string, HTMLButtonElement>();
+
+{
+  let lastTag = '';
+  for (const p of BROWSE_ORDER) {
+    if (p.tag !== lastTag) {
+      lastTag = p.tag;
+      const h = document.createElement('div');
+      h.className = 'cat'; h.dataset.tag = p.tag;
+      h.textContent = CATEGORY_NAMES[p.tag] ?? p.tag;
+      listEl.append(h);
+    }
+    const card = document.createElement('button');
+    card.type = 'button'; card.className = 'card'; card.dataset.tag = p.tag;
+    card.dataset.search = `${p.name} ${CATEGORY_NAMES[p.tag] ?? p.tag}`.toLowerCase();
+    card.innerHTML = `<span class="nm"></span><span class="tg"></span>`;
+    card.querySelector<HTMLElement>('.nm')!.textContent = p.name;
+    card.querySelector<HTMLElement>('.tg')!.textContent = CATEGORY_NAMES[p.tag] ?? p.tag;
+    card.addEventListener('click', () => { loadPreset(p.name); closeBrowser(); });
+    listEl.append(card);
+    cards.set(p.name, card);
+  }
+}
+
+function filterBrowser(): void {
+  const q = searchEl.value.trim().toLowerCase();
+  // while searching, results come from several categories at once, so each
+  // card names its own; otherwise the heading above it already does
+  listEl.classList.toggle('searching', q.length > 0);
+  let shownInCat = 0;
+  let cat: HTMLElement | null = null;
+  for (const el of listEl.children as HTMLCollectionOf<HTMLElement>) {
+    if (el.classList.contains('cat')) {
+      if (cat) cat.hidden = shownInCat === 0;
+      cat = el; shownInCat = 0;
+      continue;
+    }
+    const hit = !q || (el.dataset.search ?? '').includes(q);
+    el.hidden = !hit;
+    if (hit) shownInCat++;
+  }
+  if (cat) cat.hidden = shownInCat === 0;
+}
+
+function openBrowser(): void {
+  browserEl.hidden = false;
+  searchEl.value = '';
+  filterBrowser();
+  searchEl.focus();
+  cards.get(current ?? '')?.scrollIntoView({ block: 'center' });
+}
+function closeBrowser(): void { browserEl.hidden = true; }
+
+$('#browse').addEventListener('click', openBrowser);
+$('#browser-close').addEventListener('click', closeBrowser);
+browserEl.addEventListener('click', (e) => { if (e.target === browserEl) closeBrowser(); });
+searchEl.addEventListener('input', filterBrowser);
+searchEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const first = [...listEl.querySelectorAll<HTMLButtonElement>('.card')].find((c) => !c.hidden);
+    if (first) first.click();
+  }
+});
 
 // "muster": nudge a handful of continuous parameters of the units that are on, and move one of them on the field
 $('#spore').addEventListener('click', () => {
@@ -310,7 +380,7 @@ $('#spore').addEventListener('click', () => {
     next[`${u}Az`] = Math.random() * 2 - 1;
   }
   applyValues(next);
-  presetSel.value = '';
+  setCurrent(null);
 });
 
 $('#copy').addEventListener('click', async () => {
@@ -324,9 +394,9 @@ let startTab = 'army';
 try { startTab = localStorage.getItem('siege.tab') ?? startTab; } catch { /* ignore */ }
 showTab(TABS.some((t) => t.id === startTab) ? startTab : 'army');
 
-let initial = PRESETS[0].name;
+let initial = BROWSE_ORDER[0].name;
 try { initial = localStorage.getItem('siege.preset') ?? initial; } catch { /* ignore */ }
-loadPreset(PRESETS.some((p) => p.name === initial) ? initial : PRESETS[0].name);
+loadPreset(PRESETS.some((p) => p.name === initial) ? initial : BROWSE_ORDER[0].name);
 
 // ---- MIDI ------------------------------------------------------------------
 
