@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIEGE</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%231a1c1f'/%3E%3Cpath d='M3 13 L3 6 L5 6 L5 4 L7 4 L7 6 L9 6 L9 4 L11 4 L11 6 L13 6 L13 13 Z' fill='%23ff7a1a'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="slate"></div>
+    <div id="app">
+      <header class="win">
+        <div class="brand">
+          <h1>SIEGE</h1>
+          <span class="sub">war ensemble <b>·</b> ft</span>
+        </div>
+        <div class="presets">
+          <span class="prompt">order</span>
+          <button id="prev" class="ghost" title="previous preset">&lt;</button>
+          <select id="preset"></select>
+          <button id="next" class="ghost" title="next preset">&gt;</button>
+          <button id="spore" class="ghost" title="nudge the patch and move a unit">muster</button>
+          <button id="copy" class="ghost" title="copy patch JSON to clipboard">dispatch</button>
+        </div>
+        <canvas id="scope" title="seismograph: output level"></canvas>
+        <div class="status">
+          <button id="start" class="primary">raise</button>
+          <select id="midi-port" title="MIDI input"><option value="all">all MIDI inputs</option></select>
+          <span id="midi-led" class="led"></span>
+          <label class="master" title="master volume"><span>vol</span><input id="master" type="range" min="0" max="1" step="0.01" value="0.7" /></label>
+          <span id="stats" class="muted"></span>
+          <button id="panic" class="ghost" title="stop all sound">cease</button>
+        </div>
+      </header>
+
+      <nav id="tabs" class="tabs"></nav>
+      <main id="panels"></main>
+
+      <footer>
+        <div class="hint muted">
+          <kbd>A</kbd>–<kbd>'</kbd> / <kbd>Z</kbd>–<kbd>/</kbd> play · <kbd>←</kbd><kbd>→</kbd> octave (<span id="octave">C4</span>) · <kbd>Shift</kbd> louder · <kbd>Space</kbd> sustain · drag knobs, <kbd>Shift</kbd> fine, double-click reset · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> views · every key goes to every unit whose key range covers it
+        </div>
+        <canvas id="keyboard"></canvas>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
