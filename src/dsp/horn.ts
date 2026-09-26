@@ -119,7 +119,8 @@ export class HornVoice {
     this.ripT = rip > 0 ? 0 : 1;
     this.ripRate = 1 / Math.max(1, p.breath * fs * (0.6 + 0.8 * rip));
     this.lipFreq = this.lipStart;
-    this.breathTarget = 0.6 + 0.6 * p.vel;
+    // blowing harder: more pressure, so the lips beat harder and the tone turns brassy
+    this.breathTarget = 0.15 + 1.05 * p.vel;
     // a tongued attack: the pressure jumps to a third of its target, then the breath swells
     if (this.breath < this.breathTarget * 0.35) this.breath = this.breathTarget * 0.35;
     this.breathA = 1 - Math.exp(-1 / Math.max(1, p.breath * fs));

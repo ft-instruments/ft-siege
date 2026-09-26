@@ -140,6 +140,13 @@ whole army at `from` × its distance when it is first heard after silence
 and brings it in over the given seconds — late, dull and wide, then close.
 **Rally** starts the crowds ragged and tightens them over time.
 
+**Velocity** sets loudness on a dB curve (`velocity` sensitivity × 40 dB
+between the softest and the hardest note; full force is unchanged) and
+touch: a struck body is hit harder and grittier, so the contact shortens and
+the high modes come in; a horn is blown harder and turns brassy. Gongs and
+bells take less of the loudness range, since their bloom already grows with
+the force of the strike.
+
 `scripts/render.ts` drives the engine in Node: `all`, `preset "Taiko
 Line"`, `note 48 100`, `body gong 48 100` (one body, close, dry), `modes
 drum` (the mode table), `distance` (arrival time and level per distance),

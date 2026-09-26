@@ -12,7 +12,7 @@
 import { ModalBank, newDesign, designBody, type Design, naturalF0, BODY_CONTACT, BODY_GAIN } from './modal.ts';
 import { HornVoice, type HornParams } from './horn.ts';
 import { Rng, midiToFreq } from './util.ts';
-import { BODY_BLADE, BODY_BOWED, BODY_FEET, BODY_HOOVES, BODY_CANNON, BODY_PIPE, BODY_FLUTE, TUBES, ROLL_BEATS, UNIT_PREFIX, type ParamValues } from './params.ts';
+import { BODIES, BODY_GONG, BODY_BELL, BODY_SHIELD, BODY_ANVIL, BODY_BLADE, BODY_BOWED, BODY_FEET, BODY_HOOVES, BODY_CANNON, BODY_PIPE, BODY_FLUTE, TUBES, ROLL_BEATS, UNIT_PREFIX, type ParamValues } from './params.ts';
 
 export const CHUNK = 32;
 const BANKS = 4;
@@ -22,6 +22,13 @@ const MAX_EVENTS = 256;         // hits scheduled per strike; a bigger crowd is 
 const MAX_ACTIVE = 64;
 const SHAPE_HANN = 0, SHAPE_NWAVE = 1;
 const MAX_BLASTS = 8;
+
+/**
+ * How much of the velocity's loudness range each body takes. Gongs, bells and bronze
+ * bloom harder the harder they are hit (modal.ts), which already widens their range, so
+ * they take less of it; everything else takes it all.
+ */
+const VEL_CURVE = BODIES.map((_, b) => (b === BODY_GONG ? 0.15 : b === BODY_BELL ? 0.6 : b === BODY_SHIELD || b === BODY_ANVIL ? 0.85 : 1));
 
 export class Unit {
   readonly idx: number;
@@ -56,6 +63,7 @@ export class Unit {
   private B: Float32Array[] = [];
   private held: number[] = [];
   private heldVel: number[] = [];
+  private heldTouch: number[] = [];
   // blasts (cannon): the crack, the whump and the sub boom are synthesised directly, not through modes
   private bT = new Float64Array(MAX_BLASTS);       // samples since the blast (negative: pending)
   private bAmp = new Float32Array(MAX_BLASTS);
@@ -103,7 +111,7 @@ export class Unit {
   clear(): void {
     for (const b of this.banks) b.clear();
     for (const h of this.horns) h.kill();
-    this.hOn.fill(0); this.pending = 0; this.held = []; this.heldVel = []; this.level = 0; this.bOn.fill(0);
+    this.hOn.fill(0); this.pending = 0; this.held = []; this.heldVel = []; this.heldTouch = []; this.level = 0; this.bOn.fill(0);
   }
 
   // ------------------------------------------------------------ design
@@ -158,18 +166,18 @@ export class Unit {
   // ------------------------------------------------------------ playing
 
   /** A key in this unit's range went down. `cohesionScale` (0..1) comes from the rally: the crowd tightens over time. */
-  noteOn(note: number, vel: number, p: ParamValues, cohesionScale: number): void {
+  noteOn(note: number, vel: number, touch: number, p: ParamValues, cohesionScale: number): void {
     this.refreshDesign(p);
     const i = this.held.indexOf(note);
-    if (i >= 0) { this.held.splice(i, 1); this.heldVel.splice(i, 1); }
-    this.held.push(note); this.heldVel.push(vel);
+    if (i >= 0) { this.held.splice(i, 1); this.heldVel.splice(i, 1); this.heldTouch.splice(i, 1); }
+    this.held.push(note); this.heldVel.push(vel); this.heldTouch.push(touch);
     this.rollCount = 0;
-    this.strike(note, vel, p, cohesionScale);
+    this.strike(note, vel, touch, p, cohesionScale);
   }
 
   noteOff(note: number): void {
     const i = this.held.indexOf(note);
-    if (i >= 0) { this.held.splice(i, 1); this.heldVel.splice(i, 1); }
+    if (i >= 0) { this.held.splice(i, 1); this.heldVel.splice(i, 1); this.heldTouch.splice(i, 1); }
     if (this.isHorn) for (const h of this.horns) if (h.active && !h.released && h.note === note) h.noteOff();
   }
 
@@ -183,8 +191,12 @@ export class Unit {
     if (this.isHorn) for (const h of this.horns) if (h.active) h.retune(this.hp, mult);
   }
 
-  /** Fire the unit for a note: the whole crowd. */
-  private strike(note: number, vel: number, p: ParamValues, cohesionScale: number): void {
+  /**
+   * Fire the unit for a note: the whole crowd. `vel` is the loudness (linear gain), `touch`
+   * (0..1, 1 = full force) how hard it was played: struck bodies get a harder, brighter
+   * strike, horns more breath.
+   */
+  private strike(note: number, vel: number, touch: number, p: ParamValues, cohesionScale: number): void {
     const count = Math.max(1, Math.round(this.p(p, 'Count')));
     const spread = this.p(p, 'Spread');
     const cohesion = Math.min(1, this.p(p, 'Cohesion') * cohesionScale);
@@ -192,16 +204,15 @@ export class Unit {
     this.hits++;
     if (this.isHorn) {
       this.refreshHorn(p);
-      this.hp.vel = vel;
       const freq = midiToFreq(note);
       const inst = Math.min(HORN_INST, count);
       const v = this.allocHorn(note);
-      this.hp.vel = vel;
+      this.hp.vel = touch;
       for (let k = 0; k < inst; k++) {
         const h = this.horns[v * HORN_INST + k];
         const detune = k === 0 ? 1 : 1 + vary * 0.025 * this.rng.bi();
         const onset = k === 0 ? 0 : spread * (1 - cohesion) * this.rng.next();
-        h.gain = (0.6 + 0.4 / Math.sqrt(inst)) / Math.sqrt(inst);
+        h.gain = (0.6 + 0.4 / Math.sqrt(inst)) / Math.sqrt(inst) * vel;
         h.noteOn(note, freq, this.hp, detune, onset);
         h.retune(this.hp, this.bendMult);
       }
@@ -209,7 +220,10 @@ export class Unit {
     }
     const body = this.body;
     const track = this.p(p, 'Track') >= 0.5;
-    const hard = this.p(p, 'Hard'), pos = this.p(p, 'Pos'), grit = this.p(p, 'Grit'), char = this.p(p, 'Char');
+    // a harder hit is a harder strike: shorter contact, so more of the high modes; and grittier
+    const hard = Math.max(0, Math.min(1, this.p(p, 'Hard') + (touch - 0.8) * 0.75));
+    const grit = Math.min(1, this.p(p, 'Grit') * (0.45 + 0.7 * touch));
+    const pos = this.p(p, 'Pos'), char = this.p(p, 'Char');
     // which banks: tracking → one bank tuned to the note; else all variants
     let bank0 = 0, nb = BANKS;
     if (track) { bank0 = this.allocBank(note, p); nb = 1; }
@@ -222,15 +236,14 @@ export class Unit {
     const spreadMs = spread * (1 - cohesion);
     const overlap = count * Math.min(1, 15 / (spreadMs + 1));
     const ampAll = Math.min(Math.pow(count, -0.5) * (1 + 0.9 * Math.log10(count)), 8 / overlap) * per;
-    // pulse length from hardness (and a little from velocity): 12 ms soft → 0.35 ms hard
+    // pulse length from hardness (touch included): 12 ms soft → 0.35 ms hard
     let lenMs = (0.35 + 11.5 * (1 - hard) * (1 - hard)) * BODY_CONTACT[body];
-    lenMs *= 1.15 - 0.3 * vel;
     let shape = SHAPE_HANN;
     if (body === BODY_CANNON) { shape = SHAPE_NWAVE; lenMs = 2 + 14 * char; }
     for (let i = 0; i < events; i++) {
       const u = i === 0 ? 0 : this.rng.next();
       const t = spreadMs * u + (i === 0 ? 0 : this.rng.next() * 2);
-      const a = vel * ampAll * (1 + vary * 0.8 * this.rng.bi()) * (body === BODY_CANNON ? 0.4 + 0.8 * char : 1);
+      const a = Math.pow(vel, VEL_CURVE[body]) * ampAll * (1 + vary * 0.8 * this.rng.bi()) * (body === BODY_CANNON ? 0.4 + 0.8 * char : 1);
       const ps = Math.max(0, Math.min(1, pos + vary * 0.4 * this.rng.bi()));
       const b = bank0 + (nb > 1 ? i % nb : 0);
       this.push(t, a, shape === SHAPE_NWAVE ? 0 : ps, b, lenMs * (1 + vary * 0.3 * this.rng.bi()), shape, grit);
@@ -335,7 +348,7 @@ export class Unit {
         const accent = this.p(p, 'Accent');
         const strong = (b % 4) === 0;          // every fourth hit is the strong one
         const g = strong ? 1 : 1 - accent * 0.6;
-        for (let i = 0; i < this.held.length; i++) this.strike(this.held[i], this.heldVel[i] * g, p, cohesionScale);
+        for (let i = 0; i < this.held.length; i++) this.strike(this.held[i], this.heldVel[i] * g, this.heldTouch[i] * (strong ? 1 : 1 - accent * 0.3), p, cohesionScale);
       }
     }
     if (this.isHorn) {

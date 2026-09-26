@@ -14,6 +14,9 @@ import { Path, Terrain, Wind } from './space.ts';
 import { DCBlock, softClip } from './util.ts';
 import { defaults, PARAM_BY_ID, UNITS, UNIT_PREFIX, type ParamId, type ParamValues } from './params.ts';
 
+/** The loudness range of the keys at full velocity sensitivity. */
+const VEL_RANGE_DB = 40;
+
 export class SiegeEngine {
   readonly p: ParamValues = defaults();
   readonly units: Unit[] = [];
@@ -84,8 +87,13 @@ export class SiegeEngine {
 
   noteOn(note: number, velocity: number): void {
     if (velocity <= 0) { this.noteOff(note); return; }
+    // velocity: loudness on a dB curve (the sensitivity sets the range, up to 40 dB between the
+    // softest and hardest note) and touch, which the units turn into timbre (a harder strike,
+    // more breath); a full-force note sounds exactly as before
     const sens = this.p.vel;
-    const vel = (1 - sens) + sens * Math.min(1, velocity / 127);
+    const v = Math.min(1, velocity / 127);
+    const vel = Math.pow(10, (-(1 - v) * sens * VEL_RANGE_DB) / 20);
+    const touch = 1 - sens * (1 - v);
     if (!this.held.includes(note)) this.held.push(note);
     const si = this.sustained.indexOf(note); if (si >= 0) this.sustained.splice(si, 1);
     const p = this.p;
@@ -93,7 +101,7 @@ export class SiegeEngine {
       const pre = UNIT_PREFIX[i];
       if (p[`${pre}Level`] <= 0) continue;
       if (note < p[`${pre}KeyLo`] || note > p[`${pre}KeyHi`]) continue;
-      this.units[i].noteOn(note, vel, p, this.cohesionScale);
+      this.units[i].noteOn(note, vel, touch, p, this.cohesionScale);
     }
   }
 
