@@ -58,11 +58,10 @@ async function main(): Promise<void> {
   await send('Page.navigate', { url: `http://127.0.0.1:${PORT}/` });
   await sleep(2500);
   const title = await evaluate('document.title');
-  const panels = await evaluate('document.querySelectorAll("#panels .win").length');
+  const panels = await evaluate('document.querySelectorAll("#panels .panel").length');
   const knobs = await evaluate('document.querySelectorAll(".knob").length');
   console.log(`page "${title}": ${panels} windows, ${knobs} knobs`);
 
-  if (!(await evaluate('typeof window.__siege'))?.toString().startsWith('object')) { for (const l of logs) console.log('  console', l); throw new Error('main.ts did not finish'); }
   const peak = await evaluate(`(async () => {
     const v = window.__siege;
     await v.synth.start();
@@ -74,19 +73,25 @@ async function main(): Promise<void> {
     v.synth.noteOff(40); v.synth.noteOff(60); v.synth.noteOff(76);
     return p;
   })()`);
-  const state = await evaluate('document.querySelector("#start").textContent');
+  const state = await evaluate('document.querySelector("#start-label").textContent');
   console.log(`audio: ${state}; worklet peak while holding a chord: ${Number(peak).toFixed(3)}`);
   // let the display update, then screenshot the whole page
   await sleep(400);
   mkdirSync('out', { recursive: true });
-  for (const tab of ['army', 'field', 'drill']) {
-    await evaluate(`document.querySelectorAll('#tabs .tab')[${['army', 'field', 'drill'].indexOf(tab)}].click()`);
-    await sleep(300);
+  const TABS = ['army', 'field', 'drill'];
+  for (const tab of TABS) {
+    await evaluate(`document.querySelectorAll('#tabs .tab')[${TABS.indexOf(tab)}].click()`);
+    await sleep(800);
     const shot = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true }) as { data: string };
     writeFileSync(`out/screenshot-${tab}.png`, Buffer.from(shot.data, 'base64'));
   }
-  const head = await send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: 1400, height: 110, scale: 1 } }) as { data: string };
-  writeFileSync('out/screenshot-header.png', Buffer.from(head.data, 'base64'));
+  // a preset that marches in, rolling, for the drill's pictures
+  await evaluate(`window.__siege.loadPreset('Approach')`);
+  await evaluate(`document.querySelectorAll('#tabs .tab')[2].click()`);
+  await sleep(700);
+  const dshot = await send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: 1400, height: 900, scale: 1 } }) as { data: string };
+  writeFileSync('out/screenshot-drill-approach.png', Buffer.from(dshot.data, 'base64'));
+  await evaluate(`document.querySelectorAll('#tabs .tab')[0].click()`);
   console.log('wrote out/screenshot-{army,field,drill}.png');
   // the preset browser, and a count of what it holds
   await evaluate('document.querySelector("#browse").click()');
@@ -102,6 +107,27 @@ async function main(): Promise<void> {
   const shown = await evaluate('[...document.querySelectorAll("#browser-list .card")].filter((c) => !c.hidden).length');
   console.log(`search "horn" narrows to ${shown}`);
   await evaluate('document.querySelector("#browser-close").click()');
+  // saving a sound under a name of your own, then deleting it
+  await evaluate('document.querySelector("#save").click()');
+  await sleep(250);
+  await evaluate('const n = document.querySelector("#save-name"); n.value = "Check Sound"; n.dispatchEvent(new Event("input"));');
+  const sshot = await send('Page.captureScreenshot', { format: 'png', clip: { x: 0, y: 0, width: 1400, height: 900, scale: 1 } }) as { data: string };
+  writeFileSync('out/screenshot-save.png', Buffer.from(sshot.data, 'base64'));
+  await evaluate('document.querySelector("#savebar").requestSubmit()');
+  await sleep(200);
+  const saved = await evaluate('[document.querySelectorAll("#browser-list .card[data-tag=user]").length, document.querySelector("#preset-name").textContent]') as [number, string];
+  await evaluate('const d = document.querySelector("#browser-list .card[data-tag=user] .del"); d.click(); d.click();');
+  const left = await evaluate('document.querySelectorAll("#browser-list .card[data-tag=user]").length');
+  console.log(`save: ${saved[0]} of yours, header shows "${saved[1]}"; after delete: ${left}`);
+  if (saved[0] !== 1 || saved[1] !== 'Check Sound' || left !== 0) { console.error('saving presets does not work'); process.exitCode = 1; }
+  // the power button halts and boots the machine
+  await evaluate('document.querySelector("#start").click()');
+  await sleep(300);
+  const asleep = await evaluate('document.querySelector("#start-label").textContent');
+  await evaluate('document.querySelector("#start").click()');
+  await sleep(500);
+  const awake = await evaluate('document.querySelector("#start-label").textContent');
+  console.log(`power: "${asleep}" then "${awake}"`);
   const errors = logs.filter((l) => l.startsWith('[error]') || l.startsWith('[exception]'));
   for (const l of logs) console.log('  console', l);
   if (errors.length) { console.error(`${errors.length} console error(s)`); process.exitCode = 1; }

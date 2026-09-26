@@ -6,58 +6,125 @@
     <title>SIEGE</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%231a1c1f'/%3E%3Cpath d='M3 13 L3 6 L5 6 L5 4 L7 4 L7 6 L9 6 L9 4 L11 4 L11 6 L13 6 L13 13 Z' fill='%23ff7a1a'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Geist:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/ft.css" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
     <div class="slate"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+
+    <!-- shared by every knob: the lit cap -->
+    <svg class="defs" width="0" height="0" aria-hidden="true">
+      <defs>
+        <radialGradient id="ftCap" cx="0.38" cy="0.3" r="0.8">
+          <stop offset="0" stop-color="#4a443c" />
+          <stop offset="0.55" stop-color="#211f1c" />
+          <stop offset="1" stop-color="#0c0b0a" />
+        </radialGradient>
+      </defs>
+    </svg>
+
     <div id="app">
-      <header class="win">
+      <header class="bar">
         <div class="brand">
-          <h1>SIEGE</h1>
-          <span class="sub">war ensemble <b>·</b> ft</span>
+          <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+            <path class="keep" d="M6 29V11h3V7h3v4h2V7h4v4h2V7h3v4h3v18h-7v-6a3 3 0 0 0-6 0v6Z" />
+            <path class="flag" d="M16 7V1l6 2-6 2" />
+            <path class="fire" d="M9 16h2M21 16h2" />
+          </svg>
+          <div>
+            <h1 data-text="SIEGE">SIEGE</h1>
+            <span class="sub">war ensemble <b>✕</b> ft</span>
+          </div>
         </div>
+
         <div class="presets">
-          <span class="prompt">order</span>
-          <button id="prev" class="ghost" title="previous preset">&lt;</button>
-          <button id="browse" title="browse the presets (`)">
-            <span class="tag" id="preset-tag"></span>
-            <span class="nm" id="preset-name"></span>
+          <button id="prev" class="round" title="previous preset">
+            <svg viewBox="0 0 16 16"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg>
           </button>
-          <button id="next" class="ghost" title="next preset">&gt;</button>
-          <button id="spore" class="ghost" title="nudge the patch and move a unit">muster</button>
-          <button id="copy" class="ghost" title="copy patch JSON to clipboard">dispatch</button>
+          <button id="browse" title="browse the orders (`)">
+            <span class="tag" id="preset-tag">drums</span>
+            <span class="nm" id="preset-name">Taiko Line</span>
+          </button>
+          <button id="next" class="round" title="next preset">
+            <svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" /></svg>
+          </button>
+          <div class="actions">
+            <button id="spore" class="chip" title="nudge the patch and move a unit">
+              <svg viewBox="0 0 16 16"><path d="M3 13 13 3M9 3h4v4M3 3l4 4M13 13l-3-3" /></svg>
+              muster
+            </button>
+            <button id="save" class="chip" title="save this sound as a preset (⌘S)">
+              <svg viewBox="0 0 16 16"><path d="M3 2.5h8l2.5 2.5v8.5h-10.5Z" /><path d="M5.5 2.5v3.5h4.5V2.5M5.5 13.5v-4h5v4" /></svg>
+              save
+            </button>
+            <button id="copy" class="chip" title="dispatch: copy the patch JSON to the clipboard">
+              <svg viewBox="0 0 16 16"><path d="M2 4h12v8H2Z" /><path d="m2 4 6 5 6-5" /></svg>
+              dispatch
+            </button>
+          </div>
         </div>
-        <canvas id="scope" title="seismograph: output level"></canvas>
+
+        <div class="scopewrap" title="seismograph: the output level"><canvas id="scope"></canvas></div>
+
         <div class="status">
-          <button id="start" class="primary">raise</button>
-          <select id="midi-port" title="MIDI input"><option value="all">all MIDI inputs</option></select>
-          <span id="midi-led" class="led"></span>
-          <label class="master" title="master volume"><span>vol</span><input id="master" type="range" min="0" max="1" step="0.01" value="0.7" /></label>
-          <span id="stats" class="muted"></span>
-          <button id="panic" class="ghost" title="stop all sound">cease</button>
+          <div class="io">
+            <label class="master" title="master volume">
+              <svg viewBox="0 0 16 16"><path d="M2.5 6h2.2L8 3v10L4.7 10H2.5Z" /><path d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.3 3.8a6 6 0 0 1 0 8.4" /></svg>
+              <input id="master" type="range" min="0" max="1" step="0.01" value="0.7" />
+            </label>
+            <div class="midi" title="MIDI input">
+              <span id="midi-led" class="led"></span>
+              <select id="midi-port"><option value="all">all MIDI inputs</option></select>
+            </div>
+          </div>
+          <div class="io">
+            <span id="stats" class="muted"></span>
+            <button id="panic" class="chip" title="stop all sound">cease</button>
+          </div>
+          <div class="power-wrap">
+            <button id="start" class="power" title="raise the army">
+              <svg viewBox="0 0 16 16"><path d="M8 2v5.5" /><path d="M4.6 4.3a5 5 0 1 0 6.8 0" /></svg>
+            </button>
+            <span id="start-label">raise</span>
+          </div>
         </div>
       </header>
 
-      <nav id="tabs" class="tabs"></nav>
+      <nav id="tabs" class="tabs"><span class="tab-light"></span></nav>
       <main id="panels"></main>
 
       <footer>
-        <div class="hint muted">
-          <kbd>A</kbd>–<kbd>'</kbd> / <kbd>Z</kbd>–<kbd>/</kbd> play · <kbd>←</kbd><kbd>→</kbd> octave (<span id="octave">C4</span>) · <kbd>Shift</kbd> louder · <kbd>Space</kbd> sustain · drag knobs, <kbd>Shift</kbd> fine, double-click reset · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> views · <kbd>`</kbd> browse presets · every key goes to every unit whose key range covers it
-        </div>
         <canvas id="keyboard"></canvas>
+        <div class="hint muted">
+          <kbd>A</kbd>–<kbd>'</kbd> <kbd>Z</kbd>–<kbd>/</kbd> play · <kbd>←</kbd><kbd>→</kbd> octave <span id="octave">C4</span> · <kbd>Shift</kbd> louder · <kbd>Space</kbd> sustain · <kbd>1</kbd>–<kbd>3</kbd> views · <kbd>`</kbd> orders · drag knobs, <kbd>Shift</kbd> fine, double-click resets · every key goes to every unit whose range covers it
+        </div>
       </footer>
     </div>
+
     <!-- preset browser -->
     <div id="browser" class="browser" hidden>
       <div class="sheet">
         <div class="head">
           <h2>the orders</h2>
-          <input id="browser-search" type="search" placeholder="search presets…" autocomplete="off" spellcheck="false" />
-          <button id="browser-close" class="ghost" title="close (Esc)">esc</button>
+          <input id="browser-search" type="search" placeholder="search the orders…" autocomplete="off" spellcheck="false" />
+          <button id="browser-save" class="chip" title="save the current sound (⌘S)">save current</button>
+          <button id="browser-close" class="chip" title="close (Esc)">esc</button>
         </div>
-        <div id="browser-list" class="list"></div>
+        <form id="savebar" class="savebar" hidden>
+          <label for="save-name">save as</label>
+          <input id="save-name" type="text" maxlength="40" autocomplete="off" spellcheck="false" placeholder="name your sound" />
+          <button id="save-ok" type="submit" class="chip primary">save</button>
+          <button id="save-cancel" type="button" class="chip">cancel</button>
+          <span id="save-msg" class="msg"></span>
+        </form>
+        <div class="split">
+          <nav id="browser-side" class="side"></nav>
+          <div id="browser-list" class="list"></div>
+        </div>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>

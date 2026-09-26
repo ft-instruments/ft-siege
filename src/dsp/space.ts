@@ -110,7 +110,7 @@ export class Path {
 // ---------------------------------------------------------------- terrain
 
 interface Tap { ms: number; g: number; bright: number; side: number }
-const TERRAIN_TAPS: Tap[][] = [
+export const TERRAIN_TAPS: Tap[][] = [
   // field: one far ridge, faint, and the ground near you
   [{ ms: 46, g: 0.06, bright: 0.3, side: 1 }, { ms: 390, g: 0.13, bright: 0.18, side: -1 }],
   // valley: walls at a few hundred metres, each darker than the last
@@ -120,7 +120,7 @@ const TERRAIN_TAPS: Tap[][] = [
   // forest: dense scattering, dark
   Array.from({ length: 12 }, (_, i) => ({ ms: 11 + i * i * 1.1 + i * 6, g: 0.34 - i * 0.022, bright: 0.28 - i * 0.01, side: i & 1 ? 1 : -1 })),
 ];
-const TERRAIN_TAIL_SCALE = [1.7, 2.3, 0.85, 1.05];
+export const TERRAIN_TAIL_SCALE = [1.7, 2.3, 0.85, 1.05];
 const TAIL_BASE = [0.071, 0.097, 0.127, 0.149, 0.173, 0.199, 0.227, 0.251];   // seconds
 const N = 8;
 const MAX_TAPS = 12;

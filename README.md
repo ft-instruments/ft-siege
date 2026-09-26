@@ -163,17 +163,32 @@ Chrome, plays, checks the output level and screenshots the three views.
 
 ## UI
 
-Iron, ember and dried blood on slate; riveted plates; Cinzel and IBM
-Plex Mono. The preset browser, knobs and keyboard are shared with Mycelia
-and Vector; the keyboard takes its colours from `--key-*` custom
-properties. Three views (`1`–`3`): **army** (the eight units — a unit folds
-to one line when its level is 0; each shows its body, deforming on hits,
-and the strike or the horn controls depending on what it is), **field**
-(the map: the listener at the bottom, distance rings on a log scale to
-800 m, each unit a formation of dots at its bearing and distance — drag to
-move it; the terrain, air and weather), **drill** (the march clock and
-the rolls). The header carries a seismograph of the output and the master
-volume.
+The FT Instrument look (`src/ft.css`, shared with Mycelia and Vector) in
+Siege's skin (`src/style.css`): iron plates by firelight. The room is a
+night field with a fortress black against the fires on the horizon and
+embers going up; the modules are smoked-iron plates cut at both top
+corners like a battlement, studded at the foot and numbered in Roman;
+titles are cut in Cinzel and glow with their module's heat (ember for the
+units, bronze for horns, bone for the map, moss for the terrain, steel for
+the air, blood for the drill), exposed as `--accent` / `--accent-rgb`,
+which every canvas reads. The name takes a blow on every preset load.
+
+Three views (`1`–`3`): **army** (the eight units — a unit folds to one line
+when its level is 0; each shows its body, deforming on hits, with its body
+picker and main knobs large, then the strike or the horn controls depending
+on what it is), **field** (the map across the full width: the listener at
+the bottom, distance rings on a log scale to 800 m, each unit a formation
+at its bearing and distance — drag to move it; then terrain, air and
+weather), **drill** (the march clock and the rolls; lanes for units that
+are off dim). Modules carry a picture of what they do, drawn with the
+field's own maths (`src/ui/viz.ts`): the terrain's echo taps and tail, air
+absorption at 10, 100 and 800 m, twenty seconds of gusts, the march with
+its approach and rally, one bar of every roll. The header carries a
+seismograph of the output and the master volume.
+
+Presets: the browser (`` ` ``) has a category sidebar; **save** (⌘S) names
+the current sound and keeps it in this browser under *yours* (delete with
+×). The power button raises the army and stands it down.
 
 ## Porting to a plugin (JUCE)
 
@@ -195,7 +210,8 @@ modal banks are the cost and are trivially SIMD-able in C++.
 - Crowd variants are four per unit; the timing spread carries the rest.
 - The N-wave is a shape, not a propagation model; the far boom comes from
   the air and the terrain.
-- Presets can be copied as JSON but not saved in the browser yet.
+- Saved presets live in this browser's storage only; *dispatch* copies a
+  patch as JSON to move it elsewhere.
 
 ## Sources consulted
 

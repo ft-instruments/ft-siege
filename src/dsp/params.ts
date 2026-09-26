@@ -141,14 +141,16 @@ export function format(p: ParamDef, v: number): string {
   if (p.scale === 'bool') return v >= 0.5 ? 'on' : 'off';
   if (p.id.endsWith('KeyLo') || p.id.endsWith('KeyHi') || p.id.endsWith('Root')) return noteName(v);
   if (p.id.endsWith('Count')) return String(Math.round(v));
+  if (p.id.endsWith('Az')) return Math.abs(v) < 0.005 ? 'ahead' : `${v < 0 ? 'L' : 'R'} ${Math.round(Math.abs(v) * 80)}°`;
   if (p.scale === 'int') return `${Math.round(v)}${p.unit ? ' ' + p.unit : ''}`;
   if (p.unit === 'Hz') return v >= 1000 ? `${(v / 1000).toFixed(2)} kHz` : v >= 100 ? `${v.toFixed(0)} Hz` : `${v.toFixed(2)} Hz`;
   if (p.unit === 's') return v >= 1 ? `${v.toFixed(2)} s` : `${(v * 1000).toFixed(0)} ms`;
   if (p.unit === 'ms') return `${v.toFixed(0)} ms`;
   if (p.unit === 'm') return v >= 10 ? `${v.toFixed(0)} m` : `${v.toFixed(2)} m`;
   if (p.unit === '×') return `${v.toFixed(1)}×`;
-  if (p.min < 0) return (v >= 0 ? '+' : '') + v.toFixed(2);
-  return v.toFixed(2);
+  // plain amounts read as percentages; bipolar ones keep their sign
+  if (p.min < 0) return (v >= 0 ? '+' : '−') + `${Math.round(Math.abs(v) * 100)}%`;
+  return `${Math.round(v * 100)}%`;
 }
 
 export interface Preset {
