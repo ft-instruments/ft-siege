@@ -214,6 +214,13 @@
 [data-tag="cannon"]      { --tagc: var(--blood); }
 [data-tag="field"]       { --tagc: var(--moss); }
 [data-tag="signals"]     { --tagc: #f0c35a; }
+[data-tag="rhythms"]     { --tagc: color-mix(in srgb, var(--ember) 55%, var(--blood)); }
+[data-tag="mallets"]     { --tagc: color-mix(in srgb, var(--bronze) 50%, var(--bone)); }
+[data-tag="pads"]        { --tagc: color-mix(in srgb, var(--steel) 60%, var(--bone)); }
+[data-tag="leads"]       { --tagc: color-mix(in srgb, var(--bronze) 70%, #fff4e0); }
+[data-tag="bass"]        { --tagc: color-mix(in srgb, var(--moss) 60%, var(--ember)); }
+[data-tag="cinematic"]   { --tagc: color-mix(in srgb, var(--blood) 60%, #f0c35a); }
+[data-tag="fx"]          { --tagc: color-mix(in srgb, var(--moss) 40%, var(--iron)); }
 [data-tag="init"]        { --tagc: var(--dim); }
 .browser .head h2 { font-family: var(--display); font-weight: 900; letter-spacing: 0.2em; color: var(--bone); text-shadow: 0 0 14px rgba(var(--ember-rgb), 0.45); }
 .browser .cat { font-weight: 800; letter-spacing: 0.2em; }

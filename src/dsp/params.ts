@@ -615,6 +615,668 @@ export const PRESETS: Preset[] = [
       terrain: 1, early: 1, tailMix: 0.3, tailDecay: 5, tailTone: 0.3, ground: 0.3,
     },
   },
+  // ================================================================ second bank
+  // After the first bank, so the first bank keeps its numbers. Sounds built to
+  // play as well as to stage: pads and drones from bows, reeds and horn choirs,
+  // mallets and bells, leads and bass, grooves from one held key (several units
+  // rolling on different divisions of the march clock), cinematic hits and fx.
+  // ------------------------------------------------------------ drums
+  {
+    name: 'Talking Drum', tag: 'drums',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.9, Size: 0.5, Tension: 0.25, Damp: 0.35, Char: 0.45, Hard: 0.55, Pos: 0.35, Grit: 0.15, Bend: 1, Track: 1, Dist: 4, Az: -0.15 }),
+      terrain: 3, early: 0.5, tailMix: 0.3, tailDecay: 2.2, tailTone: 0.45, volume: 0.849,
+    },
+  },
+  {
+    name: 'Ceremonial Kick', tag: 'drums',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.95, Size: 2.6, Tension: 0.2, Damp: 0.25, Char: 1, Hard: 0.5, Pos: 0.15, Grit: 0.1, Bend: 0.7, Count: 3, Spread: 18, Cohesion: 0.9, Vary: 0.2, Dist: 9 }),
+      terrain: 1, early: 0.45, tailMix: 0.35, tailDecay: 4, tailTone: 0.3, ground: 0.7, proximity: 0.6, volume: 0.821,
+    },
+  },
+  {
+    name: 'Hand Drums', tag: 'drums',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.85, Size: 0.35, Tension: 0.65, Damp: 0.45, Char: 0.55, Hard: 0.4, Pos: 0.6, Grit: 0.35, Bend: 0.35, Track: 1, Count: 2, Spread: 22, Cohesion: 0.5, Vary: 0.4, Dist: 3, Az: 0.25 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.7, Size: 0.7, Tension: 0.4, Damp: 0.4, Char: 0.8, Hard: 0.3, Pos: 0.2, Grit: 0.2, Bend: 0.5, Track: 1, Dist: 3, Az: -0.3, KeyLo: 0, KeyHi: 52 }),
+      terrain: 3, early: 0.55, tailMix: 0.28, tailDecay: 1.8, tailTone: 0.5, volume: 0.792,
+    },
+  },
+  {
+    name: 'Tom Cascade', tag: 'drums',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.85, Size: 0.75, Tension: 0.5, Damp: 0.3, Char: 0.65, Hard: 0.6, Pos: 0.35, Grit: 0.2, Bend: 0.55, Track: 1, Count: 3, Spread: 260, Cohesion: 0.2, Vary: 0.5, Dist: 10, Az: -0.2 }),
+      terrain: 2, early: 0.55, tailMix: 0.32, tailDecay: 2.4, tailTone: 0.4, volume: 0.815,
+    },
+  },
+  {
+    name: 'Iron Kit', tag: 'drums',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.9, Size: 1.7, Tension: 0.3, Damp: 0.3, Char: 1, Hard: 0.55, Pos: 0.2, Bend: 0.7, Dist: 5, KeyLo: 0, KeyHi: 47 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.8, Size: 0.45, Tension: 0.85, Damp: 0.55, Char: 0.2, Hard: 0.8, Pos: 0.55, Grit: 0.7, Bend: 0.2, Count: 2, Spread: 8, Cohesion: 0.6, Dist: 5, Az: 0.15, KeyLo: 48, KeyHi: 59 }),
+      ...U(2, { Body: BODY_SHIELD, Level: 0.55, Size: 0.35, Tension: 0.7, Damp: 0.7, Char: 0.3, Hard: 0.9, Pos: 0.7, Grit: 0.5, Track: 1, Dist: 5, Az: 0.4, KeyLo: 60, KeyHi: 71 }),
+      ...U(3, { Body: BODY_GONG, Level: 0.35, Size: 0.45, Tension: 0.8, Damp: 0.3, Char: 0.6, Hard: 0.7, Pos: 0.6, Grit: 0.2, Track: 1, Dist: 6, Az: -0.4, KeyLo: 72, KeyHi: 127 }),
+      terrain: 2, early: 0.5, tailMix: 0.25, tailDecay: 1.6, tailTone: 0.5, volume: 0.878,
+    },
+  },
+  {
+    name: 'Drums In The Valley', tag: 'drums',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.95, Size: 1.5, Tension: 0.35, Damp: 0.25, Char: 0.85, Hard: 0.5, Pos: 0.3, Grit: 0.2, Bend: 0.55, Count: 16, Spread: 70, Cohesion: 0.7, Vary: 0.4, Dist: 60, Az: -0.35 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.7, Size: 0.8, Tension: 0.5, Damp: 0.3, Char: 0.6, Hard: 0.6, Count: 10, Spread: 60, Cohesion: 0.7, Vary: 0.4, Dist: 110, Az: 0.45 }),
+      terrain: 1, early: 0.8, tailMix: 0.45, tailDecay: 5.5, tailTone: 0.3, ground: 0.5, air: 0.55, wind: 0.3, gust: 0.3, volume: 0.946,
+    },
+  },
+  // ------------------------------------------------------------ rhythms: a groove from one held key
+  {
+    name: 'War March Groove', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.9, Size: 1.6, Tension: 0.3, Damp: 0.3, Char: 0.9, Hard: 0.5, Pos: 0.25, Bend: 0.6, Count: 6, Spread: 30, Cohesion: 0.85, Dist: 14, Roll: 1, Accent: 0.4 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.6, Size: 0.5, Tension: 0.8, Damp: 0.5, Char: 0.25, Hard: 0.75, Pos: 0.55, Grit: 0.6, Bend: 0.2, Count: 8, Spread: 25, Cohesion: 0.8, Vary: 0.4, Dist: 12, Az: 0.3, Roll: 2, Accent: 0.8 }),
+      ...U(2, { Body: BODY_FEET, Level: 0.55, Size: 1, Damp: 0.5, Char: 0.3, Hard: 0.45, Grit: 0.7, Count: 300, Spread: 120, Cohesion: 0.6, Vary: 0.6, Dist: 25, Az: -0.3, Roll: 3, Accent: 0.5 }),
+      tempo: 92, terrain: 1, early: 0.5, tailMix: 0.35, tailDecay: 3.5, tailTone: 0.35, ground: 0.6, wind: 0.2, volume: 0.656,
+    },
+  },
+  {
+    name: 'Gallop', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_HOOVES, Level: 0.8, Size: 1, Damp: 0.45, Char: 0.55, Hard: 0.65, Grit: 0.6, Count: 40, Spread: 90, Cohesion: 0.6, Vary: 0.6, Dist: 20, Az: -0.2, Roll: 4, Accent: 0.6 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.8, Size: 1.3, Tension: 0.35, Damp: 0.3, Char: 0.8, Hard: 0.5, Bend: 0.5, Count: 4, Spread: 25, Cohesion: 0.9, Dist: 15, Roll: 2, Accent: 0.5 }),
+      tempo: 128, terrain: 0, early: 0.35, tailMix: 0.3, tailDecay: 2.5, ground: 0.8, wind: 0.3, volume: 0.679,
+    },
+  },
+  {
+    name: 'Galley Oars', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.9, Size: 1.9, Tension: 0.25, Damp: 0.25, Char: 1, Hard: 0.45, Pos: 0.2, Bend: 0.6, Dist: 6, Roll: 1, Accent: 0.3 }),
+      ...U(1, { Body: BODY_LOG, Level: 0.6, Size: 0.9, Damp: 0.5, Char: 0.5, Hard: 0.6, Pos: 0.5, Grit: 0.5, Count: 60, Spread: 110, Cohesion: 0.8, Vary: 0.5, Dist: 12, Az: 0.4, Roll: 1, Accent: 0 }),
+      ...U(2, { Body: BODY_BLADE, Level: 0.2, Size: 1.2, Damp: 0.5, Char: 0, Hard: 0.7, Grit: 0.6, Count: 6, Spread: 200, Cohesion: 0.3, Vary: 0.8, Dist: 8, Az: -0.5, Roll: 2, Accent: 0.6 }),
+      tempo: 66, terrain: 2, early: 0.6, tailMix: 0.35, tailDecay: 2.8, tailTone: 0.35, wind: 0.15, windBed: 0.15, volume: 0.739,
+    },
+  },
+  {
+    name: 'Forge Rhythm', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_ANVIL, Level: 0.45, Size: 0.5, Damp: 0.35, Char: 0.75, Hard: 0.95, Pos: 0.3, Grit: 0.25, Track: 1, Dist: 4, Az: 0.3, Roll: 3, Accent: 0.75 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.8, Size: 1.2, Tension: 0.4, Damp: 0.35, Char: 0.7, Hard: 0.5, Bend: 0.4, Dist: 6, Az: -0.2, Roll: 2, Accent: 0.4 }),
+      ...U(2, { Body: BODY_LOG, Level: 0.5, Size: 0.6, Damp: 0.6, Char: 0.4, Hard: 0.7, Grit: 0.5, Dist: 5, Az: -0.45, Roll: 5, Accent: 0.8 }),
+      tempo: 100, terrain: 2, early: 0.65, tailMix: 0.28, tailDecay: 1.6, tailTone: 0.5, proximity: 0.4, volume: 0.547,
+    },
+  },
+  {
+    name: 'Ritual Toms', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.85, Size: 0.8, Tension: 0.45, Damp: 0.3, Char: 0.7, Hard: 0.45, Pos: 0.35, Grit: 0.2, Bend: 0.5, Track: 1, Count: 2, Spread: 30, Cohesion: 0.5, Vary: 0.4, Dist: 8, Roll: 6, Accent: 0.7 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.7, Size: 2, Tension: 0.25, Damp: 0.25, Char: 1, Hard: 0.4, Bend: 0.6, Dist: 10, Az: -0.3, Roll: 1, Accent: 0 }),
+      tempo: 84, terrain: 3, early: 0.55, tailMix: 0.4, tailDecay: 3.5, tailTone: 0.35, volume: 0.65,
+    },
+  },
+  {
+    name: 'Bell Ostinato', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_BELL, Level: 0.42, Size: 0.7, Damp: 0.12, Char: 0.3, Hard: 0.55, Pos: 0.2, Track: 1, Dist: 20, Az: 0.3, Roll: 3, Accent: 0.65 }),
+      ...U(1, { Body: BODY_BARS, Level: 0.6, Size: 0.6, Tension: 0.5, Damp: 0.35, Char: 0.8, Hard: 0.55, Pos: 0.3, Track: 1, Dist: 6, Az: -0.35, Roll: 5, Accent: 0.8 }),
+      tempo: 96, terrain: 2, early: 0.55, tailMix: 0.42, tailDecay: 4, tailTone: 0.45, volume: 0.746,
+    },
+  },
+  {
+    name: 'Marimba Pulse', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_BARS, Level: 0.8, Size: 0.55, Tension: 0.5, Damp: 0.35, Char: 0.85, Hard: 0.6, Pos: 0.3, Grit: 0.1, Track: 1, Dist: 4, Az: 0.2, Roll: 5, Accent: 0.75 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.7, Size: 1.4, Tension: 0.35, Damp: 0.35, Char: 0.9, Hard: 0.45, Bend: 0.5, Dist: 8, Az: -0.2, Roll: 2, Accent: 0.3, KeyLo: 0, KeyHi: 59 }),
+      tempo: 112, terrain: 3, early: 0.5, tailMix: 0.3, tailDecay: 2.2, tailTone: 0.45, volume: 0.568,
+    },
+  },
+  {
+    name: 'Clockwork Siege', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_LOG, Level: 0.718, Size: 0.4, Damp: 0.65, Char: 0.3, Hard: 0.85, Grit: 0.4, Track: 1, Dist: 5, Az: 0.4, Roll: 5, Accent: 0.9 }),
+      ...U(1, { Body: BODY_ANVIL, Level: 0.308, Size: 0.3, Damp: 0.5, Char: 0.5, Hard: 1, Track: 1, Dist: 5, Az: -0.4, Roll: 2, Accent: 0.5 }),
+      ...U(2, { Body: BODY_DRUM, Level: 0.769, Size: 2.2, Tension: 0.2, Damp: 0.3, Char: 1, Hard: 0.4, Bend: 0.7, Dist: 12, Roll: 1, Accent: 0.2 }),
+      ...U(3, { Body: BODY_SHIELD, Level: 0.359, Size: 0.6, Damp: 0.6, Char: 0.6, Hard: 0.7, Grit: 0.7, Count: 30, Spread: 60, Cohesion: 0.8, Dist: 15, Az: 0.15, Roll: 3, Accent: 0.95 }),
+      tempo: 104, terrain: 2, early: 0.55, tailMix: 0.3, tailDecay: 2, tailTone: 0.4, volume: 0.747,
+    },
+  },
+  {
+    name: 'Camp Fire Dance', tag: 'rhythms',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.8, Size: 0.4, Tension: 0.7, Damp: 0.45, Char: 0.4, Hard: 0.45, Pos: 0.55, Grit: 0.35, Bend: 0.3, Count: 2, Spread: 15, Cohesion: 0.6, Vary: 0.4, Dist: 5, Az: 0.3, Roll: 6, Accent: 0.85 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.75, Size: 1.1, Tension: 0.4, Damp: 0.35, Char: 0.75, Hard: 0.45, Bend: 0.45, Dist: 6, Az: -0.25, Roll: 2, Accent: 0.5 }),
+      ...U(2, { Body: BODY_FEET, Level: 0.4, Size: 0.7, Damp: 0.6, Char: 0.2, Hard: 0.5, Grit: 0.8, Count: 12, Spread: 60, Cohesion: 0.5, Vary: 0.7, Dist: 7, Roll: 4, Accent: 0.6 }),
+      tempo: 118, terrain: 3, early: 0.5, tailMix: 0.3, tailDecay: 2, tailTone: 0.45, wind: 0.2, windBed: 0.1, volume: 0.62,
+    },
+  },
+  // ------------------------------------------------------------ metal
+  {
+    name: 'Singing Steel', tag: 'metal',
+    values: {
+      ...U(0, { Body: BODY_BLADE, Level: 0.6, Size: 0.7, Tension: 0.4, Damp: 0.15, Char: 0.35, Hard: 0.6, Pos: 0.5, Grit: 0.2, Track: 1, Dist: 3, Az: -0.2 }),
+      ...U(1, { Body: BODY_BLADE, Level: 0.45, Size: 0.9, Tension: 0.5, Damp: 0.2, Char: 0.25, Hard: 0.5, Pos: 0.6, Grit: 0.2, Track: 1, Dist: 5, Az: 0.35 }),
+      terrain: 2, early: 0.5, tailMix: 0.45, tailDecay: 5, tailTone: 0.55, volume: 0.659,
+    },
+  },
+  {
+    name: 'Bell Tree', tag: 'metal',
+    values: {
+      ...U(0, { Body: BODY_BELL, Level: 0.35, Size: 0.3, Tension: 0.5, Damp: 0.1, Char: 0.2, Hard: 0.7, Pos: 0.3, Count: 14, Spread: 900, Cohesion: 0.1, Vary: 0.8, Dist: 5, Az: 0.2 }),
+      terrain: 2, early: 0.5, tailMix: 0.4, tailDecay: 4, tailTone: 0.6, volume: 0.909,
+    },
+  },
+  {
+    name: 'Chain Mail', tag: 'metal',
+    values: {
+      ...U(0, { Body: BODY_SHIELD, Level: 0.6, Size: 0.2, Tension: 0.8, Damp: 0.6, Char: 0.1, Hard: 0.95, Pos: 0.7, Grit: 0.5, Count: 120, Spread: 450, Cohesion: 0.25, Vary: 0.8, Dist: 3 }),
+      terrain: 2, early: 0.4, tailMix: 0.2, tailDecay: 1.2, tailTone: 0.6, volume: 0.895,
+    },
+  },
+  {
+    name: 'Bronze Cymbal', tag: 'metal',
+    values: {
+      ...U(0, { Body: BODY_GONG, Level: 0.32, Size: 0.4, Tension: 0.9, Damp: 0.25, Char: 0.9, Hard: 0.65, Pos: 0.7, Grit: 0.3, Bend: 0.1, Dist: 5, Az: 0.3 }),
+      terrain: 2, early: 0.45, tailMix: 0.35, tailDecay: 3, tailTone: 0.6, volume: 0.421,
+    },
+  },
+  {
+    name: 'Great Gong', tag: 'metal',
+    values: {
+      ...U(0, { Body: BODY_GONG, Level: 0.4, Size: 2.4, Tension: 0.3, Damp: 0.05, Char: 0.95, Hard: 0.15, Pos: 0.15, Grit: 0.05, Bend: 0.4, Dist: 7 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.4, Size: 2.8, Tension: 0.15, Damp: 0.3, Char: 1, Hard: 0.25, Bend: 0.4, Dist: 8 }),
+      terrain: 1, early: 0.5, tailMix: 0.45, tailDecay: 9, tailTone: 0.35, proximity: 0.5, volume: 0.387,
+    },
+  },
+  // ------------------------------------------------------------ horns
+  {
+    name: 'Lur Pair', tag: 'horns',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.75, Size: 1.8, Damp: 0.3, Char: 0.35, Partial: 3, Lip: 1, Breath: 0.18, Growl: 0.1, Track: 1, Root: 48, Dist: 45, Az: -0.7 }),
+      ...U(1, { Body: BODY_HORN, Level: 0.7, Size: 1.7, Damp: 0.32, Char: 0.3, Partial: 3, Lip: 1, Breath: 0.22, Growl: 0.12, Track: 1, Root: 48, Count: 2, Spread: 70, Cohesion: 0.6, Vary: 0.25, Dist: 70, Az: 0.7 }),
+      terrain: 1, early: 0.75, tailMix: 0.5, tailDecay: 6, tailTone: 0.35, air: 0.6, wind: 0.3, gust: 0.25, volume: 0.764,
+    },
+  },
+  {
+    name: 'Conch', tag: 'horns',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.8, Size: 0.45, Damp: 0.45, Char: 0.45, Partial: 1, Lip: 0.95, Breath: 0.25, Growl: 0.35, Track: 1, Dist: 12, Az: 0.2 }),
+      terrain: 3, early: 0.6, tailMix: 0.42, tailDecay: 4, tailTone: 0.4, wind: 0.25, windBed: 0.15, volume: 0.652,
+    },
+  },
+  {
+    name: 'Alphorn Valley', tag: 'horns',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.85, Size: 3.2, Damp: 0.25, Char: 0.25, Partial: 4, Snap: 1, Lip: 1, Breath: 0.3, Growl: 0.06, Track: 1, Root: 36, Dist: 260, Az: -0.4 }),
+      terrain: 1, early: 0.9, tailMix: 0.5, tailDecay: 7, tailTone: 0.3, air: 0.6, wind: 0.35, gust: 0.2, windBed: 0.2, volume: 0.992,
+    },
+  },
+  {
+    name: 'Horn Chorale', tag: 'horns',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.7, Size: 2.4, Damp: 0.3, Char: 0.15, Partial: 2, Lip: 1, Breath: 0.35, Growl: 0.05, Track: 1, Count: 3, Spread: 80, Cohesion: 0.6, Vary: 0.25, Dist: 30, Az: -0.5, KeyLo: 0, KeyHi: 54 }),
+      ...U(1, { Body: BODY_HORN, Level: 0.65, Size: 1.6, Damp: 0.3, Char: 0.15, Partial: 3, Lip: 1, Breath: 0.3, Growl: 0.05, Track: 1, Count: 3, Spread: 80, Cohesion: 0.6, Vary: 0.25, Dist: 30, Az: 0.05, KeyLo: 55, KeyHi: 66 }),
+      ...U(2, { Body: BODY_HORN, Level: 0.6, Size: 1.1, Damp: 0.32, Char: 0.2, Partial: 4, Lip: 1, Breath: 0.3, Growl: 0.06, Track: 1, Count: 3, Spread: 80, Cohesion: 0.6, Vary: 0.25, Dist: 30, Az: 0.55, KeyLo: 67, KeyHi: 127 }),
+      terrain: 1, early: 0.6, tailMix: 0.5, tailDecay: 5, tailTone: 0.35, air: 0.5, volume: 0.979,
+    },
+  },
+  {
+    name: 'Rams Horn', tag: 'horns',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.8, Size: 0.7, Damp: 0.5, Char: 0.8, Partial: 2, Snap: 1, Lip: 1.1, Breath: 0.05, Growl: 0.45, Track: 1, Root: 55, Dist: 25, Az: 0.3 }),
+      terrain: 2, early: 0.65, tailMix: 0.4, tailDecay: 3.5, tailTone: 0.4, volume: 0.942,
+    },
+  },
+  // ------------------------------------------------------------ instruments
+  {
+    name: 'Harp Of The Hall', tag: 'instruments',
+    values: {
+      ...U(0, { Body: BODY_LYRE, Level: 0.85, Size: 1, Tension: 0.25, Damp: 0.12, Char: 0.7, Hard: 0.55, Pos: 0.3, Grit: 0.08, Bend: 0.05, Track: 1, Dist: 3, Az: -0.25 }),
+      ...U(1, { Body: BODY_LYRE, Level: 0.45, Size: 1.2, Tension: 0.3, Damp: 0.15, Char: 0.5, Hard: 0.4, Pos: 0.6, Grit: 0.05, Track: 1, Dist: 6, Az: 0.4 }),
+      terrain: 2, early: 0.55, tailMix: 0.42, tailDecay: 4, tailTone: 0.5, volume: 0.554,
+    },
+  },
+  {
+    name: 'Kantele', tag: 'instruments',
+    values: {
+      ...U(0, { Body: BODY_LYRE, Level: 0.85, Size: 0.7, Tension: 0.5, Damp: 0.2, Char: 0.35, Hard: 0.85, Pos: 0.8, Grit: 0.12, Bend: 0.1, Track: 1, Dist: 2.5, Az: 0.1 }),
+      terrain: 3, early: 0.45, tailMix: 0.35, tailDecay: 3.2, tailTone: 0.5, wind: 0.1,
+    },
+  },
+  {
+    name: 'Viol Consort', tag: 'instruments',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.6, Size: 1.4, Tension: 0.3, Damp: 0.25, Char: 0.6, Hard: 0.5, Pos: 0.9, Grit: 0.15, Track: 1, Dist: 4, Az: -0.5, KeyLo: 0, KeyHi: 52 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.6, Size: 0.9, Tension: 0.3, Damp: 0.25, Char: 0.55, Hard: 0.5, Pos: 0.9, Grit: 0.15, Track: 1, Dist: 4, Az: 0, KeyLo: 53, KeyHi: 64 }),
+      ...U(2, { Body: BODY_BOWED, Level: 0.55, Size: 0.55, Tension: 0.35, Damp: 0.3, Char: 0.5, Hard: 0.5, Pos: 0.9, Grit: 0.15, Track: 1, Dist: 4, Az: 0.5, KeyLo: 65, KeyHi: 127 }),
+      terrain: 2, early: 0.55, tailMix: 0.42, tailDecay: 3.5, tailTone: 0.45, volume: 0.774,
+    },
+  },
+  {
+    name: 'Lyre And Drone', tag: 'instruments',
+    values: {
+      ...U(0, { Body: BODY_LYRE, Level: 0.85, Size: 0.7, Tension: 0.3, Damp: 0.18, Char: 0.6, Hard: 0.7, Pos: 0.55, Grit: 0.1, Track: 1, Dist: 3, Az: 0.2 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.38, Size: 2.397, Tension: 0.3, Damp: 0.25, Char: 0.5, Hard: 0.5, Pos: 0.9, Grit: 0.25, Track: 0, Root: 38, Dist: 6, Az: -0.35 }),
+      terrain: 3, early: 0.5, tailMix: 0.42, tailDecay: 4, tailTone: 0.4, wind: 0.15, volume: 0.634,
+    },
+  },
+  {
+    name: 'Psaltery', tag: 'instruments',
+    values: {
+      ...U(0, { Body: BODY_LYRE, Level: 0.8, Size: 0.5, Tension: 0.7, Damp: 0.12, Char: 0.25, Hard: 0.95, Pos: 0.9, Grit: 0.1, Track: 1, Count: 2, Spread: 18, Cohesion: 0.4, Vary: 0.4, Dist: 3, Az: -0.15 }),
+      terrain: 2, early: 0.5, tailMix: 0.4, tailDecay: 3.5, tailTone: 0.55, volume: 0.66,
+    },
+  },
+  // ------------------------------------------------------------ mallets & bells
+  {
+    name: 'Bronze Marimba', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_BARS, Level: 0.85, Size: 0.75, Tension: 0.5, Damp: 0.22, Char: 0.95, Hard: 0.45, Pos: 0.3, Grit: 0.05, Track: 1, Dist: 3, Az: -0.2 }),
+      ...U(1, { Body: BODY_BARS, Level: 0.4, Size: 0.9, Tension: 0.55, Damp: 0.25, Char: 0.8, Hard: 0.35, Pos: 0.4, Track: 1, Dist: 6, Az: 0.4 }),
+      terrain: 2, early: 0.5, tailMix: 0.35, tailDecay: 2.8, tailTone: 0.5, volume: 0.557,
+    },
+  },
+  {
+    name: 'Glass Bells', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_BELL, Level: 0.643, Size: 0.35, Tension: 0.5, Damp: 0.1, Char: 0.15, Hard: 0.6, Pos: 0.25, Track: 1, Dist: 4, Az: 0.2 }),
+      ...U(1, { Body: BODY_BLADE, Level: 0.45, Size: 0.5, Tension: 0.4, Damp: 0.2, Char: 0, Hard: 0.4, Pos: 0.5, Track: 1, Dist: 6, Az: -0.35 }),
+      terrain: 2, early: 0.5, tailMix: 0.45, tailDecay: 4.5, tailTone: 0.6, volume: 1,
+    },
+  },
+  {
+    name: 'Carillon', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_BELL, Level: 0.55, Size: 1.6, Tension: 0.5, Damp: 0.05, Char: 0.35, Hard: 0.75, Pos: 0.15, Bend: 0.05, Track: 1, Dist: 110, Az: -0.25 }),
+      terrain: 1, early: 0.8, tailMix: 0.5, tailDecay: 7, tailTone: 0.35, air: 0.55, wind: 0.25, gust: 0.2, volume: 0.922,
+    },
+  },
+  {
+    name: 'Keep Music Box', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_ANVIL, Level: 0.35, Size: 0.2, Tension: 0.5, Damp: 0.3, Char: 0.8, Hard: 0.55, Pos: 0.3, Grit: 0.05, Track: 1, Dist: 3, Az: 0.15 }),
+      ...U(1, { Body: BODY_BARS, Level: 0.4, Size: 0.35, Tension: 0.6, Damp: 0.3, Char: 0.5, Hard: 0.7, Track: 1, Dist: 5, Az: -0.3 }),
+      terrain: 2, early: 0.55, tailMix: 0.45, tailDecay: 3.5, tailTone: 0.6, volume: 0.755,
+    },
+  },
+  {
+    name: 'Court Gamelan', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_GONG, Level: 0.55, Size: 0.45, Tension: 0.75, Damp: 0.2, Char: 0.35, Hard: 0.55, Pos: 0.2, Grit: 0.1, Track: 1, Dist: 6, Az: -0.3 }),
+      ...U(1, { Body: BODY_BARS, Level: 0.55, Size: 0.6, Tension: 0.7, Damp: 0.2, Char: 0.6, Hard: 0.7, Pos: 0.3, Track: 1, Dist: 5, Az: 0.35 }),
+      ...U(2, { Body: BODY_GONG, Level: 0.35, Size: 1.3, Tension: 0.4, Damp: 0.1, Char: 0.5, Hard: 0.3, Pos: 0.3, Track: 0, Dist: 10, KeyLo: 0, KeyHi: 47 }),
+      terrain: 3, early: 0.55, tailMix: 0.4, tailDecay: 4, tailTone: 0.45, volume: 0.725,
+    },
+  },
+  {
+    name: 'Tremolo Bells', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_BELL, Level: 0.898, Size: 0.6, Tension: 0.5, Damp: 0.1, Char: 0.2, Hard: 0.35, Pos: 0.2, Track: 1, Dist: 15, Az: 0.25, Roll: 6, Accent: 0.3 }),
+      tempo: 96, terrain: 2, early: 0.5, tailMix: 0.5, tailDecay: 5, tailTone: 0.5, volume: 1,
+    },
+  },
+  {
+    name: 'Wooden Kalimba', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_BARS, Level: 0.85, Size: 0.25, Tension: 0.7, Damp: 0.45, Char: 0.3, Hard: 0.85, Pos: 0.15, Grit: 0.1, Track: 1, Dist: 2, Az: 0.1 }),
+      ...U(1, { Body: BODY_LOG, Level: 0.35, Size: 0.3, Damp: 0.4, Char: 0.8, Hard: 0.7, Track: 1, Dist: 2, Az: -0.2 }),
+      terrain: 3, early: 0.45, tailMix: 0.3, tailDecay: 2, tailTone: 0.5, volume: 0.928,
+    },
+  },
+  {
+    name: 'Iron Vibes', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_ANVIL, Level: 0.4, Size: 0.7, Tension: 0.5, Damp: 0.1, Char: 0.9, Hard: 0.25, Pos: 0.3, Track: 1, Dist: 5, Az: -0.2 }),
+      ...U(1, { Body: BODY_BELL, Level: 0.25, Size: 0.5, Damp: 0.15, Char: 0.1, Hard: 0.3, Pos: 0.2, Track: 1, Dist: 8, Az: 0.35 }),
+      terrain: 2, early: 0.5, tailMix: 0.45, tailDecay: 4.5, tailTone: 0.5, volume: 0.327,
+    },
+  },
+  {
+    name: 'Temple Mallets', tag: 'mallets',
+    values: {
+      ...U(0, { Body: BODY_BELL, Level: 0.4, Size: 1, Tension: 0.5, Damp: 0.08, Char: 0.3, Hard: 0.4, Pos: 0.2, Track: 1, Dist: 25, Az: 0.4, KeyLo: 60, KeyHi: 127 }),
+      ...U(1, { Body: BODY_BARS, Level: 0.7, Size: 0.7, Tension: 0.5, Damp: 0.25, Char: 0.9, Hard: 0.5, Track: 1, Dist: 5, Az: -0.2 }),
+      ...U(2, { Body: BODY_LOG, Level: 0.5, Size: 0.9, Damp: 0.35, Char: 0.9, Hard: 0.45, Track: 1, Dist: 6, Az: -0.45, KeyLo: 0, KeyHi: 59 }),
+      terrain: 3, early: 0.55, tailMix: 0.42, tailDecay: 4, tailTone: 0.45, volume: 0.644,
+    },
+  },
+  // ------------------------------------------------------------ pads & drones
+  {
+    name: 'Cathedral Of Strings', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.55, Size: 0.6, Tension: 0.3, Damp: 0.2, Char: 0.55, Hard: 0.5, Pos: 0.9, Grit: 0.12, Track: 1, Dist: 8, Az: -0.6 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.55, Size: 0.95, Tension: 0.3, Damp: 0.2, Char: 0.6, Hard: 0.5, Pos: 0.9, Grit: 0.12, Track: 1, Dist: 10, Az: 0.05 }),
+      ...U(2, { Body: BODY_BOWED, Level: 0.5, Size: 1.4, Tension: 0.3, Damp: 0.2, Char: 0.65, Hard: 0.5, Pos: 0.9, Grit: 0.12, Track: 1, Dist: 12, Az: 0.6 }),
+      terrain: 3, early: 0.6, tailMix: 0.55, tailDecay: 6, tailTone: 0.4, volume: 0.615,
+    },
+  },
+  {
+    name: 'Horn Choir', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.6, Size: 1.6, Damp: 0.35, Char: 0.1, Partial: 2, Lip: 1, Breath: 0.7, Growl: 0.04, Track: 1, Count: 4, Spread: 150, Cohesion: 0.5, Vary: 0.35, Dist: 30, Az: -0.5 }),
+      ...U(1, { Body: BODY_HORN, Level: 0.5, Size: 1.2, Damp: 0.38, Char: 0.1, Partial: 3, Lip: 1, Breath: 0.9, Growl: 0.04, Track: 1, Count: 4, Spread: 150, Cohesion: 0.5, Vary: 0.35, Dist: 40, Az: 0.5 }),
+      terrain: 1, early: 0.55, tailMix: 0.55, tailDecay: 6, tailTone: 0.35, air: 0.5, volume: 0.819,
+    },
+  },
+  {
+    name: 'Reed Organ Drone', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_PIPE, Level: 0.55, Size: 0.8, Damp: 0.35, Char: 0.3, Partial: 1, Lip: 1, Breath: 0.5, Growl: 0.04, Track: 1, Count: 4, Spread: 60, Cohesion: 0.7, Vary: 0.3, Dist: 10, Az: -0.45 }),
+      ...U(1, { Body: BODY_PIPE, Level: 0.45, Size: 1.3, Damp: 0.4, Char: 0.2, Partial: 1, Lip: 1, Breath: 0.7, Growl: 0.04, Track: 1, Count: 4, Spread: 60, Cohesion: 0.7, Vary: 0.3, Dist: 12, Az: 0.45 }),
+      terrain: 2, early: 0.5, tailMix: 0.5, tailDecay: 5, tailTone: 0.4, volume: 0.722,
+    },
+  },
+  {
+    name: 'Flute Mist', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_FLUTE, Level: 0.6, Size: 0.5, Damp: 0.3, Char: 0.85, Partial: 1, Lip: 1, Breath: 0.45, Growl: 0.15, Track: 1, Count: 4, Spread: 200, Cohesion: 0.4, Vary: 0.4, Dist: 35, Az: -0.4 }),
+      ...U(1, { Body: BODY_FLUTE, Level: 0.45, Size: 0.7, Damp: 0.3, Char: 0.7, Partial: 1, Lip: 1, Breath: 0.6, Growl: 0.1, Track: 1, Count: 3, Spread: 200, Cohesion: 0.4, Vary: 0.4, Dist: 50, Az: 0.5 }),
+      terrain: 1, early: 0.7, tailMix: 0.55, tailDecay: 7, tailTone: 0.35, air: 0.6, wind: 0.3, gust: 0.2, windBed: 0.2, volume: 0.996,
+    },
+  },
+  {
+    name: 'Strings And Gong', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.55, Size: 0.8, Tension: 0.3, Damp: 0.2, Char: 0.6, Hard: 0.5, Pos: 0.9, Grit: 0.1, Track: 1, Dist: 8, Az: -0.4 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.45, Size: 1.2, Tension: 0.3, Damp: 0.2, Char: 0.55, Hard: 0.5, Pos: 0.9, Grit: 0.1, Track: 1, Dist: 10, Az: 0.45 }),
+      ...U(2, { Body: BODY_GONG, Level: 0.25, Size: 1, Tension: 0.4, Damp: 0.05, Char: 0.6, Hard: 0.1, Pos: 0.3, Track: 1, Dist: 15, Az: 0.1 }),
+      terrain: 3, early: 0.55, tailMix: 0.55, tailDecay: 7, tailTone: 0.4, volume: 0.723,
+    },
+  },
+  {
+    name: 'Hurdy Drone Field', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.6, Size: 0.7, Tension: 0.3, Damp: 0.25, Char: 0.6, Hard: 0.5, Pos: 0.9, Grit: 0.3, Track: 1, Dist: 4, Az: 0.25 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.4, Size: 2.691, Tension: 0.3, Damp: 0.25, Char: 0.7, Hard: 0.5, Pos: 0.9, Grit: 0.35, Track: 0, Root: 36, Dist: 5, Az: -0.4 }),
+      ...U(2, { Body: BODY_BOWED, Level: 0.3, Size: 1.796, Tension: 0.3, Damp: 0.25, Char: 0.6, Hard: 0.5, Pos: 0.9, Grit: 0.3, Track: 0, Root: 43, Dist: 5, Az: -0.1 }),
+      terrain: 0, early: 0.4, tailMix: 0.45, tailDecay: 4.5, tailTone: 0.4, wind: 0.3, gust: 0.2, windBed: 0.2, volume: 0.585,
+    },
+  },
+  {
+    name: 'Ancestral Drone', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.929, Size: 3.2, Damp: 0.25, Char: 0.05, Partial: 1, Lip: 1, Breath: 1.6, Growl: 0.12, Track: 1, Count: 4, Spread: 400, Cohesion: 0.4, Vary: 0.2, Dist: 55, Az: 0 }),
+      terrain: 1, early: 0.6, tailMix: 0.55, tailDecay: 8, tailTone: 0.25, air: 0.6, wind: 0.35, gust: 0.15, windBed: 0.25, volume: 1,
+    },
+  },
+  {
+    name: 'Long Night', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 1, Size: 1, Tension: 0.3, Damp: 0.2, Char: 0.55, Hard: 0.5, Pos: 0.9, Grit: 0.1, Track: 1, Dist: 140, Az: -0.4 }),
+      ...U(1, { Body: BODY_FLUTE, Level: 1, Size: 0.6, Damp: 0.3, Char: 0.8, Partial: 1, Lip: 1, Breath: 0.6, Growl: 0.1, Track: 1, Count: 2, Spread: 150, Cohesion: 0.5, Vary: 0.3, Dist: 200, Az: 0.5 }),
+      terrain: 1, early: 0.75, tailMix: 0.6, tailDecay: 9, tailTone: 0.3, air: 0.75, wind: 0.5, gust: 0.15, windBed: 0.4, volume: 1,
+    },
+  },
+  {
+    name: 'Ember Choir', tag: 'pads',
+    values: {
+      ...U(0, { Body: BODY_FLUTE, Level: 0.5, Size: 0.6, Damp: 0.3, Char: 0.6, Partial: 1, Lip: 1, Breath: 0.5, Growl: 0.06, Track: 1, Count: 4, Spread: 120, Cohesion: 0.5, Vary: 0.3, Dist: 15, Az: -0.35 }),
+      ...U(1, { Body: BODY_PIPE, Level: 0.32, Size: 1.1, Damp: 0.45, Char: 0.1, Partial: 1, Lip: 1, Breath: 0.6, Growl: 0.03, Track: 1, Count: 3, Spread: 120, Cohesion: 0.5, Vary: 0.3, Dist: 18, Az: 0.4 }),
+      ...U(2, { Body: BODY_BOWED, Level: 0.35, Size: 1.2, Tension: 0.3, Damp: 0.2, Char: 0.5, Pos: 0.9, Grit: 0.08, Track: 1, Dist: 20, Az: 0 }),
+      terrain: 3, early: 0.55, tailMix: 0.55, tailDecay: 6, tailTone: 0.35, volume: 0.979,
+    },
+  },
+  // ------------------------------------------------------------ leads
+  {
+    name: 'Ridge Horn Lead', tag: 'leads',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.8, Size: 1.3, Damp: 0.3, Char: 0.35, Partial: 3, Lip: 1, Breath: 0.06, Growl: 0.15, Track: 1, Dist: 18, Az: 0.1 }),
+      bend: 2, terrain: 1, early: 0.65, tailMix: 0.42, tailDecay: 4.5, tailTone: 0.4, air: 0.5,
+    },
+  },
+  {
+    name: 'Bone Whistle', tag: 'leads',
+    values: {
+      ...U(0, { Body: BODY_FLUTE, Level: 0.75, Size: 0.25, Damp: 0.3, Char: 0.4, Partial: 1, Lip: 1, Breath: 0.02, Growl: 0.2, Track: 1, Dist: 4, Az: -0.1 }),
+      bend: 2, terrain: 3, early: 0.5, tailMix: 0.42, tailDecay: 3.5, tailTone: 0.45, wind: 0.15, volume: 0.627,
+    },
+  },
+  {
+    name: 'Highland Pipes', tag: 'leads',
+    values: {
+      ...U(0, { Body: BODY_PIPE, Level: 0.65, Size: 0.45, Damp: 0.35, Char: 0.75, Partial: 1, Lip: 1, Breath: 0.03, Growl: 0.08, Track: 1, Count: 2, Spread: 10, Cohesion: 0.9, Vary: 0.12, Dist: 12, Az: 0.2, KeyLo: 55, KeyHi: 127 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.4, Size: 1.6, Tension: 0.3, Damp: 0.3, Char: 0.8, Pos: 0.9, Grit: 0.45, Track: 0, Root: 45, Dist: 12, Az: -0.3, KeyLo: 55, KeyHi: 127 }),
+      ...U(2, { Body: BODY_BOWED, Level: 0.3, Size: 0.8, Tension: 0.3, Damp: 0.3, Char: 0.75, Pos: 0.9, Grit: 0.4, Track: 0, Root: 57, Dist: 12, Az: -0.1, KeyLo: 55, KeyHi: 127 }),
+      terrain: 1, early: 0.65, tailMix: 0.4, tailDecay: 4, tailTone: 0.4, wind: 0.25, volume: 0.865,
+    },
+  },
+  {
+    name: 'Fiddle Lead', tag: 'leads',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.85, Size: 0.4, Tension: 0.4, Damp: 0.25, Char: 0.62, Hard: 0.5, Pos: 0.9, Grit: 0.28, Track: 1, Dist: 3, Az: 0.15 }),
+      terrain: 2, early: 0.5, tailMix: 0.35, tailDecay: 2.8, tailTone: 0.45, volume: 0.803,
+    },
+  },
+  {
+    name: 'Brass Cry', tag: 'leads',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.75, Size: 1, Damp: 0.35, Char: 0.6, Partial: 4, Lip: 1.06, Breath: 0.04, Growl: 0.4, Track: 1, Dist: 10, Az: -0.15 }),
+      bend: 3, terrain: 2, early: 0.6, tailMix: 0.38, tailDecay: 3.5, tailTone: 0.4, proximity: 0.5, volume: 0.818,
+    },
+  },
+  {
+    name: 'Shawm', tag: 'leads',
+    values: {
+      ...U(0, { Body: BODY_PIPE, Level: 0.6, Size: 0.35, Damp: 0.4, Char: 0.95, Partial: 1, Lip: 1, Breath: 0.03, Growl: 0.2, Track: 1, Dist: 6, Az: 0.1 }),
+      terrain: 2, early: 0.6, tailMix: 0.35, tailDecay: 3, tailTone: 0.45, volume: 0.597,
+    },
+  },
+  {
+    name: 'Signal Trumpet', tag: 'leads',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.8, Size: 0.9, Damp: 0.35, Char: 0.45, Partial: 4, Snap: 1, Lip: 1, Breath: 0.03, Growl: 0.12, Track: 1, Root: 48, Dist: 140, Az: 0.45 }),
+      terrain: 1, early: 0.85, tailMix: 0.5, tailDecay: 6, tailTone: 0.35, air: 0.55, wind: 0.3, gust: 0.25, volume: 0.828,
+    },
+  },
+  // ------------------------------------------------------------ bass
+  {
+    name: 'War 808', tag: 'bass',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.95, Size: 1.6, Tension: 0.3, Damp: 0.08, Char: 0.95, Hard: 0.55, Pos: 0.15, Grit: 0.1, Bend: 0.9, Track: 1, Dist: 4 }),
+      terrain: 2, early: 0.2, tailMix: 0.15, tailDecay: 1.5, tailTone: 0.3, proximity: 0.7, volume: 0.566,
+    },
+  },
+  {
+    name: 'Deep Horn Bass', tag: 'bass',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.85, Size: 3, Damp: 0.3, Char: 0.05, Partial: 1, Lip: 1, Breath: 0.03, Growl: 0.1, Track: 1, Dist: 6 }),
+      terrain: 2, early: 0.35, tailMix: 0.2, tailDecay: 2, tailTone: 0.3, proximity: 0.6, volume: 0.496,
+    },
+  },
+  {
+    name: 'Timpani Bass', tag: 'bass',
+    values: {
+      ...U(0, { Body: BODY_TIMPANI, Level: 0.95, Size: 1.3, Tension: 0.4, Damp: 0.2, Char: 0.9, Hard: 0.5, Pos: 0.75, Grit: 0.05, Bend: 0.5, Track: 1, Dist: 5 }),
+      terrain: 2, early: 0.4, tailMix: 0.25, tailDecay: 2.5, tailTone: 0.35, proximity: 0.5,
+    },
+  },
+  {
+    name: 'Log Bass', tag: 'bass',
+    values: {
+      ...U(0, { Body: BODY_LOG, Level: 0.9, Size: 1.6, Damp: 0.35, Char: 0.85, Hard: 0.55, Pos: 0.3, Grit: 0.2, Bend: 0.3, Track: 1, Dist: 3 }),
+      terrain: 3, early: 0.35, tailMix: 0.2, tailDecay: 1.6, tailTone: 0.4, volume: 0.923,
+    },
+  },
+  {
+    name: 'Gut String Bass', tag: 'bass',
+    values: {
+      ...U(0, { Body: BODY_LYRE, Level: 0.9, Size: 1.5, Tension: 0.2, Damp: 0.35, Char: 0.9, Hard: 0.6, Pos: 0.3, Grit: 0.1, Bend: 0.15, Track: 1, Dist: 2.5 }),
+      terrain: 2, early: 0.35, tailMix: 0.2, tailDecay: 1.8, tailTone: 0.4, volume: 0.659,
+    },
+  },
+  {
+    name: 'Bowed Bass', tag: 'bass',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.85, Size: 1.8, Tension: 0.25, Damp: 0.25, Char: 0.7, Hard: 0.5, Pos: 0.9, Grit: 0.22, Track: 1, Dist: 4, Az: -0.1 }),
+      terrain: 2, early: 0.45, tailMix: 0.3, tailDecay: 3, tailTone: 0.35, volume: 0.574,
+    },
+  },
+  // ------------------------------------------------------------ crowds
+  {
+    name: 'Pilgrims', tag: 'crowds',
+    values: {
+      ...U(0, { Body: BODY_FEET, Level: 1, Size: 1.1, Damp: 0.55, Char: 0.6, Hard: 0.3, Grit: 0.6, Count: 300, Spread: 500, Cohesion: 0.2, Vary: 0.7, Dist: 40, Az: -0.2, Roll: 2 }),
+      ...U(1, { Body: BODY_BELL, Level: 1, Size: 0.5, Damp: 0.1, Char: 0.2, Hard: 0.4, Count: 3, Spread: 600, Cohesion: 0.1, Vary: 0.6, Dist: 50, Az: 0.3, Roll: 1 }),
+      tempo: 72, terrain: 1, early: 0.6, tailMix: 0.45, tailDecay: 5, tailTone: 0.35, ground: 0.6, air: 0.5, wind: 0.35, windBed: 0.2, volume: 1,
+    },
+  },
+  {
+    name: 'Army Camp At Dusk', tag: 'crowds',
+    values: {
+      ...U(0, { Body: BODY_ANVIL, Level: 0.48, Size: 0.5, Damp: 0.4, Char: 0.6, Hard: 0.9, Count: 4, Spread: 1500, Cohesion: 0, Vary: 0.8, Dist: 80, Az: -0.6 }),
+      ...U(1, { Body: BODY_LOG, Level: 0.768, Size: 0.6, Damp: 0.6, Char: 0.4, Hard: 0.6, Grit: 0.5, Count: 10, Spread: 1800, Cohesion: 0, Vary: 0.9, Dist: 50, Az: 0.4 }),
+      ...U(2, { Body: BODY_HOOVES, Level: 0.672, Size: 1, Damp: 0.5, Char: 0.8, Hard: 0.4, Grit: 0.6, Count: 8, Spread: 1200, Cohesion: 0, Vary: 0.8, Dist: 60, Az: 0.7 }),
+      ...U(3, { Body: BODY_HORN, Level: 0.959, Size: 1.5, Damp: 0.35, Char: 0.4, Partial: 3, Breath: 0.2, Growl: 0.15, Track: 1, Dist: 400, Az: -0.3, KeyLo: 60, KeyHi: 127 }),
+      terrain: 1, early: 0.7, tailMix: 0.5, tailDecay: 6, tailTone: 0.3, air: 0.65, wind: 0.45, gust: 0.2, windBed: 0.45, volume: 1,
+    },
+  },
+  {
+    name: 'Phalanx Advance', tag: 'crowds',
+    values: {
+      ...U(0, { Body: BODY_SHIELD, Level: 1, Size: 0.75, Damp: 0.5, Char: 0.6, Hard: 0.65, Grit: 0.6, Pos: 0.5, Count: 80, Spread: 60, Cohesion: 0.95, Vary: 0.4, Dist: 10, Roll: 2, Accent: 0.6 }),
+      ...U(1, { Body: BODY_FEET, Level: 1, Size: 1, Damp: 0.5, Char: 0.3, Hard: 0.5, Grit: 0.7, Count: 1000, Spread: 160, Cohesion: 0.7, Vary: 0.6, Dist: 12, Roll: 3, Accent: 0.4 }),
+      tempo: 96, approach: 12, approachFrom: 3, terrain: 0, early: 0.35, tailMix: 0.3, tailDecay: 2.5, ground: 0.7, wind: 0.25, volume: 0.903,
+    },
+  },
+  // ------------------------------------------------------------ cannon & siege
+  {
+    name: 'Musket Volley', tag: 'cannon',
+    values: {
+      ...U(0, { Body: BODY_CANNON, Level: 1, Size: 0.3, Damp: 0.4, Char: 0.1, Hard: 0.9, Grit: 0.6, Count: 40, Spread: 350, Cohesion: 0.55, Vary: 0.7, Dist: 120, Az: 0.2 }),
+      terrain: 1, early: 0.85, tailMix: 0.5, tailDecay: 5, tailTone: 0.3, ground: 0.5, air: 0.55, wind: 0.3, volume: 1,
+    },
+  },
+  {
+    name: 'Mortar Line', tag: 'cannon',
+    values: {
+      ...U(0, { Body: BODY_CANNON, Level: 1, Size: 1.8, Damp: 0.25, Char: 1, Hard: 0.5, Grit: 0.4, Count: 3, Spread: 1600, Cohesion: 0.1, Vary: 0.6, Dist: 420, Az: -0.3 }),
+      terrain: 1, early: 0.9, tailMix: 0.6, tailDecay: 10, tailTone: 0.2, ground: 0.5, air: 0.7, wind: 0.45, gust: 0.2, windBed: 0.3, volume: 1,
+    },
+  },
+  {
+    name: 'Bombardment', tag: 'cannon',
+    values: {
+      ...U(0, { Body: BODY_CANNON, Level: 0.9, Size: 1.4, Damp: 0.3, Char: 0.8, Hard: 0.6, Grit: 0.5, Count: 5, Spread: 2000, Cohesion: 0, Vary: 0.7, Dist: 250, Az: -0.6 }),
+      ...U(1, { Body: BODY_CANNON, Level: 0.9, Size: 1.1, Damp: 0.3, Char: 0.7, Hard: 0.6, Grit: 0.5, Count: 4, Spread: 2000, Cohesion: 0, Vary: 0.7, Dist: 500, Az: 0.5 }),
+      ...U(2, { Body: BODY_LOG, Level: 0.3, Size: 2.5, Damp: 0.4, Char: 0.6, Hard: 0.3, Grit: 0.8, Count: 40, Spread: 2000, Cohesion: 0, Vary: 0.9, Dist: 60 }),
+      terrain: 1, early: 0.85, tailMix: 0.55, tailDecay: 9, tailTone: 0.2, ground: 0.6, air: 0.6, wind: 0.4, windBed: 0.25, volume: 0.982,
+    },
+  },
+  // ------------------------------------------------------------ cinematic
+  {
+    name: 'Trailer Hit', tag: 'cinematic',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.95, Size: 2.8, Tension: 0.2, Damp: 0.2, Char: 1, Hard: 0.6, Pos: 0.15, Grit: 0.2, Bend: 0.8, Count: 8, Spread: 20, Cohesion: 0.95, Vary: 0.3, Dist: 8 }),
+      ...U(1, { Body: BODY_GONG, Level: 0.25, Size: 1.6, Tension: 0.3, Damp: 0.08, Char: 0.9, Hard: 0.3, Pos: 0.4, Dist: 10, Az: 0.3 }),
+      ...U(2, { Body: BODY_SHIELD, Level: 0.45, Size: 0.8, Damp: 0.5, Char: 0.6, Hard: 0.8, Grit: 0.6, Count: 100, Spread: 40, Cohesion: 0.9, Dist: 12, Az: -0.3 }),
+      ...U(3, { Body: BODY_CANNON, Level: 0.4, Size: 1.6, Damp: 0.3, Char: 0.6, Hard: 0.5, Dist: 15 }),
+      terrain: 1, early: 0.55, tailMix: 0.5, tailDecay: 6, tailTone: 0.3, proximity: 0.7, volume: 0.436,
+    },
+  },
+  {
+    name: 'Braam Wall', tag: 'cinematic',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.8, Size: 3, Damp: 0.2, Char: 0.85, Partial: 2, Lip: 0.94, Breath: 0.5, Growl: 0.55, Track: 1, Count: 4, Spread: 80, Cohesion: 0.5, Vary: 0.5, Dist: 25, Az: -0.5 }),
+      ...U(1, { Body: BODY_HORN, Level: 0.7, Size: 2.4, Damp: 0.22, Char: 0.8, Partial: 3, Lip: 0.96, Breath: 0.55, Growl: 0.5, Track: 1, Count: 4, Spread: 80, Cohesion: 0.5, Vary: 0.5, Dist: 25, Az: 0.5 }),
+      ...U(2, { Body: BODY_DRUM, Level: 0.7, Size: 2.5, Tension: 0.2, Damp: 0.2, Char: 1, Hard: 0.4, Bend: 0.7, Count: 8, Spread: 30, Cohesion: 0.9, Dist: 15 }),
+      terrain: 2, early: 0.5, tailMix: 0.5, tailDecay: 6, tailTone: 0.3, proximity: 0.7,
+    },
+  },
+  {
+    name: 'Doom Pulse', tag: 'cinematic',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.95, Size: 2.4, Tension: 0.2, Damp: 0.25, Char: 1, Hard: 0.45, Pos: 0.15, Bend: 0.7, Count: 4, Spread: 15, Cohesion: 0.95, Dist: 10, Roll: 1, Accent: 0.5 }),
+      ...U(1, { Body: BODY_HORN, Level: 0.55, Size: 3.2, Damp: 0.25, Char: 0.2, Partial: 1, Breath: 1.2, Growl: 0.3, Track: 1, Count: 3, Spread: 200, Cohesion: 0.5, Vary: 0.3, Dist: 40 }),
+      tempo: 70, terrain: 1, early: 0.6, tailMix: 0.5, tailDecay: 6, tailTone: 0.25, proximity: 0.6, volume: 0.834,
+    },
+  },
+  {
+    name: 'The Approach Riser', tag: 'cinematic',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.85, Size: 0.9, Tension: 0.45, Damp: 0.3, Char: 0.6, Hard: 0.55, Grit: 0.3, Bend: 0.3, Count: 8, Spread: 30, Cohesion: 0.7, Vary: 0.4, Dist: 20, Roll: 5, Accent: 0.5 }),
+      ...U(1, { Body: BODY_DRUM, Level: 0.8, Size: 2, Tension: 0.25, Damp: 0.25, Char: 1, Hard: 0.45, Bend: 0.6, Count: 6, Spread: 20, Cohesion: 0.9, Dist: 20, Roll: 2, Accent: 0.3 }),
+      ...U(2, { Body: BODY_SHIELD, Level: 0.4, Size: 0.7, Damp: 0.5, Char: 0.6, Hard: 0.7, Grit: 0.6, Count: 60, Spread: 60, Cohesion: 0.8, Dist: 25, Az: 0.3, Roll: 3, Accent: 0.6 }),
+      tempo: 120, approach: 12, approachFrom: 8, rally: 10, terrain: 1, early: 0.55, tailMix: 0.4, tailDecay: 4, tailTone: 0.35, ground: 0.6, volume: 0.905,
+    },
+  },
+  {
+    name: 'Low Strings Omen', tag: 'cinematic',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.65, Size: 2, Tension: 0.25, Damp: 0.2, Char: 0.75, Hard: 0.5, Pos: 0.9, Grit: 0.3, Track: 1, Count: 2, Spread: 40, Cohesion: 0.5, Dist: 20, Az: -0.5 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.6, Size: 1.6, Tension: 0.25, Damp: 0.2, Char: 0.7, Hard: 0.5, Pos: 0.9, Grit: 0.25, Track: 1, Dist: 25, Az: 0.5 }),
+      ...U(2, { Body: BODY_DRUM, Level: 0.5, Size: 2.6, Tension: 0.15, Damp: 0.2, Char: 1, Hard: 0.3, Bend: 0.5, Dist: 60, KeyLo: 0, KeyHi: 47 }),
+      terrain: 1, early: 0.65, tailMix: 0.55, tailDecay: 7, tailTone: 0.25, air: 0.5, wind: 0.3, windBed: 0.2, volume: 0.901,
+    },
+  },
+  {
+    name: 'Impact And Bloom', tag: 'cinematic',
+    values: {
+      ...U(0, { Body: BODY_CANNON, Level: 0.8, Size: 1.5, Damp: 0.3, Char: 0.7, Hard: 0.6, Grit: 0.4, Dist: 30 }),
+      ...U(1, { Body: BODY_GONG, Level: 0.35, Size: 1.8, Tension: 0.3, Damp: 0.05, Char: 1, Hard: 0.25, Pos: 0.4, Bend: 0.3, Track: 1, Dist: 12, Az: -0.2 }),
+      terrain: 1, early: 0.6, tailMix: 0.55, tailDecay: 8, tailTone: 0.3, proximity: 0.6, volume: 0.538,
+    },
+  },
+  {
+    name: 'Tension Bed', tag: 'cinematic',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.507, Size: 0.45, Tension: 0.4, Damp: 0.25, Char: 0.45, Hard: 0.5, Pos: 0.9, Grit: 0.35, Track: 1, Count: 2, Spread: 50, Cohesion: 0.4, Dist: 15, Az: 0.4 }),
+      ...U(1, { Body: BODY_BLADE, Level: 0.456, Size: 1.2, Tension: 0.5, Damp: 0.3, Char: 0.3, Hard: 0.5, Grit: 0.6, Track: 1, Dist: 8, Az: -0.4 }),
+      terrain: 2, early: 0.55, tailMix: 0.5, tailDecay: 6, tailTone: 0.35, wind: 0.4, gust: 0.3, windBed: 0.3, volume: 1,
+    },
+  },
+  // ------------------------------------------------------------ fx
+  {
+    name: 'Iron Whale', tag: 'fx',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.754, Size: 4, Tension: 0.1, Damp: 0.15, Char: 0.8, Hard: 0.5, Pos: 0.9, Grit: 0.2, Bend: 0.6, Track: 1, Dist: 30 }),
+      ...U(1, { Body: BODY_GONG, Level: 0.323, Size: 2.5, Tension: 0.2, Damp: 0.05, Char: 0.8, Hard: 0.1, Bend: 0.6, Track: 1, Dist: 40, Az: 0.4 }),
+      bend: 12, terrain: 1, early: 0.7, tailMix: 0.6, tailDecay: 10, tailTone: 0.25, air: 0.6, volume: 1,
+    },
+  },
+  {
+    name: 'Ghost Signal', tag: 'fx',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 1, Size: 1.4, Damp: 0.35, Char: 0.5, Partial: 3, Lip: 1.04, Breath: 0.3, Growl: 0.4, Track: 1, Count: 2, Spread: 300, Cohesion: 0.3, Vary: 0.6, Dist: 450, Az: 0.6 }),
+      terrain: 1, early: 1, tailMix: 0.65, tailDecay: 11, tailTone: 0.2, air: 0.9, wind: 0.8, gust: 0.12, windBed: 0.5, volume: 1,
+    },
+  },
+  {
+    name: 'Storm Front', tag: 'fx',
+    values: {
+      ...U(0, { Body: BODY_SHIELD, Level: 1, Size: 4, Tension: 0.1, Damp: 0.15, Char: 0.1, Hard: 0.1, Pos: 0.5, Grit: 0.7, Bend: 0.7, Count: 8, Spread: 1200, Cohesion: 0, Vary: 0.6, Dist: 150 }),
+      ...U(1, { Body: BODY_CANNON, Level: 1, Size: 2.5, Damp: 0.2, Char: 1, Hard: 0.3, Grit: 0.3, Dist: 700, Az: -0.5 }),
+      terrain: 1, early: 0.9, tailMix: 0.6, tailDecay: 11, tailTone: 0.2, air: 0.8, wind: 0.8, gust: 0.35, windBed: 0.7, volume: 1,
+    },
+  },
+  {
+    name: 'Glass Wind', tag: 'fx',
+    values: {
+      ...U(0, { Body: BODY_BLADE, Level: 0.627, Size: 0.5, Tension: 0.4, Damp: 0.15, Char: 0.2, Hard: 0.4, Pos: 0.5, Grit: 0.3, Track: 1, Dist: 20, Az: -0.4 }),
+      ...U(1, { Body: BODY_BELL, Level: 0.251, Size: 0.3, Damp: 0.1, Char: 0.2, Hard: 0.4, Count: 6, Spread: 1500, Cohesion: 0, Vary: 0.8, Dist: 30, Az: 0.5 }),
+      terrain: 2, early: 0.55, tailMix: 0.6, tailDecay: 8, tailTone: 0.55, wind: 0.7, gust: 0.3, windBed: 0.6, volume: 1,
+    },
+  },
+  {
+    name: 'Broken Bells', tag: 'fx',
+    values: {
+      ...U(0, { Body: BODY_BELL, Level: 0.35, Size: 1.2, Tension: 0.3, Damp: 0.1, Char: 1, Hard: 0.85, Pos: 0.6, Grit: 0.5, Bend: 0.5, Count: 5, Spread: 300, Cohesion: 0.2, Vary: 1, Dist: 30, Az: 0.2 }),
+      terrain: 2, early: 0.6, tailMix: 0.5, tailDecay: 6, tailTone: 0.35, volume: 0.489,
+    },
+  },
+  {
+    name: 'Earthquake', tag: 'fx',
+    values: {
+      ...U(0, { Body: BODY_LOG, Level: 0.669, Size: 4, Damp: 0.3, Char: 0.9, Hard: 0.2, Grit: 0.9, Bend: 0.6, Count: 120, Spread: 2000, Cohesion: 0, Vary: 0.9, Dist: 30 }),
+      ...U(1, { Body: BODY_CANNON, Level: 0.669, Size: 3, Damp: 0.2, Char: 1, Hard: 0.2, Grit: 0.2, Dist: 60 }),
+      terrain: 1, early: 0.6, tailMix: 0.5, tailDecay: 7, tailTone: 0.15, ground: 0.9, proximity: 0.8, volume: 0.964,
+    },
+  },
+  {
+    name: 'Rusted Gate', tag: 'fx',
+    values: {
+      ...U(0, { Body: BODY_BLADE, Level: 0.6, Size: 2, Tension: 0.3, Damp: 0.35, Char: 0.85, Hard: 0.4, Pos: 0.7, Grit: 0.95, Track: 1, Dist: 5, Az: -0.3 }),
+      ...U(1, { Body: BODY_LOG, Level: 0.5, Size: 2.5, Damp: 0.3, Char: 0.8, Hard: 0.3, Grit: 0.6, Dist: 6, Az: 0.2 }),
+      terrain: 2, early: 0.65, tailMix: 0.4, tailDecay: 3.5, tailTone: 0.35, volume: 0.73,
+    },
+  },
+  // ------------------------------------------------------------ init
   {
     name: 'Init', tag: 'init',
     values: {},

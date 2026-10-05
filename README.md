@@ -155,7 +155,9 @@ Chrome, plays, checks the output level and screenshots the three views.
 
 ## Presets
 
-58, grouped in a searchable browser (click the preset name or press `` ` ``, `Esc` closes); `< >` step through them in browser order.
+139, grouped in a compact, searchable browser (click the preset name or press `` ` ``, `Esc` closes); `< >` step through them in browser order.
+
+The first bank, as it was:
 
 | category | presets |
 |---|---|
@@ -167,6 +169,31 @@ Chrome, plays, checks the output level and screenshots the three views.
 | cannon & siege | Cannon 50 m · Cannon 800 m · Battery · Siege Gate |
 | the field | Battlefield Kit (eight units across the keys) · Quiet War · Approach · The Charge · Night Watch · Forge |
 | signals | Alarm Bells · War Bells · Grinding Stone · Bronze Drums · Gong Wall · Thunder Sheet · Hollow Logs · Ridge Echo Test |
+
+The second bank, after the first so its numbers stay put, adds what plays as
+well as it stages. The **rhythms** are grooves from one held key: several units
+on the same keys, each rolling on its own division of the march clock, with
+the accent marking the bar. The drones in *Hurdy Drone Field*, *Lyre And Drone*
+and *Highland Pipes* are bowed strings that don't track the keys; their size is
+set so the string's own pitch is the root they are bowed at. Every new preset
+is level-matched on the test phrase: about −15 LUFS short-term for close
+sounds, about −22 for the far ones.
+
+| category | presets |
+|---|---|
+| drums | Talking Drum · Ceremonial Kick · Hand Drums · Tom Cascade · Iron Kit · Drums In The Valley |
+| rhythms | War March Groove · Gallop · Galley Oars · Forge Rhythm · Ritual Toms · Bell Ostinato · Marimba Pulse · Clockwork Siege · Camp Fire Dance |
+| metal | Singing Steel · Bell Tree · Chain Mail · Bronze Cymbal · Great Gong |
+| horns | Lur Pair · Conch · Alphorn Valley · Horn Chorale · Rams Horn |
+| instruments | Harp Of The Hall · Kantele · Viol Consort · Lyre And Drone · Psaltery |
+| mallets & bells | Bronze Marimba · Glass Bells · Carillon · Keep Music Box · Court Gamelan · Tremolo Bells · Wooden Kalimba · Iron Vibes · Temple Mallets |
+| pads & drones | Cathedral Of Strings · Horn Choir · Reed Organ Drone · Flute Mist · Strings And Gong · Hurdy Drone Field · Ancestral Drone · Long Night · Ember Choir |
+| leads | Ridge Horn Lead · Bone Whistle · Highland Pipes · Fiddle Lead · Brass Cry · Shawm · Signal Trumpet |
+| bass | War 808 · Deep Horn Bass · Timpani Bass · Log Bass · Gut String Bass · Bowed Bass |
+| crowds | Pilgrims · Army Camp At Dusk · Phalanx Advance |
+| cannon & siege | Musket Volley · Mortar Line · Bombardment |
+| cinematic | Trailer Hit · Braam Wall · Doom Pulse · The Approach Riser · Low Strings Omen · Impact And Bloom · Tension Bed |
+| fx | Iron Whale · Ghost Signal · Storm Front · Glass Wind · Broken Bells · Earthquake · Rusted Gate |
 
 ## UI
 
