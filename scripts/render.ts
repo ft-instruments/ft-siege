@@ -8,6 +8,7 @@
 //   node scripts/render.ts bench                  -> CPU timing only
 //   node scripts/render.ts modes drum             -> print the mode table of a body
 //   node scripts/render.ts distance               -> arrival time and spectrum tilt per distance
+//   node scripts/render.ts raw [dir]              -> <dir>/<preset>.f32, raw float32 stereo, for scripts/null-test.ts
 
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { SiegeEngine } from '../src/dsp/engine.ts';
@@ -154,6 +155,19 @@ if (mode === 'note') {
     for (let i = 0; i < L.length; i++) { const a = Math.abs(L[i]); if (a > peak) peak = a; if (first < 0 && a > 1e-3) first = i; }
     console.log(`${String(dist).padStart(4)} m: first sound at ${(first / FS).toFixed(3)} s (expected ${(dist / 343).toFixed(3)} s), peak ${db(peak)} dBFS`);
   }
+} else if (mode === 'raw') {
+  // the same phrase as the default mode, unquantised, to compare against the C++ engine
+  const dir = process.argv[3] ?? `${outDir}/ts`;
+  mkdirSync(dir, { recursive: true });
+  for (const pr of PRESETS) {
+    const e = new SiegeEngine(FS);
+    e.loadPreset(pr.values);
+    const [L, R] = phrase(e, 10);
+    const inter = new Float32Array(L.length * 2);
+    for (let i = 0; i < L.length; i++) { inter[2 * i] = L[i]; inter[2 * i + 1] = R[i]; }
+    writeFileSync(`${dir}/${pr.name.toLowerCase().replace(/\s+/g, '-')}.f32`, new Uint8Array(inter.buffer));
+  }
+  console.log(`wrote ${PRESETS.length} presets to ${dir}`);
 } else {
   let ok = true;
   for (const pr of PRESETS) {

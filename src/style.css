@@ -233,3 +233,21 @@
   clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%, 0 12px);
 }
 
+
+/* inside the plugin the host owns the audio device and the MIDI inputs */
+.in-plugin .power-wrap, .in-plugin .midi { display: none; }
+
+/* and the page is laid out at one size and scaled to the window (src/plugin.ts
+   sets --ui-scale and --ui-x), so a smaller window shows all of it, smaller,
+   instead of a narrower layout or a sideways scrollbar. The army with many
+   units open is taller than the window and scrolls; the negative margin takes
+   back the height the scale removed, so the scroll ends at the bottom of the
+   scaled page */
+.in-plugin body { overflow-x: hidden; display: flow-root; }   /* flow-root: the margin shrinks the body instead of collapsing through it */
+.in-plugin #app {
+  width: var(--ui-w, 1360px); max-width: none; margin: 0;
+  margin-bottom: calc((var(--ui-scale, 1) - 1) * var(--ui-h, 0px));
+  transform: translateX(var(--ui-x, 0px)) scale(var(--ui-scale, 1)); transform-origin: 0 0;
+}
+/* the map is shorter inside the plugin, so the field view fits the editor's design size */
+.in-plugin .fieldmap { height: 360px; }

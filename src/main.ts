@@ -1,4 +1,6 @@
 import { Synth } from './audio.ts';
+import { PluginSynth, inPlugin } from './plugin.ts';
+import type { WorkletStats } from './worklet/processor.ts';
 import { MidiInput } from './midi.ts';
 import { KeyboardView, ComputerKeys, FIRST, LAST } from './keyboard.ts';
 import { makeControl, type Control } from './ui/controls.ts';
@@ -9,7 +11,10 @@ import { PARAMS, PARAM_BY_ID, PRESETS, defaults, fromNorm, toNorm, UNITS, UNIT_P
 const $ = <T extends HTMLElement>(sel: string): T => document.querySelector(sel) as T;
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
 
-const synth = new Synth();
+// In the plugin's WebView the host owns audio and MIDI; the page is just the editor.
+const plugin = inPlugin() ? new PluginSynth() : null;
+const synth: Synth | PluginSynth = plugin ?? new Synth();
+document.documentElement.classList.toggle('in-plugin', !!plugin);
 const values: ParamValues = defaults();
 const controls = new Map<string, Control>();
 
@@ -351,15 +356,22 @@ const catRank = (tag: string) => { const i = CATEGORY_ORDER.indexOf(tag); return
 
 // ---- your presets: kept in this browser's storage, as diffs from the defaults
 const USER_KEY = 'siege.user-presets';
+/** Your presets as stored (localStorage, or the plugin's file); malformed ones are dropped. */
+function parseUser(raw: unknown): Preset[] {
+  if (!Array.isArray(raw)) return [];
+  return (raw as { name: string; values: Partial<ParamValues> }[])
+    .filter((p) => typeof p?.name === 'string' && p.values && typeof p.values === 'object')
+    .map((p) => ({ name: p.name, tag: 'user', values: p.values }));
+}
 function readUser(): Preset[] {
-  try {
-    const raw = JSON.parse(localStorage.getItem(USER_KEY) ?? '[]') as { name: string; values: Partial<ParamValues> }[];
-    return raw.filter((p) => typeof p?.name === 'string' && p.values).map((p) => ({ name: p.name, tag: 'user', values: p.values }));
-  } catch { return []; }
+  if (plugin) return [];   // they arrive with the plugin's state
+  try { return parseUser(JSON.parse(localStorage.getItem(USER_KEY) ?? '[]')); } catch { return []; }
 }
 let userPresets = readUser();
 function writeUser(): void {
-  try { localStorage.setItem(USER_KEY, JSON.stringify(userPresets.map((p) => ({ name: p.name, values: p.values })))); }
+  const stored = userPresets.map((p) => ({ name: p.name, values: p.values }));
+  if (plugin) { plugin.saveUser(stored); return; }
+  try { localStorage.setItem(USER_KEY, JSON.stringify(stored)); }
   catch { /* private mode: they last until the page closes */ }
 }
 
@@ -384,14 +396,16 @@ function setCurrent(name: string | null): void {
   tagEl.textContent = p ? (CATEGORY_NAMES[p.tag] ?? p.tag) : 'edited';
   tagEl.dataset.tag = p ? p.tag : 'edited';
   for (const [n, card] of cards) card.classList.toggle('on', n === name);
+  plugin?.setCurrent(name);
 }
 
-function applyValues(next: ParamValues): void {
+/** Show a whole sound; `fromHost` when it came from the plugin and must not be sent back. */
+function applyValues(next: ParamValues, fromHost = false): void {
   for (const def of PARAMS) {
     values[def.id] = next[def.id];
     controls.get(def.id)?.set(next[def.id]);
   }
-  synth.loadPreset(values);
+  if (!fromHost) synth.loadPreset(values);
   refreshUnits(true);
   refreshMap();
   setMaster(values.volume);
@@ -623,9 +637,11 @@ let startTab = 'army';
 try { startTab = localStorage.getItem('siege.tab') ?? startTab; } catch { /* ignore */ }
 showTab(TABS.some((t) => t.id === startTab) ? startTab : 'army');
 
-let initial = browseOrder.find((p) => p.tag !== 'user')!.name;
-try { initial = localStorage.getItem('siege.preset') ?? initial; } catch { /* ignore */ }
-loadPreset(findPreset(initial) ? initial : PRESETS[0].name);
+if (!plugin) {
+  let initial = browseOrder.find((p) => p.tag !== 'user')!.name;
+  try { initial = localStorage.getItem('siege.preset') ?? initial; } catch { /* ignore */ }
+  loadPreset(findPreset(initial) ? initial : PRESETS[0].name);
+}
 
 // ---- MIDI ------------------------------------------------------------------
 
@@ -649,9 +665,11 @@ midi.onPortsChanged = (ports) => {
   midiSel.value = ports.some((p) => p.id === cur) ? cur : 'all';
 };
 midiSel.addEventListener('change', () => midi.select(midiSel.value as string | 'all'));
-midi.init().then((ok) => {
-  if (!ok) midiSel.innerHTML = `<option>${MidiInput.supported ? 'MIDI denied' : 'no Web MIDI'}</option>`;
-});
+if (!plugin) {
+  midi.init().then((ok) => {
+    if (!ok) midiSel.innerHTML = `<option>${MidiInput.supported ? 'MIDI denied' : 'no Web MIDI'}</option>`;
+  });
+}
 
 // ---- stats / the live field ------------------------------------------------
 
@@ -659,8 +677,9 @@ const stats = $('#stats');
 const mapPanel = panelsEl.querySelector<HTMLElement>('.panel.map')!;
 let lastPeak = 0;
 let mapTick = 0;
-synth.onStats = (s) => {
-  stats.textContent = `${s.voices} units · ${Math.round(s.load * 100)}% dsp`;
+synth.onStats = (s: WorkletStats & { tempo?: number }) => {
+  const host = s.tempo ? ` · ${Math.round(s.tempo)} bpm` : '';
+  stats.textContent = `${s.voices} units · ${Math.round(s.load * 100)}% dsp${host}`;
   const peak = Math.max(s.peakL, s.peakR);
   lastPeak = peak;
   seismo.update(s.scope, peak);
@@ -674,8 +693,40 @@ synth.onStats = (s) => {
   lamps.set(d[26] / 255);
   const rally = d[27] / 255;
   marchLine.textContent = `approach ${values.approach > 0 ? `${Math.round(approachNow * 100)}%` : 'off'} · rally ${values.rally > 0 ? `${Math.round(rally * 100)}%` : 'off'}`;
-  fieldLine.textContent = `wind ${windNow >= 0 ? '+' : '−'}${Math.abs(windNow).toFixed(2)} · ${UNIT_PREFIX.filter((u) => values[`${u}Level`] > 0).length} units in the field`;
+  const unitsOn = UNIT_PREFIX.filter((u) => values[`${u}Level`] > 0).length;
+  fieldLine.textContent = `wind ${windNow >= 0 ? '+' : '−'}${Math.abs(windNow).toFixed(2)} · ${unitsOn} unit${unitsOn === 1 ? '' : 's'} in the field`;
   if ((++mapTick & 3) === 0 && !mapPanel.hidden) refreshMap();
 };
 // expose for the headless check
 (window as unknown as { __siege: unknown }).__siege = { synth, values, peak: () => lastPeak, loadPreset };
+
+// ---- inside the plugin -------------------------------------------------------
+
+if (plugin) {
+  // the session's sound (on open, and whenever the host loads a state or a program)
+  plugin.onState = (st) => {
+    userPresets = parseUser(st.user);
+    sortPresets(); buildBrowser();
+    applyValues({ ...defaults(), ...st.values } as ParamValues, true);
+    lastLoaded = st.last || null;
+    current = '\u0000';   // force the header to redraw
+    setCurrent(st.preset || null);
+  };
+  // automation and the host's own editor
+  plugin.onParams = (changed) => {
+    for (const id in changed) {
+      const v = changed[id]!;
+      values[id] = v;
+      controls.get(id)?.set(v);
+      if (id === 'volume') setMaster(v);
+    }
+    refreshUnits();
+    refreshMap();
+    redrawViz();
+  };
+  // the host's MIDI lights the keys, like a keyboard on the page would
+  plugin.onHostNotes = (notes) => {
+    for (const [note, , kind] of notes) keyboard.setPressed(note, kind === 0);
+  };
+  plugin.ready();
+}

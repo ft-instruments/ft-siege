@@ -12,7 +12,7 @@ function accent(el: HTMLElement): string {
 
 function setupCanvas(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D): { W: number; H: number } {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
-  const r = canvas.getBoundingClientRect();
+  const r = { width: canvas.clientWidth, height: canvas.clientHeight };   // layout size: the plugin scales the page
   const w = Math.max(1, Math.round(r.width * dpr)), h = Math.max(1, Math.round(r.height * dpr));
   if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -229,7 +229,7 @@ export class FieldMap {
 
   // geometry: the listener at (W/2, H - 14); distance on a log scale 1..800 → 0..R; azimuth −1..1 → −80°..+80°
   private geom(): { ox: number; oy: number; R: number } {
-    const r = this.canvas.getBoundingClientRect();
+    const r = { width: this.canvas.clientWidth, height: this.canvas.clientHeight };   // layout size: the plugin scales the page
     return { ox: r.width / 2, oy: r.height - 16, R: Math.min(r.height - 46, r.width * 0.48) };
   }
   private toXY(dist: number, az: number): [number, number] {

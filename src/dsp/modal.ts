@@ -19,15 +19,15 @@ import { BODY_DRUM, BODY_TIMPANI, BODY_GONG, BODY_BELL, BODY_SHIELD, BODY_ANVIL,
 export const MAX_MODES = 32;
 
 /** Roots of J_m (circular membrane), as ratios to the (0,1) mode, with their m. */
-const MEMBRANE: [number, number][] = [
+export const MEMBRANE: [number, number][] = [
   [1, 0], [1.594, 1], [2.136, 2], [2.296, 0], [2.653, 3], [2.918, 1], [3.156, 4], [3.501, 2], [3.600, 0], [3.652, 5],
   [4.060, 3], [4.154, 6], [4.230, 1], [4.601, 4], [4.646, 7], [4.832, 2], [4.904, 0], [5.131, 8], [5.131, 5], [5.412, 3],
   [5.540, 1], [5.612, 9], [5.650, 6], [5.977, 4], [6.088, 10], [6.146, 2], [6.209, 0], [6.427, 7], [6.520, 5], [6.563, 11],
 ];
 /** Church bell partials (hum, prime, tierce, quint, nominal, ...), as ratios to the prime. */
-const BELL = [0.5, 1, 1.183, 1.506, 2.0, 2.514, 2.662, 3.011, 3.36, 3.76, 4.21, 4.5, 5.02, 5.43, 6.18, 6.86, 7.6, 8.5, 9.4, 10.6, 11.9, 13.2, 14.7, 16.3];
+export const BELL = [0.5, 1, 1.183, 1.506, 2.0, 2.514, 2.662, 3.011, 3.36, 3.76, 4.21, 4.5, 5.02, 5.43, 6.18, 6.86, 7.6, 8.5, 9.4, 10.6, 11.9, 13.2, 14.7, 16.3];
 /** Free–free bar: near-harmonic, ringing. */
-const BAR = [1, 2.756, 5.404, 8.933, 13.34, 18.64, 24.81, 31.87, 39.8, 48.6, 58.3, 68.9];
+export const BAR = [1, 2.756, 5.404, 8.933, 13.34, 18.64, 24.81, 31.87, 39.8, 48.6, 58.3, 68.9];
 
 /** Bessel J_m(x) by series; only used at design time. */
 function besselJ(m: number, x: number): number {

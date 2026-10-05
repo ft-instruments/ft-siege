@@ -5,8 +5,8 @@ circuits and `ft-vector` models digital systems, Siege models **impacts
 on large bodies, driven tubes, crowds of them, and the open ground they
 are heard across**. Taiko lines, shield walls, carnyx over a ridge, a
 cannon at 800 m, two thousand feet — and the quiet war: a single horn, a
-blade drawn. Nothing is sampled. Runs in the browser; the DSP core lifts
-straight into a VST3/AU plugin (same shape as the rest of the family).
+blade drawn. Nothing is sampled. Runs in the browser, and as a VST3/AU
+plugin built from the same DSP (same shape as the rest of the family).
 
 ```
 npm install
@@ -14,6 +14,7 @@ npm run dev        # open the printed URL in Chrome/Edge (Web MIDI)
 npm run build      # static site in dist/
 npm run render     # offline render of every preset to out/*.wav, no browser needed
 npm run check      # headless Chrome: boots the worklet, plays, screenshots the three views
+plugin/build.sh    # the VST3 / AU / standalone, installed for this user (see below)
 ```
 
 Play with a MIDI keyboard (notes, velocity, pitch bend on the horns,
@@ -224,17 +225,53 @@ Presets: the browser (`` ` ``) has a category sidebar; **save** (⌘S) names
 the current sound and keeps it in this browser under *yours* (delete with
 ×). The power button raises the army and stands it down.
 
-## Porting to a plugin (JUCE)
+## The plugin (VST3 / AU)
 
-- `SiegeEngine(sampleRate)` ↔ `prepareToPlay`
-- `noteOn / noteOff / controlChange / pitchBend` ↔ the MIDI buffer in `processBlock`
-- `process(L, R, n)` ↔ the audio buffer (any `n`; it chunks internally in 32s)
-- `setParam(id, value)` ↔ `AudioProcessorValueTreeState`, using `PARAMS` as the list
-- the march clock runs from `tempo`; in a plugin, feed it the host tempo instead
+`plugin/` builds SIEGE as a **VST3** (macOS and Linux), an **AU** (macOS,
+for Logic) and a standalone app, with JUCE 8 (fetched by CMake), the same
+way the rest of the family does.
 
-No allocation on the audio thread (typed arrays and scalars). About 8 % of
-one core for the heaviest preset with eight keys held at 48 kHz in V8; the
-modal banks are the cost and are trivially SIMD-able in C++.
+```
+plugin/build.sh      # web UI + params header + plugins, installed for this user
+```
+
+It installs to `~/Library/Audio/Plug-Ins/{VST3,Components}` on macOS and
+`~/.vst3` on Linux. On macOS check the AU with `auval -v aumu Sieg Ftft`.
+On Linux it needs the usual JUCE packages plus WebKitGTK (see Mycelia's
+README for the list).
+
+- **DSP**: `plugin/Source/dsp/` is a line-for-line C++ port of `src/dsp/`
+  (`Modal.h` for the bodies and the modal bank, `Horn.h`, `Unit.h` for the
+  crowd scheduler, the blasts and the bow, `Space.h` for the paths, the
+  terrain and the wind, `Engine.h`). Buffers the TS keeps in typed arrays
+  are `float` (or bytes), everything else is `double`, `Math.round` is JS's
+  (halves towards +∞), the random draws happen in the TS's order, and the
+  constant tables (membrane, bell and bar ratios, the terrain's echoes) come
+  from the TS through the generator. So the two engines agree:
+  `node scripts/null-test.ts` renders every preset with both and subtracts.
+  86 of the 140 are bit-identical; the rest differ by libm rounding, 135 dB
+  below their peak at worst. Nothing allocates on the audio thread. About
+  5 % of a core for eight keys of Battlefield Kit (`out/siege-render bench`).
+- **Parameters**: `Params.gen.h` is generated from `params.ts`
+  (`node scripts/gen-plugin.ts`, run by `build.sh`), so the host sees the same
+  235 parameters with the same knob curves and value text ("Unit 3
+  distance", "Field echoes"). The factory bank is the host's program list.
+- **UI**: the web UI itself (`dist/`, embedded in the binary) in a WebView;
+  `src/plugin.ts` stands in for the AudioWorklet and talks to
+  `PluginEditor.cpp` over JUCE's event bridge, including the live army (unit
+  levels and hits, the wind, the approach and the rally). The page is laid
+  out at 1360 × 1160 (the map is shorter than in the browser) and scaled to
+  the window; the army with many units on is taller and scrolls. Your saved
+  presets are a file shared by every instance
+  (`~/Library/Application Support/FT/Siege/` or `~/.config/FT/Siege/`).
+  `node scripts/check-plugin-ui.ts` checks the page against a fake bridge.
+- **Clock**: the host's tempo replaces the tempo knob, and while the host
+  plays, the march clock follows its song position, so the rolls land on
+  the host's beats and bars. The approach and the rally still run from the
+  first note after silence.
+
+After changing anything in `src/dsp/`, port it to `plugin/Source/dsp/` and
+run the null test.
 
 ## Known limitations / next steps
 
@@ -244,7 +281,7 @@ modal banks are the cost and are trivially SIMD-able in C++.
 - Crowd variants are four per unit; the timing spread carries the rest.
 - The N-wave is a shape, not a propagation model; the far boom comes from
   the air and the terrain.
-- Saved presets live in this browser's storage only; *dispatch* copies a
+- In the browser, saved presets live in that browser's storage only (the plugin keeps them in a file); *dispatch* copies a
   patch as JSON to move it elsewhere.
 
 ## Sources consulted
