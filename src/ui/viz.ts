@@ -74,7 +74,7 @@ class Pen {
 
   text(s: string, x: number, y: number, align: CanvasTextAlign = 'left', a = 0.55): void {
     const { ctx } = this;
-    ctx.font = '500 9px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.font = '500 9px "IBM Plex Mono", "FT Symbols", ui-monospace, monospace';
     ctx.textAlign = align; ctx.fillStyle = `rgba(255, 244, 228, ${a})`;
     ctx.fillText(s.toUpperCase(), x, y);
   }

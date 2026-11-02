@@ -298,7 +298,7 @@ export class FieldMap {
     }
     ctx.restore();
     // distance rings
-    ctx.strokeStyle = `rgba(${ac},0.25)`; ctx.fillStyle = `rgba(${ac},0.5)`; ctx.font = '10px "IBM Plex Mono", ui-monospace, monospace'; ctx.textAlign = 'left';
+    ctx.strokeStyle = `rgba(${ac},0.25)`; ctx.fillStyle = `rgba(${ac},0.5)`; ctx.font = '10px "IBM Plex Mono", "FT Symbols", ui-monospace, monospace'; ctx.textAlign = 'left';
     for (const d of [3, 10, 30, 100, 300, 800]) {
       const rr = R * Math.log(d) / Math.log(800);
       ctx.beginPath(); ctx.arc(ox, oy, rr, Math.PI * 1.03, Math.PI * 1.97); ctx.stroke();
@@ -343,7 +343,7 @@ export class FieldMap {
       }
       ctx.shadowBlur = 0;
       if (sel) { ctx.strokeStyle = `rgba(${ac},0.9)`; ctx.strokeRect(x - w / 2 - 4, y - w / 2 - 4, w + 8, w + 8); }
-      ctx.fillStyle = `rgba(${ac},0.85)`; ctx.font = '10px "IBM Plex Mono", ui-monospace, monospace'; ctx.textAlign = 'center';
+      ctx.fillStyle = `rgba(${ac},0.85)`; ctx.font = '10px "IBM Plex Mono", "FT Symbols", ui-monospace, monospace'; ctx.textAlign = 'center';
       ctx.fillText(`${'I II III IV V VI VII VIII'.split(' ')[i]} · ${BODIES[u.body]}${u.count > 1 ? ' ×' + u.count : ''}`, x, y + w / 2 + 12);
       ctx.fillStyle = `rgba(${ac},0.5)`;
       ctx.fillText(`${u.dist >= 10 ? u.dist.toFixed(0) : u.dist.toFixed(1)} m`, x, y - w / 2 - 6);

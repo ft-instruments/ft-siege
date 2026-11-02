@@ -23,8 +23,8 @@
   --glass-a: rgba(36, 31, 27, 0.68);
   --glass-b: rgba(12, 10, 9, 0.84);
   --well: rgba(0, 0, 0, 0.46);
-  --display: "Cinzel", "Trajan Pro", Georgia, serif;
-  --mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
+  --display: "Cinzel", "Trajan Pro", "FT Symbols", Georgia, serif;
+  --mono: "IBM Plex Mono", "JetBrains Mono", "FT Symbols", ui-monospace, monospace;
   --cut: 12px;
 }
 
