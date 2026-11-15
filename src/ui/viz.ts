@@ -3,7 +3,7 @@
 // and tail, air absorption over distance, the wind's gusts, the march
 // clock with its approach and rally, the rolls on the clock). Redrawn when
 // a value changes, never per audio block. The drawing helper and the Viz
-// canvas are the family's (same as Mycelia's); the pictures are Siege's.
+// canvas are shared; the pictures are Siege's.
 
 import { type ParamValues, TERRAINS, ROLL_BEATS, ROLLS, UNIT_PREFIX } from '../dsp/params.ts';
 import { TERRAIN_TAPS } from '../dsp/space.ts';

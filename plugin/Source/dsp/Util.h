@@ -1,7 +1,7 @@
 // Small numeric helpers shared by the DSP. C++ port of src/dsp/util.ts.
 //
-// Porting convention for the whole engine (the same as Mycelia's and
-// Vector's): a TS number is a double, a Float32Array element is a float. JS
+// Porting convention for the whole engine: a TS number is a double, a
+// Float32Array element is a float. JS
 // does all arithmetic in double, so a float read from a buffer is promoted
 // before it is used; stores round back to float exactly where the TS stores
 // into a Float32Array. Where the TS evaluates several random draws in one

@@ -248,7 +248,7 @@ export class Picker implements Control {
 
 export interface ControlOptions {
   /** Enums with more choices than this get a dropdown; the default keeps
-   * every enum a row (Siege's bodies, Vector's chords). */
+   * every enum a row (Siege's bodies are a dropdown). */
   segLimit?: number;
   /** Knob diameter in px; heroes are drawn larger. */
   size?: number;

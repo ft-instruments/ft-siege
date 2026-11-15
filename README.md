@@ -1,12 +1,11 @@
 # ft-siege
 
-**SIEGE** — a physically modelled war ensemble. Where `ft-mycelia` models
-circuits and `ft-vector` models digital systems, Siege models **impacts
+**SIEGE** — a physically modelled war ensemble. It models **impacts
 on large bodies, driven tubes, crowds of them, and the open ground they
 are heard across**. Taiko lines, shield walls, carnyx over a ridge, a
 cannon at 800 m, two thousand feet — and the quiet war: a single horn, a
-blade drawn. Nothing is sampled. Runs in the browser, and as a VST3/AU
-plugin built from the same DSP (same shape as the rest of the family).
+blade drawn, a music box in the rubble. Nothing is sampled. It runs in the
+browser, and as a VST3 / AU plugin and standalone app built from the same DSP.
 
 ```
 npm install
@@ -28,7 +27,7 @@ JSON on the clipboard (paste it into `PRESETS` in `params.ts` to keep it).
 
 Builds of the VST3, the AU (macOS only) and the standalone app for macOS,
 Windows and Linux are attached to each
-[release](https://github.com/filipefthomaz-gd/ft-siege/releases).
+[release](https://github.com/ft-instruments/ft-siege/releases).
 
 | | Standalone | VST3 | AU |
 |---|---|---|---|
@@ -92,6 +91,10 @@ at the edge reaches.
 | bowed | the same string driven by friction locked to its own period (Helmholtz motion) while the key is held; **bow** (character) is pressure |
 | feet / hooves | the ground under a boot: a thud and the earth; **gait** (character) sets the heel–toe / far-hoof split |
 | cannon | barrel modes reached by an N-wave blast, plus debris modes reached only by the debris hits that follow; **charge** (character) |
+| glass | a wine glass: a thin shell with a few clean partials and a very long ring; **fracture** (character) splits every mode into a beating pair and shortens the ring — a cracked glass |
+| musicbox | steel comb tines (cantilever bars, partials 1 : 6.27 : 17.6 : 34.4) with a slightly sharp second tine for the shimmer, on a small wooden box whose two resonances the **box** (character) sets |
+| helmet | a dented steel shell: a dull thud under a short, irregular ping; **dent** (character) detunes and splits the modes |
+| rubble | brick, stone and splinters settling: many short, unrelated modes reached mostly off-centre; **scatter** (character) sets how many |
 
 Two cheap nonlinearities the literature says are the signature of big
 struck things: **tension modulation** (Avanzini / Bank) — the pitch of a
@@ -188,7 +191,7 @@ Chrome, plays, checks the output level and screenshots the three views.
 
 ## Presets
 
-139, grouped in a compact, searchable browser (click the preset name or press `` ` ``, `Esc` closes); `< >` step through them in browser order.
+154, grouped in a compact, searchable browser (click the preset name or press `` ` ``, `Esc` closes); `< >` step through them in browser order.
 
 The first bank, as it was:
 
@@ -228,10 +231,16 @@ sounds, about −22 for the far ones.
 | cinematic | Trailer Hit · Braam Wall · Doom Pulse · The Approach Riser · Low Strings Omen · Impact And Bloom · Tension Bed |
 | fx | Iron Whale · Ghost Signal · Storm Front · Glass Wind · Broken Bells · Earthquake · Rusted Gate |
 
+The third bank adds the **elegy** category, the quiet side of war, and the
+first presets to use the four new bodies (glass, music box, helmet, rubble):
+
+| category | presets |
+|---|---|
+| elegy | Vigil · Letter Home · Ash · Ruins · Last Post · Empty Square · Heartbeat · Fray · Cold Thermal · Muffled Shock · Mourning Bells · Aftermath · Music Box In The Rubble · Cracked Glass · Dented Helmet |
+
 ## UI
 
-The FT Instrument look (`src/ft.css`, shared with Mycelia and Vector) in
-Siege's skin (`src/style.css`): iron plates by firelight. The room is a
+The FT Instrument look (`src/ft.css`) in Siege's skin (`src/style.css`): iron plates by firelight. The room is a
 night field with a fortress black against the fires on the horizon and
 embers going up; the modules are smoked-iron plates cut at both top
 corners like a battlement, studded at the foot and numbered in Roman;
@@ -259,9 +268,8 @@ the current sound and keeps it in this browser under *yours* (delete with
 
 ## The plugin (VST3 / AU)
 
-`plugin/` builds SIEGE as a **VST3** (macOS and Linux), an **AU** (macOS,
-for Logic) and a standalone app, with JUCE 8 (fetched by CMake), the same
-way the rest of the family does.
+`plugin/` builds SIEGE as a **VST3** (macOS, Windows and Linux), an **AU**
+(macOS, for Logic) and a standalone app, with JUCE 8 (fetched by CMake).
 
 ```
 plugin/build.sh      # web UI + params header + plugins, installed for this user
@@ -269,8 +277,8 @@ plugin/build.sh      # web UI + params header + plugins, installed for this user
 
 It installs to `~/Library/Audio/Plug-Ins/{VST3,Components}` on macOS and
 `~/.vst3` on Linux. On macOS check the AU with `auval -v aumu Sieg Ftft`.
-On Linux it needs the usual JUCE packages plus WebKitGTK (see Mycelia's
-README for the list).
+On Linux it needs the usual JUCE packages plus WebKitGTK; the exact apt list
+is in [`.github/workflows/build.yml`](.github/workflows/build.yml).
 
 - **DSP**: `plugin/Source/dsp/` is a line-for-line C++ port of `src/dsp/`
   (`Modal.h` for the bodies and the modal bank, `Horn.h`, `Unit.h` for the
@@ -281,7 +289,7 @@ README for the list).
   constant tables (membrane, bell and bar ratios, the terrain's echoes) come
   from the TS through the generator. So the two engines agree:
   `node scripts/null-test.ts` renders every preset with both and subtracts.
-  86 of the 140 are bit-identical; the rest differ by libm rounding, 135 dB
+  99 of the 155 (the 154 presets and Init) are bit-identical; the rest differ by libm rounding, 135 dB
   below their peak at worst. Nothing allocates on the audio thread. About
   5 % of a core for eight keys of Battlefield Kit (`out/siege-render bench`).
 - **Parameters**: `Params.gen.h` is generated from `params.ts`
@@ -327,6 +335,8 @@ run the null test.
 - Farnell — procedural footsteps and crowds, for the statistics of many
 
 ## License
+
+Copyright (C) 2026 Filipe F. Thomaz.
 
 SIEGE is free software under the [GNU AGPL v3](LICENSE). The plugin is built
 on [JUCE](https://juce.com), which is itself AGPLv3 (or commercial), so the
