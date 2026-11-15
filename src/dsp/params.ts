@@ -19,15 +19,16 @@ export interface ParamDef {
 }
 
 /** What a unit is. Bodies are modal; horn and pipe are driven tubes. */
-export const BODIES = ['drum', 'timpani', 'gong', 'bell', 'shield', 'anvil', 'blade', 'log', 'bars', 'lyre', 'bowed', 'feet', 'hooves', 'cannon', 'horn', 'pipe', 'flute'];
+export const BODIES = ['drum', 'timpani', 'gong', 'bell', 'shield', 'anvil', 'blade', 'log', 'bars', 'lyre', 'bowed', 'feet', 'hooves', 'cannon', 'horn', 'pipe', 'flute', 'glass', 'musicbox', 'helmet', 'rubble'];
 export const BODY_DRUM = 0, BODY_TIMPANI = 1, BODY_GONG = 2, BODY_BELL = 3, BODY_SHIELD = 4, BODY_ANVIL = 5, BODY_BLADE = 6,
-  BODY_LOG = 7, BODY_BARS = 8, BODY_LYRE = 9, BODY_BOWED = 10, BODY_FEET = 11, BODY_HOOVES = 12, BODY_CANNON = 13, BODY_HORN = 14, BODY_PIPE = 15, BODY_FLUTE = 16;
+  BODY_LOG = 7, BODY_BARS = 8, BODY_LYRE = 9, BODY_BOWED = 10, BODY_FEET = 11, BODY_HOOVES = 12, BODY_CANNON = 13, BODY_HORN = 14, BODY_PIPE = 15, BODY_FLUTE = 16,
+  BODY_GLASS = 17, BODY_MUSICBOX = 18, BODY_HELMET = 19, BODY_RUBBLE = 20;
 /** Bodies that are driven tubes rather than struck things. */
 export const TUBES = [BODY_HORN, BODY_PIPE, BODY_FLUTE];
 /** Bodies that track the keys by default (melodic). */
-export const MELODIC = [BODY_TIMPANI, BODY_BELL, BODY_BARS, BODY_LYRE, BODY_BOWED, BODY_HORN, BODY_PIPE, BODY_FLUTE];
+export const MELODIC = [BODY_TIMPANI, BODY_BELL, BODY_BARS, BODY_LYRE, BODY_BOWED, BODY_HORN, BODY_PIPE, BODY_FLUTE, BODY_GLASS, BODY_MUSICBOX];
 /** What the "character" knob means for each body. */
-export const CHARACTER = ['cavity', 'kettle', 'bloom', 'bloom', 'backing', 'ring', 'draw', 'hollow', 'resonator', 'body', 'bow', 'gait', 'gait', 'charge', 'rip', 'reed', 'breathy'];
+export const CHARACTER = ['cavity', 'kettle', 'bloom', 'bloom', 'backing', 'ring', 'draw', 'hollow', 'resonator', 'body', 'bow', 'gait', 'gait', 'charge', 'rip', 'reed', 'breathy', 'fracture', 'box', 'dent', 'scatter'];
 export const ROLLS = ['off', '1/2', '1/4', '1/8', '1/8T', '1/16', '1/16T', '1/32'];
 export const ROLL_BEATS = [0, 2, 1, 0.5, 1 / 3, 0.25, 1 / 6, 0.125];
 export const TERRAINS = ['field', 'valley', 'walls', 'forest'];
@@ -1274,6 +1275,127 @@ export const PRESETS: Preset[] = [
       ...U(0, { Body: BODY_BLADE, Level: 0.6, Size: 2, Tension: 0.3, Damp: 0.35, Char: 0.85, Hard: 0.4, Pos: 0.7, Grit: 0.95, Track: 1, Dist: 5, Az: -0.3 }),
       ...U(1, { Body: BODY_LOG, Level: 0.5, Size: 2.5, Damp: 0.3, Char: 0.8, Hard: 0.3, Grit: 0.6, Dist: 6, Az: 0.2 }),
       terrain: 2, early: 0.65, tailMix: 0.4, tailDecay: 3.5, tailTone: 0.35, volume: 0.73,
+    },
+  },
+  // ------------------------------------------------------------ elegy
+  // The quiet war: grief, waiting, aftermath. Soft strikes, long dark tails,
+  // distance and wind rather than impact. Built from the existing bodies.
+  {
+    name: 'Vigil', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.45, Size: 1.6, Tension: 0.2, Damp: 0.2, Char: 0.5, Hard: 0.25, Pos: 0.9, Grit: 0.08, Track: 1, KeyLo: 0, KeyHi: 71, Dist: 12, Az: -0.2 }),
+      ...U(1, { Body: BODY_BELL, Level: 0.4, Size: 1.4, Damp: 0.05, Char: 0.2, Hard: 0.25, Pos: 0.2, Track: 1, Root: 84, KeyLo: 72, KeyHi: 127, Dist: 90, Az: 0.6 }),
+      terrain: 2, early: 0.6, tailMix: 0.55, tailDecay: 8, tailTone: 0.3, air: 0.7, wind: 0.4, windBed: 0.35, volume: 0.9,
+    },
+  },
+  {
+    name: 'Letter Home', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_LYRE, Level: 0.7, Size: 0.7, Tension: 0.15, Damp: 0.3, Char: 0.7, Hard: 0.3, Pos: 0.4, Grit: 0.05, Bend: 0.1, Track: 1, KeyLo: 0, KeyHi: 83, Dist: 2.5 }),
+      ...U(1, { Body: BODY_MUSICBOX, Level: 0.45, Size: 0.9, Tension: 0.4, Damp: 0.3, Char: 0.6, Hard: 0.3, Track: 1, KeyLo: 84, KeyHi: 127, Dist: 4, Az: 0.3 }),
+      terrain: 0, early: 0.5, tailMix: 0.3, tailDecay: 2.5, tailTone: 0.35, air: 0.4, proximity: 0.2, volume: 0.9,
+    },
+  },
+  {
+    name: 'Ash', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_RUBBLE, Level: 0.3, Size: 0.5, Damp: 0.35, Char: 0.6, Hard: 0.2, Count: 16, Spread: 2000, Cohesion: 0, Vary: 1, Dist: 25, Az: 0.2 }),
+      ...U(1, { Body: BODY_GLASS, Level: 0.35, Size: 0.8, Damp: 0.1, Char: 0.1, Hard: 0.2, Track: 1, KeyLo: 0, KeyHi: 127, Dist: 8, Az: -0.3 }),
+      terrain: 2, early: 0.4, tailMix: 0.65, tailDecay: 11, tailTone: 0.25, air: 0.8, wind: 0.3, windBed: 0.2, volume: 0.9,
+    },
+  },
+  {
+    name: 'Ruins', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_GONG, Level: 0.9, Size: 1.8, Tension: 0.15, Damp: 0.1, Char: 0.4, Hard: 0.2, Track: 1, KeyLo: 0, KeyHi: 59, Dist: 20, Az: -0.4 }),
+      ...U(1, { Body: BODY_RUBBLE, Level: 0.8, Size: 1, Damp: 0.4, Char: 0.8, Hard: 0.3, Grit: 0.5, Count: 6, Spread: 1500, Cohesion: 0, Vary: 1, Dist: 12, Az: 0.5, KeyLo: 60, KeyHi: 127 }),
+      terrain: 3, early: 0.9, tailMix: 0.7, tailDecay: 9, tailTone: 0.3, air: 0.5, wind: 0.5, gust: 0.25, windBed: 0.3, volume: 0.9,
+    },
+  },
+  {
+    name: 'Last Post', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_HORN, Level: 0.7, Size: 1.1, Damp: 0.4, Char: 0.45, Partial: 3, Lip: 1, Breath: 0.25, Growl: 0.05, Track: 1, Dist: 220, Az: 0.5 }),
+      terrain: 1, early: 0.9, tailMix: 0.6, tailDecay: 8, tailTone: 0.25, air: 0.8, wind: 0.5, gust: 0.15, windBed: 0.35, volume: 1,
+    },
+  },
+  {
+    name: 'Empty Square', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_FEET, Level: 0.5, Size: 0.8, Damp: 0.6, Char: 0.3, Hard: 0.3, Grit: 0.4, Count: 1, Spread: 10, Cohesion: 0.5, Vary: 0.6, Dist: 14, Az: -0.3, KeyLo: 0, KeyHi: 47 }),
+      ...U(1, { Body: BODY_PIPE, Level: 0.4, Size: 1.5, Damp: 0.4, Char: 0.5, Partial: 1, Lip: 1, Breath: 0.6, Growl: 0, Track: 1, KeyLo: 48, KeyHi: 127, Dist: 60, Az: 0.5 }),
+      terrain: 2, early: 0.8, tailMix: 0.5, tailDecay: 5, tailTone: 0.3, air: 0.6, wind: 0.5, windBed: 0.4, volume: 0.95,
+    },
+  },
+  {
+    name: 'Heartbeat', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_TIMPANI, Level: 0.55, Size: 1.1, Tension: 0.3, Damp: 0.5, Char: 0.5, Hard: 0.15, Pos: 0.6, Grit: 0, Track: 0, Count: 1, Dist: 3, Roll: 2, Accent: 0.5, KeyLo: 0, KeyHi: 59 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.3, Size: 1.8, Tension: 0.2, Damp: 0.3, Char: 0.4, Hard: 0.2, Pos: 0.9, Grit: 0.05, Track: 1, KeyLo: 60, KeyHi: 127, Dist: 15 }),
+      tempo: 56, terrain: 2, early: 0.5, tailMix: 0.4, tailDecay: 4, tailTone: 0.25, proximity: 0.4, volume: 0.9,
+    },
+  },
+  {
+    name: 'Fray', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_BOWED, Level: 0.5, Size: 0.7, Tension: 0.7, Damp: 0.45, Char: 0.8, Hard: 0.3, Pos: 0.9, Grit: 0.55, Bend: 0.7, Track: 1, KeyLo: 48, KeyHi: 127, Dist: 5 }),
+      ...U(1, { Body: BODY_BOWED, Level: 0.3, Size: 1.3, Tension: 0.6, Damp: 0.4, Char: 0.8, Hard: 0.3, Pos: 0.9, Grit: 0.6, Bend: 0.8, Track: 1, KeyLo: 0, KeyHi: 47, Dist: 8, Az: 0.3 }),
+      bend: 2, terrain: 2, early: 0.5, tailMix: 0.4, tailDecay: 4, tailTone: 0.4, volume: 0.9,
+    },
+  },
+  {
+    name: 'Cold Thermal', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_FLUTE, Level: 0.5, Size: 1.2, Damp: 0.5, Char: 0.3, Breath: 0.8, Track: 1, Dist: 35 }),
+      ...U(1, { Body: BODY_GLASS, Level: 0.25, Size: 0.5, Damp: 0.1, Char: 0, Hard: 0.2, Track: 1, Count: 3, Spread: 1800, Cohesion: 0, Vary: 1, Dist: 60, Az: -0.6 }),
+      terrain: 2, early: 0.4, tailMix: 0.55, tailDecay: 7, tailTone: 0.6, air: 0.3, wind: 0.6, windBed: 0.5, volume: 0.9,
+    },
+  },
+  {
+    name: 'Muffled Shock', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_GONG, Level: 1, Size: 2.5, Tension: 0.1, Damp: 0.35, Char: 0.3, Hard: 0.5, Bend: 0.4, Track: 1, KeyLo: 0, KeyHi: 71, Dist: 40, Az: -0.2 }),
+      ...U(1, { Body: BODY_BELL, Level: 0.8, Size: 1.6, Damp: 0.1, Char: 0.2, Hard: 0.2, Track: 1, KeyLo: 72, KeyHi: 127, Dist: 60, Az: 0.3 }),
+      terrain: 1, early: 1, tailMix: 0.8, tailDecay: 12, tailTone: 0.1, air: 1, wind: 0.2, windBed: 0.15, volume: 1,
+    },
+  },
+  {
+    name: 'Mourning Bells', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_BELL, Level: 0.9, Size: 2, Damp: 0.03, Char: 0.25, Hard: 0.3, Pos: 0.3, Track: 1, Count: 2, Spread: 150, Cohesion: 0.2, Vary: 0.5, KeyLo: 0, KeyHi: 127, Dist: 50, Az: -0.5 }),
+      ...U(1, { Body: BODY_BELL, Level: 0.6, Size: 0.9, Damp: 0.05, Char: 0.2, Hard: 0.3, Track: 1, KeyLo: 72, KeyHi: 127, Dist: 110, Az: 0.7 }),
+      terrain: 1, early: 0.8, tailMix: 0.6, tailDecay: 9, tailTone: 0.25, air: 0.7, wind: 0.4, windBed: 0.3, volume: 0.9,
+    },
+  },
+  {
+    name: 'Aftermath', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_DRUM, Level: 0.4, Size: 1.5, Tension: 0.25, Damp: 0.2, Char: 0.8, Hard: 0.25, Count: 1, Dist: 800, Az: -0.6, KeyLo: 0, KeyHi: 47 }),
+      ...U(1, { Body: BODY_LYRE, Level: 0.55, Size: 0.8, Tension: 0.15, Damp: 0.25, Char: 0.6, Hard: 0.3, Pos: 0.4, Track: 1, KeyLo: 48, KeyHi: 127, Dist: 6, Az: 0.2 }),
+      terrain: 1, early: 0.7, tailMix: 0.55, tailDecay: 8, tailTone: 0.25, air: 0.8, wind: 0.7, gust: 0.3, windBed: 0.7, volume: 0.95,
+    },
+  },
+  {
+    name: 'Music Box In The Rubble', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_MUSICBOX, Level: 0.7, Size: 0.9, Tension: 0.4, Damp: 0.25, Char: 0.7, Hard: 0.25, Track: 1, KeyLo: 0, KeyHi: 127, Dist: 5 }),
+      ...U(1, { Body: BODY_RUBBLE, Level: 0.3, Size: 0.7, Damp: 0.4, Char: 0.7, Hard: 0.3, Count: 4, Spread: 800, Cohesion: 0, Vary: 1, Dist: 9, Az: -0.4, KeyLo: 0, KeyHi: 127 }),
+      terrain: 3, early: 0.8, tailMix: 0.55, tailDecay: 6, tailTone: 0.3, wind: 0.4, windBed: 0.25, volume: 0.95,
+    },
+  },
+  {
+    name: 'Cracked Glass', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_GLASS, Level: 0.6, Size: 1, Damp: 0.15, Char: 0.8, Hard: 0.2, Track: 1, KeyLo: 0, KeyHi: 127, Dist: 3 }),
+      terrain: 2, early: 0.5, tailMix: 0.45, tailDecay: 6, tailTone: 0.4, volume: 0.9,
+    },
+  },
+  {
+    name: 'Dented Helmet', tag: 'elegy',
+    values: {
+      ...U(0, { Body: BODY_HELMET, Level: 0.6, Size: 0.6, Damp: 0.3, Char: 0.7, Hard: 0.35, Track: 0, Count: 1, Dist: 6, Az: -0.2, KeyLo: 0, KeyHi: 59 }),
+      ...U(1, { Body: BODY_HELMET, Level: 0.4, Size: 0.9, Damp: 0.4, Char: 0.9, Hard: 0.3, Count: 3, Spread: 600, Cohesion: 0, Vary: 1, Dist: 20, Az: 0.4, KeyLo: 60, KeyHi: 127 }),
+      terrain: 3, early: 0.8, tailMix: 0.45, tailDecay: 5, tailTone: 0.3, wind: 0.4, windBed: 0.3, volume: 0.9,
     },
   },
   // ------------------------------------------------------------ init

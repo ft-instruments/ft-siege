@@ -254,26 +254,26 @@ enum : int {
 
 constexpr int NUM_PARAMS = P::COUNT;
 
-inline constexpr const char* LABELS_u1Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute" };
+inline constexpr const char* LABELS_u1Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute", "glass", "musicbox", "helmet", "rubble" };
 inline constexpr const char* LABELS_u1Roll[] = { "off", "1/2", "1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32" };
-inline constexpr const char* LABELS_u2Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute" };
+inline constexpr const char* LABELS_u2Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute", "glass", "musicbox", "helmet", "rubble" };
 inline constexpr const char* LABELS_u2Roll[] = { "off", "1/2", "1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32" };
-inline constexpr const char* LABELS_u3Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute" };
+inline constexpr const char* LABELS_u3Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute", "glass", "musicbox", "helmet", "rubble" };
 inline constexpr const char* LABELS_u3Roll[] = { "off", "1/2", "1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32" };
-inline constexpr const char* LABELS_u4Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute" };
+inline constexpr const char* LABELS_u4Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute", "glass", "musicbox", "helmet", "rubble" };
 inline constexpr const char* LABELS_u4Roll[] = { "off", "1/2", "1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32" };
-inline constexpr const char* LABELS_u5Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute" };
+inline constexpr const char* LABELS_u5Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute", "glass", "musicbox", "helmet", "rubble" };
 inline constexpr const char* LABELS_u5Roll[] = { "off", "1/2", "1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32" };
-inline constexpr const char* LABELS_u6Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute" };
+inline constexpr const char* LABELS_u6Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute", "glass", "musicbox", "helmet", "rubble" };
 inline constexpr const char* LABELS_u6Roll[] = { "off", "1/2", "1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32" };
-inline constexpr const char* LABELS_u7Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute" };
+inline constexpr const char* LABELS_u7Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute", "glass", "musicbox", "helmet", "rubble" };
 inline constexpr const char* LABELS_u7Roll[] = { "off", "1/2", "1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32" };
-inline constexpr const char* LABELS_u8Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute" };
+inline constexpr const char* LABELS_u8Body[] = { "drum", "timpani", "gong", "bell", "shield", "anvil", "blade", "log", "bars", "lyre", "bowed", "feet", "hooves", "cannon", "horn", "pipe", "flute", "glass", "musicbox", "helmet", "rubble" };
 inline constexpr const char* LABELS_u8Roll[] = { "off", "1/2", "1/4", "1/8", "1/8T", "1/16", "1/16T", "1/32" };
 inline constexpr const char* LABELS_terrain[] = { "field", "valley", "walls", "forest" };
 
 inline constexpr ParamDef PARAMS[NUM_PARAMS] = {
-  { "u1Body", "body", "u1", 0.0, 16.0, 0.0, Scale::Enum, nullptr, LABELS_u1Body, 17 },
+  { "u1Body", "body", "u1", 0.0, 20.0, 0.0, Scale::Enum, nullptr, LABELS_u1Body, 21 },
   { "u1Level", "level", "u1", 0.0, 1.0, 0.8, Scale::Lin, nullptr, nullptr, 0 },
   { "u1Size", "size", "u1", 0.15, 4.0, 0.8, Scale::Log, "m", nullptr, 0 },
   { "u1Tension", "tension", "u1", 0.0, 1.0, 0.5, Scale::Lin, nullptr, nullptr, 0 },
@@ -300,7 +300,7 @@ inline constexpr ParamDef PARAMS[NUM_PARAMS] = {
   { "u1Root", "root", "u1", 24.0, 96.0, 48.0, Scale::Int, nullptr, nullptr, 0 },
   { "u1Roll", "roll", "u1", 0.0, 7.0, 0.0, Scale::Enum, nullptr, LABELS_u1Roll, 8 },
   { "u1Accent", "accent", "u1", 0.0, 1.0, 0.3, Scale::Lin, nullptr, nullptr, 0 },
-  { "u2Body", "body", "u2", 0.0, 16.0, 0.0, Scale::Enum, nullptr, LABELS_u2Body, 17 },
+  { "u2Body", "body", "u2", 0.0, 20.0, 0.0, Scale::Enum, nullptr, LABELS_u2Body, 21 },
   { "u2Level", "level", "u2", 0.0, 1.0, 0.0, Scale::Lin, nullptr, nullptr, 0 },
   { "u2Size", "size", "u2", 0.15, 4.0, 0.8, Scale::Log, "m", nullptr, 0 },
   { "u2Tension", "tension", "u2", 0.0, 1.0, 0.5, Scale::Lin, nullptr, nullptr, 0 },
@@ -327,7 +327,7 @@ inline constexpr ParamDef PARAMS[NUM_PARAMS] = {
   { "u2Root", "root", "u2", 24.0, 96.0, 48.0, Scale::Int, nullptr, nullptr, 0 },
   { "u2Roll", "roll", "u2", 0.0, 7.0, 0.0, Scale::Enum, nullptr, LABELS_u2Roll, 8 },
   { "u2Accent", "accent", "u2", 0.0, 1.0, 0.3, Scale::Lin, nullptr, nullptr, 0 },
-  { "u3Body", "body", "u3", 0.0, 16.0, 0.0, Scale::Enum, nullptr, LABELS_u3Body, 17 },
+  { "u3Body", "body", "u3", 0.0, 20.0, 0.0, Scale::Enum, nullptr, LABELS_u3Body, 21 },
   { "u3Level", "level", "u3", 0.0, 1.0, 0.0, Scale::Lin, nullptr, nullptr, 0 },
   { "u3Size", "size", "u3", 0.15, 4.0, 0.8, Scale::Log, "m", nullptr, 0 },
   { "u3Tension", "tension", "u3", 0.0, 1.0, 0.5, Scale::Lin, nullptr, nullptr, 0 },
@@ -354,7 +354,7 @@ inline constexpr ParamDef PARAMS[NUM_PARAMS] = {
   { "u3Root", "root", "u3", 24.0, 96.0, 48.0, Scale::Int, nullptr, nullptr, 0 },
   { "u3Roll", "roll", "u3", 0.0, 7.0, 0.0, Scale::Enum, nullptr, LABELS_u3Roll, 8 },
   { "u3Accent", "accent", "u3", 0.0, 1.0, 0.3, Scale::Lin, nullptr, nullptr, 0 },
-  { "u4Body", "body", "u4", 0.0, 16.0, 0.0, Scale::Enum, nullptr, LABELS_u4Body, 17 },
+  { "u4Body", "body", "u4", 0.0, 20.0, 0.0, Scale::Enum, nullptr, LABELS_u4Body, 21 },
   { "u4Level", "level", "u4", 0.0, 1.0, 0.0, Scale::Lin, nullptr, nullptr, 0 },
   { "u4Size", "size", "u4", 0.15, 4.0, 0.8, Scale::Log, "m", nullptr, 0 },
   { "u4Tension", "tension", "u4", 0.0, 1.0, 0.5, Scale::Lin, nullptr, nullptr, 0 },
@@ -381,7 +381,7 @@ inline constexpr ParamDef PARAMS[NUM_PARAMS] = {
   { "u4Root", "root", "u4", 24.0, 96.0, 48.0, Scale::Int, nullptr, nullptr, 0 },
   { "u4Roll", "roll", "u4", 0.0, 7.0, 0.0, Scale::Enum, nullptr, LABELS_u4Roll, 8 },
   { "u4Accent", "accent", "u4", 0.0, 1.0, 0.3, Scale::Lin, nullptr, nullptr, 0 },
-  { "u5Body", "body", "u5", 0.0, 16.0, 0.0, Scale::Enum, nullptr, LABELS_u5Body, 17 },
+  { "u5Body", "body", "u5", 0.0, 20.0, 0.0, Scale::Enum, nullptr, LABELS_u5Body, 21 },
   { "u5Level", "level", "u5", 0.0, 1.0, 0.0, Scale::Lin, nullptr, nullptr, 0 },
   { "u5Size", "size", "u5", 0.15, 4.0, 0.8, Scale::Log, "m", nullptr, 0 },
   { "u5Tension", "tension", "u5", 0.0, 1.0, 0.5, Scale::Lin, nullptr, nullptr, 0 },
@@ -408,7 +408,7 @@ inline constexpr ParamDef PARAMS[NUM_PARAMS] = {
   { "u5Root", "root", "u5", 24.0, 96.0, 48.0, Scale::Int, nullptr, nullptr, 0 },
   { "u5Roll", "roll", "u5", 0.0, 7.0, 0.0, Scale::Enum, nullptr, LABELS_u5Roll, 8 },
   { "u5Accent", "accent", "u5", 0.0, 1.0, 0.3, Scale::Lin, nullptr, nullptr, 0 },
-  { "u6Body", "body", "u6", 0.0, 16.0, 0.0, Scale::Enum, nullptr, LABELS_u6Body, 17 },
+  { "u6Body", "body", "u6", 0.0, 20.0, 0.0, Scale::Enum, nullptr, LABELS_u6Body, 21 },
   { "u6Level", "level", "u6", 0.0, 1.0, 0.0, Scale::Lin, nullptr, nullptr, 0 },
   { "u6Size", "size", "u6", 0.15, 4.0, 0.8, Scale::Log, "m", nullptr, 0 },
   { "u6Tension", "tension", "u6", 0.0, 1.0, 0.5, Scale::Lin, nullptr, nullptr, 0 },
@@ -435,7 +435,7 @@ inline constexpr ParamDef PARAMS[NUM_PARAMS] = {
   { "u6Root", "root", "u6", 24.0, 96.0, 48.0, Scale::Int, nullptr, nullptr, 0 },
   { "u6Roll", "roll", "u6", 0.0, 7.0, 0.0, Scale::Enum, nullptr, LABELS_u6Roll, 8 },
   { "u6Accent", "accent", "u6", 0.0, 1.0, 0.3, Scale::Lin, nullptr, nullptr, 0 },
-  { "u7Body", "body", "u7", 0.0, 16.0, 0.0, Scale::Enum, nullptr, LABELS_u7Body, 17 },
+  { "u7Body", "body", "u7", 0.0, 20.0, 0.0, Scale::Enum, nullptr, LABELS_u7Body, 21 },
   { "u7Level", "level", "u7", 0.0, 1.0, 0.0, Scale::Lin, nullptr, nullptr, 0 },
   { "u7Size", "size", "u7", 0.15, 4.0, 0.8, Scale::Log, "m", nullptr, 0 },
   { "u7Tension", "tension", "u7", 0.0, 1.0, 0.5, Scale::Lin, nullptr, nullptr, 0 },
@@ -462,7 +462,7 @@ inline constexpr ParamDef PARAMS[NUM_PARAMS] = {
   { "u7Root", "root", "u7", 24.0, 96.0, 48.0, Scale::Int, nullptr, nullptr, 0 },
   { "u7Roll", "roll", "u7", 0.0, 7.0, 0.0, Scale::Enum, nullptr, LABELS_u7Roll, 8 },
   { "u7Accent", "accent", "u7", 0.0, 1.0, 0.3, Scale::Lin, nullptr, nullptr, 0 },
-  { "u8Body", "body", "u8", 0.0, 16.0, 0.0, Scale::Enum, nullptr, LABELS_u8Body, 17 },
+  { "u8Body", "body", "u8", 0.0, 20.0, 0.0, Scale::Enum, nullptr, LABELS_u8Body, 21 },
   { "u8Level", "level", "u8", 0.0, 1.0, 0.0, Scale::Lin, nullptr, nullptr, 0 },
   { "u8Size", "size", "u8", 0.15, 4.0, 0.8, Scale::Log, "m", nullptr, 0 },
   { "u8Tension", "tension", "u8", 0.0, 1.0, 0.5, Scale::Lin, nullptr, nullptr, 0 },
@@ -525,11 +525,11 @@ inline constexpr UnitIds UNIT_IDS[UNITS] = {
 };
 
 // ---- bodies (params.ts, modal.ts)
-constexpr int NUM_BODIES = 17;
-enum : int { BODY_DRUM = 0, BODY_TIMPANI = 1, BODY_GONG = 2, BODY_BELL = 3, BODY_SHIELD = 4, BODY_ANVIL = 5, BODY_BLADE = 6, BODY_LOG = 7, BODY_BARS = 8, BODY_LYRE = 9, BODY_BOWED = 10, BODY_FEET = 11, BODY_HOOVES = 12, BODY_CANNON = 13, BODY_HORN = 14, BODY_PIPE = 15, BODY_FLUTE = 16 };
-inline constexpr bool IS_TUBE[NUM_BODIES] = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true };
-inline constexpr double BODY_CONTACT[NUM_BODIES] = { 1.0, 1.2, 1.4, 0.4, 0.5, 0.15, 0.2, 0.6, 0.45, 0.25, 0.3, 1.2, 0.5, 1.0, 1.0, 1.0, 1.0 };
-inline constexpr double BODY_GAIN[NUM_BODIES] = { 5.0, 4.0, 0.45, 0.35, 2.2, 3.5, 3.0, 2.5, 3.0, 3.5, 5.0, 6.0, 4.5, 3.0, 1.0, 1.0, 0.25 };
+constexpr int NUM_BODIES = 21;
+enum : int { BODY_DRUM = 0, BODY_TIMPANI = 1, BODY_GONG = 2, BODY_BELL = 3, BODY_SHIELD = 4, BODY_ANVIL = 5, BODY_BLADE = 6, BODY_LOG = 7, BODY_BARS = 8, BODY_LYRE = 9, BODY_BOWED = 10, BODY_FEET = 11, BODY_HOOVES = 12, BODY_CANNON = 13, BODY_HORN = 14, BODY_PIPE = 15, BODY_FLUTE = 16, BODY_GLASS = 17, BODY_MUSICBOX = 18, BODY_HELMET = 19, BODY_RUBBLE = 20 };
+inline constexpr bool IS_TUBE[NUM_BODIES] = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, true, false, false, false, false };
+inline constexpr double BODY_CONTACT[NUM_BODIES] = { 1.0, 1.2, 1.4, 0.4, 0.5, 0.15, 0.2, 0.6, 0.45, 0.25, 0.3, 1.2, 0.5, 1.0, 1.0, 1.0, 1.0, 0.25, 0.15, 0.3, 0.5 };
+inline constexpr double BODY_GAIN[NUM_BODIES] = { 5.0, 4.0, 0.45, 0.35, 2.2, 3.5, 3.0, 2.5, 3.0, 3.5, 5.0, 6.0, 4.5, 3.0, 1.0, 1.0, 0.25, 2.5, 3.0, 3.0, 6.0 };
 constexpr int NUM_MEMBRANE = 30;
 inline constexpr double MEMBRANE_RATIO[NUM_MEMBRANE] = { 1.0, 1.594, 2.136, 2.296, 2.653, 2.918, 3.156, 3.501, 3.6, 3.652, 4.06, 4.154, 4.23, 4.601, 4.646, 4.832, 4.904, 5.131, 5.131, 5.412, 5.54, 5.612, 5.65, 5.977, 6.088, 6.146, 6.209, 6.427, 6.52, 6.563 };
 inline constexpr int MEMBRANE_M[NUM_MEMBRANE] = { 0, 1, 2, 0, 3, 1, 4, 2, 0, 5, 3, 6, 1, 4, 7, 2, 0, 8, 5, 3, 1, 9, 6, 4, 10, 2, 0, 7, 5, 11 };
@@ -699,8 +699,23 @@ inline constexpr PresetValue PRESET_135[] = { { P::u1Body, 6.0 }, { P::u1Level, 
 inline constexpr PresetValue PRESET_136[] = { { P::u1Body, 3.0 }, { P::u1Level, 0.35 }, { P::u1Size, 1.2 }, { P::u1Tension, 0.3 }, { P::u1Damp, 0.1 }, { P::u1Char, 1.0 }, { P::u1Hard, 0.85 }, { P::u1Pos, 0.6 }, { P::u1Grit, 0.5 }, { P::u1Bend, 0.5 }, { P::u1Count, 5.0 }, { P::u1Spread, 300.0 }, { P::u1Cohesion, 0.2 }, { P::u1Vary, 1.0 }, { P::u1Dist, 30.0 }, { P::u1Az, 0.2 }, { P::terrain, 2.0 }, { P::early, 0.6 }, { P::tailMix, 0.5 }, { P::tailDecay, 6.0 }, { P::tailTone, 0.35 }, { P::volume, 0.489 } };
 inline constexpr PresetValue PRESET_137[] = { { P::u1Body, 7.0 }, { P::u1Level, 0.669 }, { P::u1Size, 4.0 }, { P::u1Damp, 0.3 }, { P::u1Char, 0.9 }, { P::u1Hard, 0.2 }, { P::u1Grit, 0.9 }, { P::u1Bend, 0.6 }, { P::u1Count, 120.0 }, { P::u1Spread, 2000.0 }, { P::u1Cohesion, 0.0 }, { P::u1Vary, 0.9 }, { P::u1Dist, 30.0 }, { P::u2Body, 13.0 }, { P::u2Level, 0.669 }, { P::u2Size, 3.0 }, { P::u2Damp, 0.2 }, { P::u2Char, 1.0 }, { P::u2Hard, 0.2 }, { P::u2Grit, 0.2 }, { P::u2Dist, 60.0 }, { P::terrain, 1.0 }, { P::early, 0.6 }, { P::tailMix, 0.5 }, { P::tailDecay, 7.0 }, { P::tailTone, 0.15 }, { P::ground, 0.9 }, { P::proximity, 0.8 }, { P::volume, 0.964 } };
 inline constexpr PresetValue PRESET_138[] = { { P::u1Body, 6.0 }, { P::u1Level, 0.6 }, { P::u1Size, 2.0 }, { P::u1Tension, 0.3 }, { P::u1Damp, 0.35 }, { P::u1Char, 0.85 }, { P::u1Hard, 0.4 }, { P::u1Pos, 0.7 }, { P::u1Grit, 0.95 }, { P::u1Track, 1.0 }, { P::u1Dist, 5.0 }, { P::u1Az, -0.3 }, { P::u2Body, 7.0 }, { P::u2Level, 0.5 }, { P::u2Size, 2.5 }, { P::u2Damp, 0.3 }, { P::u2Char, 0.8 }, { P::u2Hard, 0.3 }, { P::u2Grit, 0.6 }, { P::u2Dist, 6.0 }, { P::u2Az, 0.2 }, { P::terrain, 2.0 }, { P::early, 0.65 }, { P::tailMix, 0.4 }, { P::tailDecay, 3.5 }, { P::tailTone, 0.35 }, { P::volume, 0.73 } };
+inline constexpr PresetValue PRESET_139[] = { { P::u1Body, 10.0 }, { P::u1Level, 0.45 }, { P::u1Size, 1.6 }, { P::u1Tension, 0.2 }, { P::u1Damp, 0.2 }, { P::u1Char, 0.5 }, { P::u1Hard, 0.25 }, { P::u1Pos, 0.9 }, { P::u1Grit, 0.08 }, { P::u1Track, 1.0 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 71.0 }, { P::u1Dist, 12.0 }, { P::u1Az, -0.2 }, { P::u2Body, 3.0 }, { P::u2Level, 0.4 }, { P::u2Size, 1.4 }, { P::u2Damp, 0.05 }, { P::u2Char, 0.2 }, { P::u2Hard, 0.25 }, { P::u2Pos, 0.2 }, { P::u2Track, 1.0 }, { P::u2Root, 84.0 }, { P::u2KeyLo, 72.0 }, { P::u2KeyHi, 127.0 }, { P::u2Dist, 90.0 }, { P::u2Az, 0.6 }, { P::terrain, 2.0 }, { P::early, 0.6 }, { P::tailMix, 0.55 }, { P::tailDecay, 8.0 }, { P::tailTone, 0.3 }, { P::air, 0.7 }, { P::wind, 0.4 }, { P::windBed, 0.35 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_140[] = { { P::u1Body, 9.0 }, { P::u1Level, 0.7 }, { P::u1Size, 0.7 }, { P::u1Tension, 0.15 }, { P::u1Damp, 0.3 }, { P::u1Char, 0.7 }, { P::u1Hard, 0.3 }, { P::u1Pos, 0.4 }, { P::u1Grit, 0.05 }, { P::u1Bend, 0.1 }, { P::u1Track, 1.0 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 83.0 }, { P::u1Dist, 2.5 }, { P::u2Body, 18.0 }, { P::u2Level, 0.45 }, { P::u2Size, 0.9 }, { P::u2Tension, 0.4 }, { P::u2Damp, 0.3 }, { P::u2Char, 0.6 }, { P::u2Hard, 0.3 }, { P::u2Track, 1.0 }, { P::u2KeyLo, 84.0 }, { P::u2KeyHi, 127.0 }, { P::u2Dist, 4.0 }, { P::u2Az, 0.3 }, { P::terrain, 0.0 }, { P::early, 0.5 }, { P::tailMix, 0.3 }, { P::tailDecay, 2.5 }, { P::tailTone, 0.35 }, { P::air, 0.4 }, { P::proximity, 0.2 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_141[] = { { P::u1Body, 20.0 }, { P::u1Level, 0.3 }, { P::u1Size, 0.5 }, { P::u1Damp, 0.35 }, { P::u1Char, 0.6 }, { P::u1Hard, 0.2 }, { P::u1Count, 16.0 }, { P::u1Spread, 2000.0 }, { P::u1Cohesion, 0.0 }, { P::u1Vary, 1.0 }, { P::u1Dist, 25.0 }, { P::u1Az, 0.2 }, { P::u2Body, 17.0 }, { P::u2Level, 0.35 }, { P::u2Size, 0.8 }, { P::u2Damp, 0.1 }, { P::u2Char, 0.1 }, { P::u2Hard, 0.2 }, { P::u2Track, 1.0 }, { P::u2KeyLo, 0.0 }, { P::u2KeyHi, 127.0 }, { P::u2Dist, 8.0 }, { P::u2Az, -0.3 }, { P::terrain, 2.0 }, { P::early, 0.4 }, { P::tailMix, 0.65 }, { P::tailDecay, 11.0 }, { P::tailTone, 0.25 }, { P::air, 0.8 }, { P::wind, 0.3 }, { P::windBed, 0.2 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_142[] = { { P::u1Body, 2.0 }, { P::u1Level, 0.9 }, { P::u1Size, 1.8 }, { P::u1Tension, 0.15 }, { P::u1Damp, 0.1 }, { P::u1Char, 0.4 }, { P::u1Hard, 0.2 }, { P::u1Track, 1.0 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 59.0 }, { P::u1Dist, 20.0 }, { P::u1Az, -0.4 }, { P::u2Body, 20.0 }, { P::u2Level, 0.8 }, { P::u2Size, 1.0 }, { P::u2Damp, 0.4 }, { P::u2Char, 0.8 }, { P::u2Hard, 0.3 }, { P::u2Grit, 0.5 }, { P::u2Count, 6.0 }, { P::u2Spread, 1500.0 }, { P::u2Cohesion, 0.0 }, { P::u2Vary, 1.0 }, { P::u2Dist, 12.0 }, { P::u2Az, 0.5 }, { P::u2KeyLo, 60.0 }, { P::u2KeyHi, 127.0 }, { P::terrain, 3.0 }, { P::early, 0.9 }, { P::tailMix, 0.7 }, { P::tailDecay, 9.0 }, { P::tailTone, 0.3 }, { P::air, 0.5 }, { P::wind, 0.5 }, { P::gust, 0.25 }, { P::windBed, 0.3 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_143[] = { { P::u1Body, 14.0 }, { P::u1Level, 0.7 }, { P::u1Size, 1.1 }, { P::u1Damp, 0.4 }, { P::u1Char, 0.45 }, { P::u1Partial, 3.0 }, { P::u1Lip, 1.0 }, { P::u1Breath, 0.25 }, { P::u1Growl, 0.05 }, { P::u1Track, 1.0 }, { P::u1Dist, 220.0 }, { P::u1Az, 0.5 }, { P::terrain, 1.0 }, { P::early, 0.9 }, { P::tailMix, 0.6 }, { P::tailDecay, 8.0 }, { P::tailTone, 0.25 }, { P::air, 0.8 }, { P::wind, 0.5 }, { P::gust, 0.15 }, { P::windBed, 0.35 }, { P::volume, 1.0 } };
+inline constexpr PresetValue PRESET_144[] = { { P::u1Body, 11.0 }, { P::u1Level, 0.5 }, { P::u1Size, 0.8 }, { P::u1Damp, 0.6 }, { P::u1Char, 0.3 }, { P::u1Hard, 0.3 }, { P::u1Grit, 0.4 }, { P::u1Count, 1.0 }, { P::u1Spread, 10.0 }, { P::u1Cohesion, 0.5 }, { P::u1Vary, 0.6 }, { P::u1Dist, 14.0 }, { P::u1Az, -0.3 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 47.0 }, { P::u2Body, 15.0 }, { P::u2Level, 0.4 }, { P::u2Size, 1.5 }, { P::u2Damp, 0.4 }, { P::u2Char, 0.5 }, { P::u2Partial, 1.0 }, { P::u2Lip, 1.0 }, { P::u2Breath, 0.6 }, { P::u2Growl, 0.0 }, { P::u2Track, 1.0 }, { P::u2KeyLo, 48.0 }, { P::u2KeyHi, 127.0 }, { P::u2Dist, 60.0 }, { P::u2Az, 0.5 }, { P::terrain, 2.0 }, { P::early, 0.8 }, { P::tailMix, 0.5 }, { P::tailDecay, 5.0 }, { P::tailTone, 0.3 }, { P::air, 0.6 }, { P::wind, 0.5 }, { P::windBed, 0.4 }, { P::volume, 0.95 } };
+inline constexpr PresetValue PRESET_145[] = { { P::u1Body, 1.0 }, { P::u1Level, 0.55 }, { P::u1Size, 1.1 }, { P::u1Tension, 0.3 }, { P::u1Damp, 0.5 }, { P::u1Char, 0.5 }, { P::u1Hard, 0.15 }, { P::u1Pos, 0.6 }, { P::u1Grit, 0.0 }, { P::u1Track, 0.0 }, { P::u1Count, 1.0 }, { P::u1Dist, 3.0 }, { P::u1Roll, 2.0 }, { P::u1Accent, 0.5 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 59.0 }, { P::u2Body, 10.0 }, { P::u2Level, 0.3 }, { P::u2Size, 1.8 }, { P::u2Tension, 0.2 }, { P::u2Damp, 0.3 }, { P::u2Char, 0.4 }, { P::u2Hard, 0.2 }, { P::u2Pos, 0.9 }, { P::u2Grit, 0.05 }, { P::u2Track, 1.0 }, { P::u2KeyLo, 60.0 }, { P::u2KeyHi, 127.0 }, { P::u2Dist, 15.0 }, { P::tempo, 56.0 }, { P::terrain, 2.0 }, { P::early, 0.5 }, { P::tailMix, 0.4 }, { P::tailDecay, 4.0 }, { P::tailTone, 0.25 }, { P::proximity, 0.4 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_146[] = { { P::u1Body, 10.0 }, { P::u1Level, 0.5 }, { P::u1Size, 0.7 }, { P::u1Tension, 0.7 }, { P::u1Damp, 0.45 }, { P::u1Char, 0.8 }, { P::u1Hard, 0.3 }, { P::u1Pos, 0.9 }, { P::u1Grit, 0.55 }, { P::u1Bend, 0.7 }, { P::u1Track, 1.0 }, { P::u1KeyLo, 48.0 }, { P::u1KeyHi, 127.0 }, { P::u1Dist, 5.0 }, { P::u2Body, 10.0 }, { P::u2Level, 0.3 }, { P::u2Size, 1.3 }, { P::u2Tension, 0.6 }, { P::u2Damp, 0.4 }, { P::u2Char, 0.8 }, { P::u2Hard, 0.3 }, { P::u2Pos, 0.9 }, { P::u2Grit, 0.6 }, { P::u2Bend, 0.8 }, { P::u2Track, 1.0 }, { P::u2KeyLo, 0.0 }, { P::u2KeyHi, 47.0 }, { P::u2Dist, 8.0 }, { P::u2Az, 0.3 }, { P::bend, 2.0 }, { P::terrain, 2.0 }, { P::early, 0.5 }, { P::tailMix, 0.4 }, { P::tailDecay, 4.0 }, { P::tailTone, 0.4 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_147[] = { { P::u1Body, 16.0 }, { P::u1Level, 0.5 }, { P::u1Size, 1.2 }, { P::u1Damp, 0.5 }, { P::u1Char, 0.3 }, { P::u1Breath, 0.8 }, { P::u1Track, 1.0 }, { P::u1Dist, 35.0 }, { P::u2Body, 17.0 }, { P::u2Level, 0.25 }, { P::u2Size, 0.5 }, { P::u2Damp, 0.1 }, { P::u2Char, 0.0 }, { P::u2Hard, 0.2 }, { P::u2Track, 1.0 }, { P::u2Count, 3.0 }, { P::u2Spread, 1800.0 }, { P::u2Cohesion, 0.0 }, { P::u2Vary, 1.0 }, { P::u2Dist, 60.0 }, { P::u2Az, -0.6 }, { P::terrain, 2.0 }, { P::early, 0.4 }, { P::tailMix, 0.55 }, { P::tailDecay, 7.0 }, { P::tailTone, 0.6 }, { P::air, 0.3 }, { P::wind, 0.6 }, { P::windBed, 0.5 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_148[] = { { P::u1Body, 2.0 }, { P::u1Level, 1.0 }, { P::u1Size, 2.5 }, { P::u1Tension, 0.1 }, { P::u1Damp, 0.35 }, { P::u1Char, 0.3 }, { P::u1Hard, 0.5 }, { P::u1Bend, 0.4 }, { P::u1Track, 1.0 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 71.0 }, { P::u1Dist, 40.0 }, { P::u1Az, -0.2 }, { P::u2Body, 3.0 }, { P::u2Level, 0.8 }, { P::u2Size, 1.6 }, { P::u2Damp, 0.1 }, { P::u2Char, 0.2 }, { P::u2Hard, 0.2 }, { P::u2Track, 1.0 }, { P::u2KeyLo, 72.0 }, { P::u2KeyHi, 127.0 }, { P::u2Dist, 60.0 }, { P::u2Az, 0.3 }, { P::terrain, 1.0 }, { P::early, 1.0 }, { P::tailMix, 0.8 }, { P::tailDecay, 12.0 }, { P::tailTone, 0.1 }, { P::air, 1.0 }, { P::wind, 0.2 }, { P::windBed, 0.15 }, { P::volume, 1.0 } };
+inline constexpr PresetValue PRESET_149[] = { { P::u1Body, 3.0 }, { P::u1Level, 0.9 }, { P::u1Size, 2.0 }, { P::u1Damp, 0.03 }, { P::u1Char, 0.25 }, { P::u1Hard, 0.3 }, { P::u1Pos, 0.3 }, { P::u1Track, 1.0 }, { P::u1Count, 2.0 }, { P::u1Spread, 150.0 }, { P::u1Cohesion, 0.2 }, { P::u1Vary, 0.5 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 127.0 }, { P::u1Dist, 50.0 }, { P::u1Az, -0.5 }, { P::u2Body, 3.0 }, { P::u2Level, 0.6 }, { P::u2Size, 0.9 }, { P::u2Damp, 0.05 }, { P::u2Char, 0.2 }, { P::u2Hard, 0.3 }, { P::u2Track, 1.0 }, { P::u2KeyLo, 72.0 }, { P::u2KeyHi, 127.0 }, { P::u2Dist, 110.0 }, { P::u2Az, 0.7 }, { P::terrain, 1.0 }, { P::early, 0.8 }, { P::tailMix, 0.6 }, { P::tailDecay, 9.0 }, { P::tailTone, 0.25 }, { P::air, 0.7 }, { P::wind, 0.4 }, { P::windBed, 0.3 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_150[] = { { P::u1Body, 0.0 }, { P::u1Level, 0.4 }, { P::u1Size, 1.5 }, { P::u1Tension, 0.25 }, { P::u1Damp, 0.2 }, { P::u1Char, 0.8 }, { P::u1Hard, 0.25 }, { P::u1Count, 1.0 }, { P::u1Dist, 800.0 }, { P::u1Az, -0.6 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 47.0 }, { P::u2Body, 9.0 }, { P::u2Level, 0.55 }, { P::u2Size, 0.8 }, { P::u2Tension, 0.15 }, { P::u2Damp, 0.25 }, { P::u2Char, 0.6 }, { P::u2Hard, 0.3 }, { P::u2Pos, 0.4 }, { P::u2Track, 1.0 }, { P::u2KeyLo, 48.0 }, { P::u2KeyHi, 127.0 }, { P::u2Dist, 6.0 }, { P::u2Az, 0.2 }, { P::terrain, 1.0 }, { P::early, 0.7 }, { P::tailMix, 0.55 }, { P::tailDecay, 8.0 }, { P::tailTone, 0.25 }, { P::air, 0.8 }, { P::wind, 0.7 }, { P::gust, 0.3 }, { P::windBed, 0.7 }, { P::volume, 0.95 } };
+inline constexpr PresetValue PRESET_151[] = { { P::u1Body, 18.0 }, { P::u1Level, 0.7 }, { P::u1Size, 0.9 }, { P::u1Tension, 0.4 }, { P::u1Damp, 0.25 }, { P::u1Char, 0.7 }, { P::u1Hard, 0.25 }, { P::u1Track, 1.0 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 127.0 }, { P::u1Dist, 5.0 }, { P::u2Body, 20.0 }, { P::u2Level, 0.3 }, { P::u2Size, 0.7 }, { P::u2Damp, 0.4 }, { P::u2Char, 0.7 }, { P::u2Hard, 0.3 }, { P::u2Count, 4.0 }, { P::u2Spread, 800.0 }, { P::u2Cohesion, 0.0 }, { P::u2Vary, 1.0 }, { P::u2Dist, 9.0 }, { P::u2Az, -0.4 }, { P::u2KeyLo, 0.0 }, { P::u2KeyHi, 127.0 }, { P::terrain, 3.0 }, { P::early, 0.8 }, { P::tailMix, 0.55 }, { P::tailDecay, 6.0 }, { P::tailTone, 0.3 }, { P::wind, 0.4 }, { P::windBed, 0.25 }, { P::volume, 0.95 } };
+inline constexpr PresetValue PRESET_152[] = { { P::u1Body, 17.0 }, { P::u1Level, 0.6 }, { P::u1Size, 1.0 }, { P::u1Damp, 0.15 }, { P::u1Char, 0.8 }, { P::u1Hard, 0.2 }, { P::u1Track, 1.0 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 127.0 }, { P::u1Dist, 3.0 }, { P::terrain, 2.0 }, { P::early, 0.5 }, { P::tailMix, 0.45 }, { P::tailDecay, 6.0 }, { P::tailTone, 0.4 }, { P::volume, 0.9 } };
+inline constexpr PresetValue PRESET_153[] = { { P::u1Body, 19.0 }, { P::u1Level, 0.6 }, { P::u1Size, 0.6 }, { P::u1Damp, 0.3 }, { P::u1Char, 0.7 }, { P::u1Hard, 0.35 }, { P::u1Track, 0.0 }, { P::u1Count, 1.0 }, { P::u1Dist, 6.0 }, { P::u1Az, -0.2 }, { P::u1KeyLo, 0.0 }, { P::u1KeyHi, 59.0 }, { P::u2Body, 19.0 }, { P::u2Level, 0.4 }, { P::u2Size, 0.9 }, { P::u2Damp, 0.4 }, { P::u2Char, 0.9 }, { P::u2Hard, 0.3 }, { P::u2Count, 3.0 }, { P::u2Spread, 600.0 }, { P::u2Cohesion, 0.0 }, { P::u2Vary, 1.0 }, { P::u2Dist, 20.0 }, { P::u2Az, 0.4 }, { P::u2KeyLo, 60.0 }, { P::u2KeyHi, 127.0 }, { P::terrain, 3.0 }, { P::early, 0.8 }, { P::tailMix, 0.45 }, { P::tailDecay, 5.0 }, { P::tailTone, 0.3 }, { P::wind, 0.4 }, { P::windBed, 0.3 }, { P::volume, 0.9 } };
 
-constexpr int NUM_PRESETS = 140;
+constexpr int NUM_PRESETS = 155;
 inline constexpr Preset PRESETS[NUM_PRESETS] = {
   { "Taiko Line", "drums", PRESET_0, 22 },
   { "War Drum Solo", "drums", PRESET_1, 19 },
@@ -841,6 +856,21 @@ inline constexpr Preset PRESETS[NUM_PRESETS] = {
   { "Broken Bells", "fx", PRESET_136, 22 },
   { "Earthquake", "fx", PRESET_137, 29 },
   { "Rusted Gate", "fx", PRESET_138, 27 },
+  { "Vigil", "elegy", PRESET_139, 36 },
+  { "Letter Home", "elegy", PRESET_140, 34 },
+  { "Ash", "elegy", PRESET_141, 32 },
+  { "Ruins", "elegy", PRESET_142, 37 },
+  { "Last Post", "elegy", PRESET_143, 22 },
+  { "Empty Square", "elegy", PRESET_144, 38 },
+  { "Heartbeat", "elegy", PRESET_145, 37 },
+  { "Fray", "elegy", PRESET_146, 36 },
+  { "Cold Thermal", "elegy", PRESET_147, 30 },
+  { "Muffled Shock", "elegy", PRESET_148, 33 },
+  { "Mourning Bells", "elegy", PRESET_149, 36 },
+  { "Aftermath", "elegy", PRESET_150, 35 },
+  { "Music Box In The Rubble", "elegy", PRESET_151, 33 },
+  { "Cracked Glass", "elegy", PRESET_152, 16 },
+  { "Dented Helmet", "elegy", PRESET_153, 34 },
   { "Init", "init", nullptr, 0 },
 };
 

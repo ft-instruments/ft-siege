@@ -14,7 +14,7 @@
 //    perceptually: the distortion products of the low modes' output are
 //    fed back into the high modes through a slow envelope.
 
-import { BODY_DRUM, BODY_TIMPANI, BODY_GONG, BODY_BELL, BODY_SHIELD, BODY_ANVIL, BODY_BLADE, BODY_LOG, BODY_BARS, BODY_LYRE, BODY_BOWED, BODY_FEET, BODY_HOOVES, BODY_CANNON } from './params.ts';
+import { BODY_DRUM, BODY_TIMPANI, BODY_GONG, BODY_BELL, BODY_SHIELD, BODY_ANVIL, BODY_BLADE, BODY_LOG, BODY_BARS, BODY_LYRE, BODY_BOWED, BODY_FEET, BODY_HOOVES, BODY_CANNON, BODY_GLASS, BODY_MUSICBOX, BODY_HELMET, BODY_RUBBLE } from './params.ts';
 
 export const MAX_MODES = 32;
 
@@ -290,15 +290,78 @@ export function designBody(d: Design, body: number, f0: number, size: number, te
       d.tension = bend * 0.3;
       break;
     }
+    case BODY_GLASS: {
+      // a wine glass / glass harmonica: a thin shell, few clean partials, very long ring.
+      // "fracture" splits every mode into a beating pair and shortens the ring: a cracked glass.
+      const crack = char;
+      const t60base = (1.5 + 6 * size) * (0.05 + decay * decay) * (1 - 0.6 * crack);
+      const ratios = [1, 2.32, 4.25, 6.63, 9.38, 12.5];
+      for (let i = 0; i < ratios.length && n < MAX_MODES - 1; i++) {
+        const r = ratios[i] * jit(0.002);
+        push(f0 * r, t60base / (1 + 0.35 * i), 0.9 / (1 + 0.3 * i), 0.7, 1 / Math.sqrt(r));
+        if (crack > 0.05) push(f0 * r * (1.004 + 0.02 * crack), t60base * 0.7 / (1 + 0.35 * i), 0.6 / (1 + 0.3 * i), 0.5, 0.7 / Math.sqrt(r));
+      }
+      d.hiFrom = 3;
+      d.bloom = 0.1;
+      d.tension = bend * 0.01;
+      break;
+    }
+    case BODY_MUSICBOX: {
+      // steel comb tines (cantilever bars: 1 : 6.27 : 17.6 : 34.4) on a small wooden box;
+      // a second, slightly sharp tine gives the plucked shimmer
+      const box = char;
+      const t60base = (0.5 + 2.5 * size) * (0.1 + decay * decay);
+      const ratios = [1, 6.267, 17.55, 34.39];
+      for (let i = 0; i < ratios.length && n < MAX_MODES - 4; i++) {
+        const r = ratios[i] * jit(0.002);
+        push(f0 * r, t60base / (1 + 1.2 * i), 0.9 / (1 + 0.6 * i), 0.8, 1 / Math.pow(r, 0.4));
+      }
+      push(f0 * 1.0035, t60base * 0.8, 0.35, 0.3, 0.5);
+      push(310 * jit(0.05), 0.1, 0.8 * box, 0.8 * box, 1);
+      push(680 * jit(0.05), 0.07, 0.6 * box, 0.6 * box, 0.7);
+      d.hiFrom = 2;
+      d.tension = bend * 0.01;
+      break;
+    }
+    case BODY_HELMET: {
+      // a dented steel shell: a dull thud and a short, irregular ping; "dent" detunes and splits the modes
+      const dent = char;
+      const t60base = (0.15 + 1.2 * size) * (0.08 + decay * decay);
+      const ratios = [1, 1.58, 2.24, 2.95, 3.78, 4.7, 5.8, 7.0, 8.4, 9.9];
+      for (let i = 0; i < ratios.length && n < MAX_MODES - 1; i++) {
+        const r = ratios[i] * jit(0.01 + 0.1 * dent);
+        push(f0 * r, t60base / (1 + 0.45 * i), 0.9 / (1 + 0.25 * i), 0.7, 1 / Math.pow(r, 0.45));
+        if (dent > 0.3 && i < 6) push(f0 * r * (1.01 + 0.06 * dent), t60base * 0.5 / (1 + 0.45 * i), 0.5 / (1 + 0.25 * i), 0.4, 0.6 / Math.pow(r, 0.45));
+      }
+      push(f0 * 0.5, 0.05 + 0.1 * size, 0.8, 0.5, 1.2);                // the padding's thud
+      d.hiFrom = n >> 1;
+      d.bloom = 0.1;
+      d.tension = bend * 0.05;
+      break;
+    }
+    case BODY_RUBBLE: {
+      // brick, stone and splinters settling: many short, unrelated modes reached mostly off-centre
+      const dens = 10 + Math.floor(char * 14);
+      const t60base = (0.1 + 0.6 * size) * (0.15 + decay * decay);
+      for (let i = 0; i < dens && n < MAX_MODES; i++) {
+        const r = 1 + i * 0.9 + 3 * rnd();
+        const t = t60base * (0.3 + rnd());
+        const wE = 0.4 + 0.6 * rnd();
+        push(f0 * r, t / (1 + 0.08 * i), 0.15, wE, 0.8 / Math.pow(r, 0.3));
+      }
+      d.hiFrom = 6;
+      d.tension = bend * 0.1;
+      break;
+    }
     default: break;
   }
   d.n = n;
 }
 
 /** Contact-time multiplier per body (metal is struck with a hard, short contact; skins and wood longer). */
-export const BODY_CONTACT = [1, 1.2, 1.4, 0.4, 0.5, 0.15, 0.2, 0.6, 0.45, 0.25, 0.3, 1.2, 0.5, 1, 1, 1, 1];
+export const BODY_CONTACT = [1, 1.2, 1.4, 0.4, 0.5, 0.15, 0.2, 0.6, 0.45, 0.25, 0.3, 1.2, 0.5, 1, 1, 1, 1, 0.25, 0.15, 0.3, 0.5];
 /** Output gain per body, so every body speaks at a similar level for a similar strike. */
-export const BODY_GAIN = [5, 4, 0.45, 0.35, 2.2, 3.5, 3, 2.5, 3, 3.5, 5, 6, 4.5, 3, 1, 1, 0.25];
+export const BODY_GAIN = [5, 4, 0.45, 0.35, 2.2, 3.5, 3, 2.5, 3, 3.5, 5, 6, 4.5, 3, 1, 1, 0.25, 2.5, 3, 3, 6];
 
 /** The fundamental a body has at its natural size and tension, before key tracking. */
 export function naturalF0(body: number, size: number, tension: number): number {
@@ -316,6 +379,10 @@ export function naturalF0(body: number, size: number, tension: number): number {
     case BODY_FEET: return 62 / size;
     case BODY_HOOVES: return 150 / size;
     case BODY_CANNON: return 42 / size;
+    case BODY_GLASS: return (440 / size) * (0.8 + 0.4 * tension);
+    case BODY_MUSICBOX: return (520 / size) * (0.8 + 0.4 * tension);
+    case BODY_HELMET: return (380 / size) * (0.7 + 0.6 * tension);
+    case BODY_RUBBLE: return 300 / size;
     default: return 110 / size;
   }
 }

@@ -4,7 +4,7 @@
 // bearing, draggable), and the beat lamps. All draw in their window's
 // accent colour (--accent-rgb).
 
-import { BODIES, BODY_DRUM, BODY_TIMPANI, BODY_GONG, BODY_BELL, BODY_SHIELD, BODY_ANVIL, BODY_BLADE, BODY_LOG, BODY_BARS, BODY_LYRE, BODY_BOWED, BODY_FEET, BODY_HOOVES, BODY_CANNON, BODY_HORN, BODY_PIPE, BODY_FLUTE } from '../dsp/params.ts';
+import { BODIES, BODY_DRUM, BODY_TIMPANI, BODY_GONG, BODY_BELL, BODY_SHIELD, BODY_ANVIL, BODY_BLADE, BODY_LOG, BODY_BARS, BODY_LYRE, BODY_BOWED, BODY_FEET, BODY_HOOVES, BODY_CANNON, BODY_HORN, BODY_PIPE, BODY_FLUTE, BODY_GLASS, BODY_MUSICBOX, BODY_HELMET, BODY_RUBBLE } from '../dsp/params.ts';
 
 function accent(el: HTMLElement): string {
   return getComputedStyle(el).getPropertyValue('--accent-rgb').trim() || '255,122,26';
@@ -181,6 +181,33 @@ export class BodyView {
         ctx.moveTo(cx - s, cy + s * 0.6); ctx.quadraticCurveTo(cx - s * 0.2, cy + s * 0.5, cx + s * 0.3, cy - s * 0.2);
         ctx.lineTo(cx + s, cy - s * 0.9 - f * 3); ctx.lineTo(cx + s, cy - s * 0.1); ctx.lineTo(cx + s * 0.4, cy + s * 0.05);
         ctx.quadraticCurveTo(cx - s * 0.2, cy + s * 0.75, cx - s, cy + s * 0.75); ctx.closePath(); ctx.fill(); ctx.stroke();
+        break;
+      }
+      case BODY_GLASS: {
+        // a stemmed glass
+        ctx.moveTo(cx - s * 0.7, cy - s * 0.9); ctx.quadraticCurveTo(cx - s * 0.75, cy + s * 0.1, cx, cy + s * 0.15);
+        ctx.quadraticCurveTo(cx + s * 0.75, cy + s * 0.1, cx + s * 0.7, cy - s * 0.9 - f * 2); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx, cy + s * 0.15); ctx.lineTo(cx, cy + s * 0.85); ctx.moveTo(cx - s * 0.5, cy + s * 0.85); ctx.lineTo(cx + s * 0.5, cy + s * 0.85); ctx.stroke();
+        break;
+      }
+      case BODY_MUSICBOX: {
+        // the box and its comb of tines
+        ctx.roundRect(cx - s * 1.3, cy - s * 0.2, s * 2.6, s * 0.9, s * 0.1); ctx.fill(); ctx.stroke();
+        ctx.beginPath();
+        for (let i = 0; i < 8; i++) { const x = cx - s * 1 + i * s * 0.29; ctx.moveTo(x, cy - s * 0.2); ctx.lineTo(x + (i === 3 ? f * 3 : 0), cy - s * (0.45 + i * 0.07)); }
+        ctx.stroke();
+        break;
+      }
+      case BODY_HELMET: {
+        ctx.moveTo(cx - s * 1.1, cy + s * 0.5); ctx.quadraticCurveTo(cx - s * 1.1, cy - s * 1.1 - f * 2, cx, cy - s * 1.1 - f * 2);
+        ctx.quadraticCurveTo(cx + s * 1.1, cy - s * 1.1 - f * 2, cx + s * 1.1, cy + s * 0.5); ctx.closePath(); ctx.fill(); ctx.stroke();
+        break;
+      }
+      case BODY_RUBBLE: {
+        for (let i = 0; i < 9; i++) {
+          const x = cx - s + (i % 5) * s * 0.5, y = cy + s * 0.5 - Math.floor(i / 5) * s * 0.5 - (i % 3) * s * 0.1 - (i === 4 ? f * 4 : 0);
+          ctx.beginPath(); ctx.moveTo(x - s * 0.18, y); ctx.lineTo(x - s * 0.05, y - s * 0.22); ctx.lineTo(x + s * 0.2, y - s * 0.1); ctx.lineTo(x + s * 0.12, y + s * 0.12); ctx.closePath(); ctx.fill(); ctx.stroke();
+        }
         break;
       }
       default: ctx.arc(cx, cy, s * 0.5, 0, Math.PI * 2); ctx.stroke();
