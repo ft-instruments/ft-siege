@@ -13,7 +13,7 @@ import { join, extname } from 'node:path';
 
 const CHROME = process.env.CHROME ?? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const PORT = 4176, DEBUG = 9336;
-const UI_W = 1360, UI_H = 1160;   // src/plugin.ts
+const UI_W = 1360, UI_H = 850;   // src/plugin.ts
 const MIME: Record<string, string> = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml' };
 
 const server = createServer((req, res) => {
@@ -128,7 +128,7 @@ async function main(): Promise<void> {
       scope: Array.from({ length: 1024 }, (_, i) => Math.sin(i / 20) * 0.5),
       display: [200, 3, 10, 120, 1, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 128, 64, 255, 2, 0, 0, 0] })`);
   await sleep(100);
-  check(String(await evaluate("document.querySelector('#stats').textContent")).includes('122 bpm'), 'the host tempo shows in the status line');
+  check(String(await evaluate("document.querySelector('#tempo')?.textContent")).includes('122 bpm'), 'the host tempo shows in the status line, beside the stop button');
   check(String(await evaluate("[...document.querySelectorAll('.readline')].map((e) => e.textContent).join(' | ')")).includes('wind +1.00'), 'the field line shows the wind from the display bytes');
 
   // 8. the keyboard hits the same key at the same place when the page is scaled
@@ -166,7 +166,7 @@ async function main(): Promise<void> {
   await evaluate("document.querySelector('#browser-close')?.click()");
   await sleep(300);
 
-  // 11. the field and the drill fit the design size; the army with every unit on scrolls
+  // 11. every page fits the design size; the army with every unit on scrolls
   await evaluate("window.__siege.loadPreset('Battlefield Kit')");
   await sleep(300);
   mkdirSync('out', { recursive: true });
@@ -177,24 +177,19 @@ async function main(): Promise<void> {
     await sleep(700);
     const h = await evaluate("document.querySelector('#app').offsetHeight") as number;
     heights.push(`${['army', 'field', 'drill'][t]} ${h}`);
-    if (t > 0) tallest = Math.max(tallest, h);
+    tallest = Math.max(tallest, h);
     const shot = await send('Page.captureScreenshot', { format: 'png' }) as { data: string };
     writeFileSync(`out/screenshot-plugin-${t + 1}.png`, Buffer.from(shot.data, 'base64'));
   }
-  check(tallest <= UI_H, `the field and the drill fit ${UI_W}x${UI_H} at full size (${heights.join(', ')})`);
+  check(tallest <= UI_H, `every page fits ${UI_W}x${UI_H} at full size (${heights.join(', ')})`);
   console.log('wrote out/screenshot-plugin-{1..3}.png');
 
   // 12. a window smaller than the design shows the whole page, scaled
   await send('Emulation.setDeviceMetricsOverride', { width: 1050, height: Math.round(1050 * UI_H / UI_W), deviceScaleFactor: 1, mobile: false });
-  await evaluate("document.querySelectorAll('#tabs .tab')[1].click()");
+  await evaluate("document.querySelectorAll('#tabs .tab')[1].click()");   // field
   await sleep(500);
   const box = await evaluate("(() => { const r = document.querySelector('#app').getBoundingClientRect(); return [r.right, r.bottom, innerWidth, innerHeight]; })()") as number[];
   check(box[0] <= box[2] + 0.5 && box[1] <= box[3] + 0.5, `at 1050 wide the field view fits (${Math.round(box[0])}x${Math.round(box[1])} in ${box[2]}x${box[3]})`);
-  // the army with eight units on scrolls, down to the bottom of the scaled page and no further
-  await evaluate("document.querySelectorAll('#tabs .tab')[0].click()");
-  await sleep(500);
-  const scroll = await evaluate("(() => { const r = document.querySelector('#app').getBoundingClientRect(); return [document.scrollingElement.scrollHeight, r.height, document.scrollingElement.scrollWidth, innerWidth]; })()") as number[];
-  check(Math.abs(scroll[0] - scroll[1]) <= 2 && scroll[2] <= scroll[3], `the full army scrolls exactly its scaled height (${Math.round(scroll[0])} vs ${Math.round(scroll[1])}), not sideways`);
   const small = await send('Page.captureScreenshot', { format: 'png' }) as { data: string };
   writeFileSync('out/screenshot-plugin-small.png', Buffer.from(small.data, 'base64'));
   console.log('wrote out/screenshot-plugin-small.png');

@@ -300,8 +300,10 @@ is in [`.github/workflows/build.yml`](.github/workflows/build.yml).
   `src/plugin.ts` stands in for the AudioWorklet and talks to
   `PluginEditor.cpp` over JUCE's event bridge, including the live army (unit
   levels and hits, the wind, the approach and the rally). The page is laid
-  out at 1360 × 1160 (the map is shorter than in the browser) and scaled to
-  the window; the army with many units on is taller and scrolls. Your saved
+  out at 1360 × 850 (16:10) and scaled to fit the window, with no scrolling.
+  The army is one big unit at a time, picked from a chip bar, and the plugin
+  has three tabs; a new window opens as large as fits the screen, up to that
+  size. Your saved
   presets are a file shared by every instance
   (`~/Library/Application Support/FT/Siege/` or `~/.config/FT/Siege/`).
   `node scripts/check-plugin-ui.ts` checks the page against a fake bridge.
