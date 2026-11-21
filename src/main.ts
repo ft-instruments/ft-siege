@@ -1,5 +1,5 @@
 import { Synth } from './audio.ts';
-import { PluginSynth, inPlugin } from './plugin.ts';
+import { PluginSynth, inPlugin, previewPluginLayout } from './plugin.ts';
 import type { WorkletStats } from './worklet/processor.ts';
 import { MidiInput } from './midi.ts';
 import { KeyboardView, ComputerKeys, FIRST, LAST } from './keyboard.ts';
@@ -15,6 +15,10 @@ const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
 const plugin = inPlugin() ? new PluginSynth() : null;
 const synth: Synth | PluginSynth = plugin ?? new Synth();
 document.documentElement.classList.toggle('in-plugin', !!plugin);
+// dev only: ?plugin shows the plugin's layout in a browser tab (real audio, resize the window to see it scale)
+if (import.meta.env.DEV && !plugin && new URLSearchParams(location.search).has('plugin')) previewPluginLayout();
+// in the plugin every page fits whole, so nothing folds: modules stay open whatever their level
+const NO_FOLD = document.documentElement.classList.contains('in-plugin');
 const values: ParamValues = defaults();
 const controls = new Map<string, Control>();
 
@@ -198,7 +202,26 @@ function onParam(id: string, v: number): void {
   if (id.endsWith('Count') || id.endsWith('Dist') || id.endsWith('Az') || id.endsWith('Body') || id.endsWith('Level')) refreshMap();
   if (id === 'terrain' || id === 'wind') refreshMap();
   if (id === 'volume') setMaster(v);
+  refreshStates();
   redrawViz();
+}
+
+// modules that do nothing right now: dimmed and tagged off in the plugin (a unit says so by its level, its chip dims)
+const IDLE: Record<string, () => boolean> = {
+  terrain: () => values.early <= 0 && values.tailMix <= 0,
+  weather: () => values.wind <= 0 && values.windBed <= 0,
+};
+function refreshStates(): void {
+  if (!NO_FOLD) return;
+  for (const [cls, idle] of Object.entries(IDLE)) {
+    const panel = document.querySelector<HTMLElement>(`#panels > .panel.${cls}`);
+    if (!panel) continue;
+    const off = idle();
+    panel.classList.toggle('off', off);
+    let tag = panel.querySelector<HTMLElement>(':scope > .head > .state');
+    if (!tag) { tag = document.createElement('span'); tag.className = 'state'; panel.querySelector(':scope > .head')!.append(tag); }
+    tag.textContent = off ? 'off' : '';
+  }
 }
 
 function refreshUnits(expandOn = false): void {
@@ -209,15 +232,18 @@ function refreshUnits(expandOn = false): void {
     const count = Math.round(values[`${u}Count`]);
     const off = lvl <= 0;
     name.textContent = count > 1 ? `${BODIES[body]} ×${count}` : BODIES[body];
+    const chip = unitChips[i];
+    if (chip) { chip.querySelector('.bn')!.textContent = name.textContent; chip.classList.toggle('off', lvl <= 0); chip.style.setProperty('--lvl', String(lvl)); }
     meta.textContent = off ? 'off' : `lvl ${Math.round(lvl * 100)}`;
     panel.classList.toggle('off', off);
     panel.classList.toggle('is-horn', TUBES.includes(body));
-    if (expandOn) panel.classList.toggle('collapsed', off);
+    if (expandOn && !NO_FOLD) panel.classList.toggle('collapsed', off);
     const charLabel = controls.get(`${u}Char`)?.el.querySelector('.label');
     if (charLabel) charLabel.textContent = CHARACTER[body];
     bodyViews[i]?.set(body, count);
     rollLanes[i]?.classList.toggle('off', off);
   }
+  refreshStates();
 }
 
 function mapUnits(): MapUnit[] {
@@ -236,6 +262,15 @@ let windNow = 0, approachNow = 1;
 const panelsEl = $('#panels');
 const rollLanes: HTMLElement[] = [];
 const unitPanels = new Map<number, { panel: HTMLElement; meta: HTMLElement; name: HTMLElement }>();
+// In the plugin the page is laid out at 1360x850, so the army is one unit shown large and a bar of eight to
+// pick from (in a browser tab all eight are on the page).
+const unitChips: HTMLButtonElement[] = [];
+const unitBar = document.createElement('div');
+function selectUnit(i: number): void {
+  for (const [n, { panel }] of unitPanels) panel.classList.toggle('sel', n === i);
+  unitChips.forEach((c, n) => c.classList.toggle('on', n === i));
+  for (const b of bodyViews) b?.draw();
+}
 for (const spec of LAYOUT) {
   const panel = document.createElement('section');
   panel.className = `panel ${spec.cls}`;
@@ -252,7 +287,7 @@ for (const spec of LAYOUT) {
     const meta = document.createElement('span'); meta.className = 'meta';
     head.append(meta);
     head.classList.add('fold');
-    head.addEventListener('click', () => panel.classList.toggle('collapsed'));
+    head.addEventListener('click', () => { if (!NO_FOLD) panel.classList.toggle('collapsed'); });
     unitPanels.set(spec.unit, { panel, meta, name });
   } else if (spec.sub) { const s = document.createElement('small'); s.textContent = spec.sub; head.append(s); }
   panel.append(head);
@@ -309,6 +344,7 @@ function showTab(id: string): void {
   for (const [t, b] of tabButtons) b.classList.toggle('on', t === id);
   tabsEl.dataset.on = id;
   placeTabLight();
+  unitBar.hidden = id !== 'army';
   // the modules of the view come in, one after another
   let i = 0;
   for (const el of panelsEl.querySelectorAll<HTMLElement>('.panel')) {
@@ -338,7 +374,7 @@ window.addEventListener('keydown', (e) => {
   const t = e.target as HTMLElement | null;
   if (t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.tagName === 'TEXTAREA')) return;
   if (e.key === '`') { e.preventDefault(); openBrowser(); return; }
-  const i = ['1', '2', '3'].indexOf(e.key);
+  const i = TABS.findIndex((_, n) => String(n + 1) === e.key);
   if (i >= 0) showTab(TABS[i].id);
 });
 
@@ -633,9 +669,23 @@ $('#copy').addEventListener('click', async () => {
   setTimeout(() => b.classList.remove('done'), 1200);
 });
 
+if (NO_FOLD) {
+  unitBar.className = 'unitbar';
+  unitBar.dataset.tab = 'army';
+  for (let i = 0; i < UNITS; i++) {
+    const c = document.createElement('button');
+    c.type = 'button'; c.className = 'chip-unit pick';
+    c.innerHTML = `<b>${ROMAN[i]}</b><span class="bn"></span><i class="lv"></i>`;
+    c.addEventListener('click', () => selectUnit(i));
+    unitChips.push(c); unitBar.append(c);
+  }
+  panelsEl.prepend(unitBar);
+  selectUnit(0);
+  refreshUnits();
+}
 let startTab = 'army';
 try { startTab = localStorage.getItem('siege.tab') ?? startTab; } catch { /* ignore */ }
-showTab(TABS.some((t) => t.id === startTab) ? startTab : 'army');
+showTab(TABS.some((t) => t.id === startTab) ? startTab : TABS[0].id);
 
 if (!plugin) {
   let initial = browseOrder.find((p) => p.tag !== 'user')!.name;
@@ -673,13 +723,21 @@ if (!plugin) {
 
 // ---- stats / the live field ------------------------------------------------
 
+// in the plugin the readout keeps one width however many digits the numbers have (padded, in a fixed box: style.css),
+// and the host's tempo has its own fixed box beside the stop button; a browser tab shows the plain text as before
+const fixedStats = document.documentElement.classList.contains('in-plugin');
+const pad = (n: number, w: number): string => (fixedStats ? String(n).padStart(w, '\u00a0') : String(n));
 const stats = $('#stats');
+const tempo = document.createElement('span');
+tempo.id = 'tempo'; tempo.className = 'muted';
+if (fixedStats) { $('#panic').before(tempo); stats.textContent = `${pad(0, 2)} units · ${pad(0, 3)}% dsp`; }
 const mapPanel = panelsEl.querySelector<HTMLElement>('.panel.map')!;
 let lastPeak = 0;
 let mapTick = 0;
 synth.onStats = (s: WorkletStats & { tempo?: number }) => {
-  const host = s.tempo ? ` · ${Math.round(s.tempo)} bpm` : '';
-  stats.textContent = `${s.voices} units · ${Math.round(s.load * 100)}% dsp${host}`;
+  tempo.textContent = s.tempo ? `${pad(Math.round(s.tempo), 3)} bpm` : '';
+  const host = s.tempo && !fixedStats ? ` · ${Math.round(s.tempo)} bpm` : '';
+  stats.textContent = `${pad(s.voices, 2)} units · ${pad(Math.round(s.load * 100), 3)}% dsp${host}`;
   const peak = Math.max(s.peakL, s.peakR);
   lastPeak = peak;
   seismo.update(s.scope, peak);
