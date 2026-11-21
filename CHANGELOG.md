@@ -4,6 +4,15 @@ All notable changes to ft-siege. Format: [Keep a Changelog](https://keepachangel
 
 ## Unreleased
 
+## [0.1.1] - 2026-11-21
+
+### Changed
+- The plugin window is now a wide 16:10 layout (1360 × 850) that fits the screen, scales to the window and never scrolls. A new window opens as large as fits, up to that size. It has three tabs.
+- The army shows one big unit at a time, picked from a chip bar, instead of eight units on a long page that scrolled.
+- The field map is much larger, with the terrain, air and weather graphs and knobs beside it at a smaller but readable size.
+- The plugin header no longer overlaps, and the stats and tempo readouts are fixed width so digits changing no longer shift the layout.
+- Knob readouts are fixed width, so the knobs no longer move as values change.
+
 ## [0.1.0] - 2026-11-15
 
 First public release.
@@ -19,5 +28,6 @@ First public release.
 - Bundled fonts (Cinzel, Geist, IBM Plex Mono, a small symbols fallback; SIL OFL): the UI and the plugin make no network connections.
 - AGPL-3.0 license, copyright and third-party notices.
 
-[Unreleased]: https://github.com/ft-instruments/ft-siege/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/ft-instruments/ft-siege/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/ft-instruments/ft-siege/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/ft-instruments/ft-siege/releases/tag/v0.1.0
