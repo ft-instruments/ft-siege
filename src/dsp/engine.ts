@@ -89,7 +89,7 @@ export class SiegeEngine {
     if (velocity <= 0) { this.noteOff(note); return; }
     // velocity: loudness on a dB curve (the sensitivity sets the range, up to 40 dB between the
     // softest and hardest note) and touch, which the units turn into timbre (a harder strike,
-    // more breath); a full-force note sounds exactly as before
+    // more breath); a full-force note is unchanged
     const sens = this.p.vel;
     const v = Math.min(1, velocity / 127);
     const vel = Math.pow(10, (-(1 - v) * sens * VEL_RANGE_DB) / 20);
